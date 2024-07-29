@@ -170,41 +170,28 @@
 @endsection
 
 @section('konten')
-<table class="table align-items-center mb-0">
+<table id="myTable" class="table table-striped" style="width:100%">
   <thead>
-    <tr>
-      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Id Siswa</th>
-      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Nama</th>
-      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
-      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Kelas</th>
-      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Aksi</th>
-      <th class="text-secondary opacity-7"></th>
-    </tr>
+      <tr>
+          <th>Nomor</th>
+          <th>Nama</th>
+          <th>Status</th>
+          <th>Kelas</th>
+          <th>Aksi</th>
+      </tr>
   </thead>
   <tbody>
     @foreach ($siswa as $item)
-    <tr>
-      <td>
-        <div class="d-flex px-2 py-1">
-          <div class="d-flex flex-column justify-content-center">
-            <h6 class="mb-0 text-sm"> Siswa - {{ $item->id }}</h6>
-          </div>
-        </div>
-      </td>
-      <td>
-        <p class="text-xs font-weight-bold mb-0">{{ $item->name }}</p>
-      </td>
-      <td class="align-middle text-center text-sm">
-        <span class="badge badge-sm bg-gradient-success">{{ $item->role }}</span>
-      </td>
-      <td class="align-middle text-center">
-        <span class="text-secondary text-xs font-weight-bold">{{ $item->nama_kelas }}</span>
-      </td>
-      <td class="align-middle text-center">
-        <a href="/tampildataSiswa/{{ $item->id }}"><button type="button" class="btn btn-warning"><i class="fa-solid fa-pen-to-square "></i></button></a>
-        <a href="/deleteSiswa/{{ $item->id }}"><button type="button" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button></a>
-      </td>
-    </tr>
+      <tr>
+          <td>{{ $item->id }}</td>
+          <td>{{ $item->name }}</td>
+          <td><span class="badge badge-sm bg-gradient-success">{{ $item->role }}</span></td>
+          <td>{{ $item->nama_kelas }}</td>
+          <td class="align-middle text-center">
+            <a href="/tampildataSiswa/{{ $item->id }}"><button type="button" class="btn btn-warning"><i class="fa-solid fa-pen-to-square "></i></button></a>
+            <a href="/deleteSiswa/{{ $item->id }}"><button type="button" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button></a>
+          </td>
+      </tr>
     @endforeach
   </tbody>
 </table>

@@ -131,7 +131,7 @@
   </div>
   <div class="col-12 mt-5">
       <button style="margin-left: 20px;" class="btn btn-primary float-end" type="submit">Simpan</button>
-      <a href="/kelas"><button class="btn btn-primary float-end" type="button">Kembali</button></a>
+      <a href="/siswa"><button class="btn btn-primary float-end" type="button">Kembali</button></a>
   </div>
 </form>
 
