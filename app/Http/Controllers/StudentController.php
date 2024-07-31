@@ -101,15 +101,16 @@ public function submit(Request $request){
 
     $user_id = Auth::id();
     $id_materi = $request->input('id_materi');
-    $existingSubmission = Results::where('id_user', $user_id)
-                                  ->where('id_materi', $id_materi)
-                                  ->exists();
-
-    if ($existingSubmission) {
-        return redirect()->route('pilihan')->with('status', 'You have already submitted the quiz.');
-    }
 
     foreach ($request->answers as $question_id => $answer_id) {
+        $existingSubmission = Results::where('id_user', $user_id)
+                                     ->where('id_question', $question_id)
+                                     ->exists();
+
+        if ($existingSubmission) {
+            return redirect()->route('pilihan')->with('status', 'You have already submitted the quiz for this question.');
+        }
+
         $answer = Answers::find($answer_id);
 
         Results::create([
@@ -142,6 +143,7 @@ public function submit(Request $request){
 
     return redirect()->route('pilihan')->with('status', 'Quiz submitted successfully.');
 }
+
 
 
     
