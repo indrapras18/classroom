@@ -75,42 +75,6 @@
   </ul>
 @endsection
 
-{{-- @section('konten')
-<table class="table align-items-center mb-0">
-    <thead>
-      <tr>
-        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Id Materi</th>
-        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Nama Materi</th>
-        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Refrensi</th>
-        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Aksi</th>
-        <th class="text-secondary opacity-7"></th>
-      </tr>
-    </thead>
-    <tbody>
-      @foreach ($materiWithScore as $item)
-      <tr>
-        <td>
-          <div class="d-flex px-2 py-1">
-            <div class="d-flex flex-column justify-content-center">
-              <h6 class="mb-0 text-sm">{{ $item->id }}</h6>
-            </div>
-          </div>
-        </td>
-        <td>
-          <span class="badge badge-sm bg-gradient-success">{{ $item->nama_materi }}</span>
-        </td>
-        <td class="align-middle text-center text-sm">
-          <p class="text-xs font-weight-bold mb-0">{{ $item->link }}</p>
-        </td>
-        <td class="align-middle text-center">
-          <a href="/detailPilihan/{{ $item->id }}"><button type="button" class="btn btn-info"><i class="fa-solid fa-eye"></i></button></a>
-        </td>
-      </tr>
-      @endforeach
-    </tbody>
-  </table>
-@endsection --}}
-
 @section('konten')
 <table id="myTable" class="table table-striped" style="width:100%">
   <thead>
@@ -137,29 +101,48 @@
 @endsection
 
 @section('table')
-<table id="table" class="table table-striped" style="width:100%">
-  <thead>
-      <tr>
-          <th>Nomor</th>
-          <th>Nama Materi</th>
-          <th>Refrensi</th>
-          <th>Aksi</th>
-      </tr>
-  </thead>
-  <tbody>
-    @foreach ($materiWithoutScore as $item)
-      <tr>
-          <td>{{ $item->id }}</td>
-          <td><span class="badge badge-sm bg-gradient-success">{{ $item->nama_materi }}</span></td>
-          <td>{{ $item->link }}</td>
-          <td class="align-middle text-center">
-            <a href="/detailEssay/{{ $item->id }}"><button type="button" class="btn btn-info"><i class="fa-solid fa-eye"></i></button></a>
-          </td>
-      </tr>
-    @endforeach
-  </tbody>
-</table>
-
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
+    <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Pages</a></li>
+    <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Quiz</li>
+  </ol>
+  <h6 class="font-weight-bolder mb-0">Daftar Essay</h6><br>
+</nav>
+<div class="col-12">
+  <div class="card mb-4">
+    <div class="card-header pb-0">
+    </div>
+    <div class="card-body px-0 pt-0 pb-2">
+      <div class="table-responsive p-0">
+        <table id="table" class="table table-striped" style="width:100%">
+          <thead>
+              <tr>
+                  <th>Nomor</th>
+                  <th>Nama Materi</th>
+                  <th>Refrensi</th>
+                  <th>Aksi</th>
+              </tr>
+          </thead>
+          <tbody>
+            @foreach ($materiWithoutScore as $item)
+              <tr>
+                  <td>{{ $item->id }}</td>
+                  <td><span class="badge badge-sm bg-gradient-success">{{ $item->nama_materi }}</span></td>
+                  <td>{{ $item->link }}</td>
+                  <td class="align-middle text-center">
+                    <a href="/detailPilihan/{{ $item->id }}"><button type="button" class="btn btn-info"><i class="fa-solid fa-eye"></i></button></a>
+                  </td>
+              </tr>
+            @endforeach
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="card-body px-0 pt-0 pb-2">
+    </div>
+  </div>
+</div>
+</div>
 <script>
   $(document).ready(function() {
       $('#table').DataTable({
@@ -167,7 +150,6 @@
               { "className": "dt-center", "targets": "_all" }
           ]
       });
-      // Pusatkan teks di elemen header secara terpisah
       $('#table thead th').addClass('dt-center');
   });
 </script>

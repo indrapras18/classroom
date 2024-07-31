@@ -32,11 +32,12 @@ class StudentController extends Controller
         ->distinct()
         ->get();
 
-    $materiWithoutScore = DB::table('materis')
-        ->whereNotIn('materis.id', function($query) {
+        $materiWithoutScore = DB::table('materis')
+        ->whereIn('id', function($query) {
             $query->select('id_materi')
                 ->from('questions')
-                ->where('score', '==', null);
+                ->whereNull('score')
+                ->orWhereNull('answer_key');
         })
         ->get();
 
