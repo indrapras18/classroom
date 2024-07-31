@@ -9,6 +9,8 @@ use App\Models\Materi;
 use App\Models\Materis;
 use App\Models\Questions;
 use App\Models\ResultEssay;
+use App\Models\StudentScore;
+use App\Models\StudentScores;
 use App\Models\User;
 use Illuminate\Contracts\Support\ValidatedData;
 use Illuminate\Support\Facades\DB;
@@ -235,5 +237,13 @@ class TeacherController extends Controller{
         }
 
         return redirect()->back()->with('success', 'Data berhasil disimpan.');
+    }
+
+    public function pembelajaran()
+    {
+        $scores = StudentScores::with(['user', 'materi'])->get();
+
+    
+        return view('pages/teacher/pembelajaran', compact('scores'));
     }
 }

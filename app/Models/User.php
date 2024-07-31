@@ -30,6 +30,10 @@ class User extends Authenticatable
         return $this->belongsTo(Results::class, 'id_result');
     }
 
+    public function scores()
+{
+    return $this->hasMany(StudentScores::class, 'id_user');
+}
 
 
     /**

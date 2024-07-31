@@ -15,4 +15,9 @@ class Materis extends Model
     {
         return $this->hasMany(Questions::class, 'id_materi');
     }
+
+    public function scores()
+{
+    return $this->hasMany(StudentScores::class, 'id_materi');
+}
 }

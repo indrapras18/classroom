@@ -85,15 +85,14 @@
                 <div class="mb-3">
                     <label for="answer_{{ $question->id }}" class="form-label">Jawaban</label>
                     <textarea class="form-control" name="answers[{{ $question->id }}]" id="answer_{{ $question->id }}" rows="3"></textarea>
+                    <input type="hidden" name="materis[{{ $question->id }}]" value="{{ $question->id_materi }}">
                 </div>
             </div>
         </div>
         @empty
-        <p>Tidak ada soal tanpa skor yang ditemukan.</p>
+        <p>Tidak ada soal essay yang ditemukan.</p>
         @endforelse
         <button type="submit" class="btn btn-primary float-end">Simpan</button>
     </div>
 </form>
 @endsection
-
-

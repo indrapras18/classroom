@@ -85,6 +85,7 @@
 
                     <form method="POST" action="/submit">
                         @csrf
+                        <input type="hidden" name="id_materi" value="{{ $materi->id }}">
                         @foreach ($soal as $question_id => $answers)
                             <div class="card mb-3">
                                 <div class="card-header">{!! $answers[0]->soal !!}</div>
@@ -122,3 +123,4 @@
     </div>
 </div>
 @endsection
+

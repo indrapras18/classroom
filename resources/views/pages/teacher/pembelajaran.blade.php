@@ -23,7 +23,7 @@
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link " href="/kelas">
+      <a class="nav-link" href="/kelas">
         <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
           <svg width="12px" height="12px" viewBox="0 0 42 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
             <title>office</title>
@@ -63,7 +63,7 @@
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link active" href="/materi">
+      <a class="nav-link" href="/materi">
         <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
           <svg width="12px" height="12px" viewBox="0 0 42 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
             <title>box-3d-50</title>
@@ -84,7 +84,7 @@
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link  " href="/soal">
+      <a class="nav-link" href="/soal">
         <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
           <svg width="12px" height="12px" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
             <title>settings</title>
@@ -105,7 +105,7 @@
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link  " href="/pembelajaran">
+      <a class="nav-link active" href="/pembelajaran">
         <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
           <svg width="12px" height="12px" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
             <title>settings</title>
@@ -129,23 +129,24 @@
 @endsection
 
 @section('konten')
-<h6 style="margin-left: 20px;">Detail Materi</h6>
-  <div class="card">
-    <div class="card-body">
-      <p><b>{{ $data->nama_materi }}</b></p>
-            <p>{!! $data->content !!}</p>
-            @php
-                $url = $data->link;
-                $pattern = '/^(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/';
-                preg_match($pattern, $url, $matches);
-                $video_id = $matches[1] ?? null;
-                $embed_url = $video_id ? 'https://www.youtube.com/embed/' . $video_id : null;
-            @endphp
-            @if($embed_url)
-                <iframe width="100%" height="315" src="{{ $embed_url }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            @else
-                <p>{{ $data->link }}</p>
-            @endif
+    <div class="container">
+        <table table id="myTable" class="table table-striped" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Nama Siswa</th>
+                    <th>Nama Materi</th>
+                    <th>Score</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($scores as $score)
+                    <tr>
+                        <td>{{ $score->user->name }}</td>
+                        <td>{{ $score->materi->nama_materi }}</td>
+                        <td>{{ $score->total_score }}</td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
     </div>
-  </div>
 @endsection

@@ -26,6 +26,8 @@ Auth::routes();
 
 Route::post('login', [SesiController::class, 'login']);
 
+Route::middleware(['auth'])->group(function(){
+
 Route::get('kelas', [TeacherController::class, 'kelas'])->name('kelas');
 
 Route::get('siswa', [TeacherController::class, 'siswa'])->name('siswa');
@@ -100,9 +102,12 @@ Route::get('detailEssay/{id}', [StudentController::class, 'detailEssay'])->name(
 
 Route::post('saveAnswer', [StudentController::class, 'saveAnswer'])->name('saveAnswer');
 
-Route::middleware(['auth'])->group(function(){
-    Route::get('/admin', [App\Http\Controllers\HomeController::class, 'index'])->name('admin');
-    Route::get('/user', [App\Http\Controllers\HomeController::class, 'users'])->name('user');
+Route::get('/admin', [App\Http\Controllers\HomeController::class, 'index'])->name('admin');
+
+Route::get('/user', [App\Http\Controllers\HomeController::class, 'users'])->name('user');
+
+Route::get('/pembelajaran', [TeacherController::class, 'pembelajaran'])->name('pembelajaran');
+
 });
 
 Route::get('/logout',function(){

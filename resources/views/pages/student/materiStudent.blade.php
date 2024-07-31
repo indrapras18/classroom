@@ -65,7 +65,7 @@
   </ul>
 @endsection
 
-@section('konten')
+{{-- @section('konten')
 <table class="table align-items-center mb-0">
   <thead>
     <tr>
@@ -96,6 +96,31 @@
         <a href="/detailMateriStudent/{{ $item->id }}"><button type="button" class="btn btn-info"><i class="fa-solid fa-eye"></i></button></a>
       </td>
     </tr>
+    @endforeach
+  </tbody>
+</table>
+@endsection --}}
+
+@section('konten')
+<table id="myTable" class="table table-striped" style="width:100%">
+  <thead>
+      <tr>
+          <th>Nomor</th>
+          <th>Nama Materi</th>
+          <th>Refrensi</th>
+          <th>Aksi</th>
+      </tr>
+  </thead>
+  <tbody>
+    @foreach ($materi as $item)
+      <tr>
+          <td>{{ $item->id }}</td>
+          <td><span class="badge badge-sm bg-gradient-success">{{ $item->nama_materi }}</span></td>
+          <td>{{ $item->link }}</td>
+          <td class="align-middle text-center">
+            <a href="/detailMateriStudent/{{ $item->id }}"><button type="button" class="btn btn-info"><i class="fa-solid fa-eye"></i></button></a>
+          </td>
+      </tr>
     @endforeach
   </tbody>
 </table>
