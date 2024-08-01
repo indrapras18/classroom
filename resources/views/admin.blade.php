@@ -342,10 +342,9 @@
               <div class="row">
                 <div class="col-8">
                   <div class="numbers">
-                    <p class="text-sm mb-0 text-capitalize font-weight-bold">Sales</p>
+                    <p class="text-sm mb-0 text-capitalize font-weight-bold">Hasil Quiz</p>
                     <h5 class="font-weight-bolder mb-0">
-                      $103,430
-                      <span class="text-success text-sm font-weight-bolder">+5%</span>
+                      {{ $totalhasil }}
                     </h5>
                   </div>
                 </div>
@@ -366,23 +365,33 @@
                     <h5 class="card-title">Panduan Aplikasi</h5>
                     <p class="card-text">
                       <ol>
-                        <li><b>Buka menu kuis dari setiap materi yang tersedia.</b></li>
+                        <li><b>Buka menu kelas.</b></li>
                         <ul>
-                          <li>Mengerjakan 3 soal dari setiap materi.</li>
-                          <li>Mengerjakan semua soal dengan benar.</li>
-                          <li>Jika seluruh kuis sudah terjawab benar maka proyek akan terbuka.</li>
+                          <li>Terdapat tabel yang menunjukkan informasi tentang kelas.</li>
+                          <li>Terdapat 3 fungsi yaitu Tambah, Ubah, dan Hapus data kelas.</li>
                         </ul>
-                        <li><b>Buka Menu Proyek.</b></li>
+                        <li><b>Buka menu siswa.</b></li>
                         <ul>
-                          <li>Terdapat satu studi kasus yang harus diselesaikan.</li>
-                          <li>Membuat jawaban berupa program dari studi kasus yang telah diberikan.</li>
-                          <li>Setelah memasukkan jawaban bisa dilakukan jalankan program untuk mengetahui hasil dari jawaban tersebut.</li>
-                          <li>Jika jawaban sudah benar maka bisa dilakukan submit jawaban.</li>
+                          <li>Terdapat tabel yang menunjukkan informasi tentang siswa.</li>
+                          <li>Terdapat 3 fungsi yaitu Tambah, Ubah, dan Hapus data siswa.</li>
                         </ul>
-                        <li><b>Untuk nilai kuis dan proyek bisa dilihat di halaman Dashboard.</b></li>
-                        <li><b>Jika sudah menyelesaikan seluruh kuis dan proyek maka bisa keluar dari web.</b></li>
+                        <li><b>Buka menu materi.</b></li>
+                        <ul>
+                          <li>Terdapat tabel yang menunjukkan informasi tentang materi.</li>
+                          <li>Terdapat 4 fungsi yaitu Tambah, Ubah, Hapus, dan Preview data dari materi.</li>
+                        </ul>
+                        <li><b>Buka menu penugasan.</b></li>
+                        <ul>
+                          <li>Terdapat tabel yang menunjukkan informasi tentang soal.</li>
+                          <li>Terdapat 3 fungsi yaitu Tambah, Ubah, Hapus data dari soal.</li>
+                          <li>Guru juga dapat memilih tipe soal essay ataupun pilihan ganda.</li>
+                        </ul>
+                        <li><b>Buka menu hasil pembelajaran.</b></li>
+                        <ul>
+                          <li>Terdapat tabel yang menunjukkan informasi tentang nilai, materi, dan nama siswa.</li>
+                        </ul>
                       </ol>
-                    </p>
+                    </p>                    
                 </div>
             </div>
         </div>

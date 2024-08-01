@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Questions;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -26,11 +27,14 @@ class HomeController extends Controller
         $totalKelas = DB::table('kelas')->count();
         $totalMateri = DB::table('materis')->count();
         $totalSiswa = DB::table('users')->where('role', 'Siswa')->count();
-        return view('admin', compact('totalKelas', 'totalSiswa', 'totalMateri'));
+        $totalhasil = DB::table('student_scores')->count();
+        return view('admin', compact('totalKelas', 'totalSiswa', 'totalMateri', 'totalhasil'));
     }
 
     public function users(){
         $totalMateri = DB::table('materis')->count();
-        return view('user', compact('totalMateri'));
+        $totalTugas = Questions::distinct('id_materi')->count('id_materi');
+
+        return view('user', compact('totalMateri', 'totalTugas'));
     }
 }
