@@ -84,7 +84,7 @@
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link  " href="/soal">
+      <a class="nav-link  " href="/penugasan">
         <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
           <svg width="12px" height="12px" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
             <title>settings</title>
@@ -134,8 +134,7 @@
     <div class="card-body">
         <div id="materi-content">
             {!! $data->content !!}
-            <div id="video-container">
-            </div>
+            <div id="video-container"></div>
         </div>
     </div>
 </div>
@@ -146,10 +145,11 @@
 </div>
 
 <script>
-    let currentPage = 1;
+    let currentPage = {{ $page }};
     const itemsPerPage = 5;
     let contentSections;
     let videoUrl = "{{ $data->link }}";
+    const nextMateriId = @json($next ? $next->id : null);
 
     document.addEventListener('DOMContentLoaded', function() {
         contentSections = document.getElementById('materi-content').innerHTML.split(/(<\/p>)/).filter(Boolean);
@@ -180,6 +180,7 @@
         if (currentPage > 1) {
             currentPage--;
             renderPage(currentPage);
+            updateURL();
         }
     }
 
@@ -187,16 +188,26 @@
         if (currentPage * itemsPerPage < contentSections.length) {
             currentPage++;
             renderPage(currentPage);
+            updateURL();
+        } else if (nextMateriId) {
+            // Navigate to next materi if on the last page
+            window.location.href = `{{ url('detailMateri') }}/${nextMateriId}`;
         }
+    }
+
+    function updateURL() {
+        const currentUrl = `{{ url('detailMateri/' . $data->id) }}/${currentPage}`;
+        window.history.pushState({ path: currentUrl }, '', currentUrl);
+        console.log("Navigating to: " + currentUrl); // Debug: Log generated URL
     }
 
     function updateButtons() {
         document.getElementById('prev-btn').disabled = currentPage === 1;
-        document.getElementById('next-btn').disabled = currentPage * itemsPerPage >= contentSections.length;
+        document.getElementById('next-btn').disabled = currentPage * itemsPerPage >= contentSections.length && !nextMateriId;
     }
 
     function renderVideo(url) {
-        console.log("Video URL:", url); // Debug: Log URL video
+        console.log("Video URL:", url); // Debug: Log video URL
         const pattern = /^(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
         const matches = url.match(pattern);
         const videoId = matches ? matches[1] : null;

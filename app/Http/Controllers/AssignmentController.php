@@ -13,6 +13,11 @@ class AssignmentController extends Controller
         return view('pages/teacher/penugasan',compact('data'));
     }
 
+    function tampildataPenugasan($id){
+        $items = Assignments::find($id);
+        return view('pages/teacher/tampildataPenugasan',compact('items'));
+    }
+
     function tambahTugas(){
         return view('pages/teacher/tambahTugas');
     }
@@ -54,4 +59,15 @@ class AssignmentController extends Controller
         return view('pages/teacher/essay', compact('assignment'));
     }
 
+    function updatePenugasan(Request $request, $id){
+        $data = Assignments::find($id);
+        $data->update($request->all());
+        return redirect()->route('penugasan');
+    }
+
+    function deleteAssignment($id){
+        $data = Assignments::find($id);
+        $data->delete();
+        return redirect()->route('penugasan');
+    }
 }

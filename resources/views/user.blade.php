@@ -223,7 +223,7 @@
                               </div>
                           </div>
                           <div class="col-4 text-end">
-                              <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
+                              <div class="icon icon-shape bg-primary shadow text-center border-radius-md">
                                   <i class="ni ni-money-coins text-lg opacity-10" aria-hidden="true"></i>
                               </div>
                           </div>
@@ -244,7 +244,7 @@
                               </div>
                           </div>
                           <div class="col-4 text-end">
-                              <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
+                              <div class="icon icon-shape bg-primary shadow text-center border-radius-md">
                                   <i class="ni ni-world text-lg opacity-10" aria-hidden="true"></i>
                               </div>
                           </div>

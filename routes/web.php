@@ -84,6 +84,8 @@ Route::get('/soal', [QuestionsController::class, 'soal'])->name('soal');
 
 Route::get('/tambahSoal/{id}', [AssignmentController::class, 'tambahSoal'])->name('tambahSoal');
 
+Route::get('/deleteAssignment/{id}', [AssignmentController::class, 'deleteAssignment'])->name('deleteAssignment');
+
 Route::post('uploadSoal', [QuestionsController::class, 'uploadSoal']);
 
 Route::get('deleteSoal/{id}', [QuestionsController::class, 'deleteSoal'])->name('deleteSoal');
@@ -98,7 +100,7 @@ Route::get('materiStudent', [MateriController::class, 'materiStudent'])->name('m
 
 Route::get('detailMateriStudent/{id}', [MateriController::class, 'detailMateriStudent'])->name('detailMateriStudent');
 
-Route::get('pilihan', [StudentController::class, 'pilihan'])->name('pilihan');
+Route::get('pilihan', [QuestionsController::class, 'pilihan'])->name('pilihan');
 
 Route::get('detailPilihan/{id}', [QuestionsController::class, 'detailPilihan'])->name('detailPilihan');
 
@@ -125,6 +127,10 @@ Route::get('/user', [App\Http\Controllers\HomeController::class, 'users'])->name
 Route::get('/pembelajaran', [TeacherController::class, 'pembelajaran'])->name('pembelajaran');
 
 Route::get('/penugasan', [AssignmentController::class, 'showPenugasan'])->name('penugasan');
+
+Route::get('/tampildataPenugasan/{id}', [AssignmentController::class, 'tampildataPenugasan'])->name('tampildataPenugasan');
+
+Route::post('updatePenugasan/{id}', [AssignmentController::class, 'updatePenugasan'])->name('updatePenugasan');
 
 Route::get('/tambahTugas', [AssignmentController::class, 'tambahTugas'])->name('tambahTugas');
 

@@ -65,42 +65,6 @@
   </ul>
 @endsection
 
-{{-- @section('konten')
-<table class="table align-items-center mb-0">
-  <thead>
-    <tr>
-      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Id Materi</th>
-      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Nama Materi</th>
-      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Refrensi</th>
-      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Aksi</th>
-      <th class="text-secondary opacity-7"></th>
-    </tr>
-  </thead>
-  <tbody>
-    @foreach ($materi as $item)
-    <tr>
-      <td>
-        <div class="d-flex px-2 py-1">
-          <div class="d-flex flex-column justify-content-center">
-            <h6 class="mb-0 text-sm">{{ $item->id }}</h6>
-          </div>
-        </div>
-      </td>
-      <td>
-        <span class="badge badge-sm bg-gradient-success">{{ $item->nama_materi }}</span>
-      </td>
-      <td class="align-middle text-center text-sm">
-        <p class="text-xs font-weight-bold mb-0">{{ $item->link }}</p>
-      </td>
-      <td class="align-middle text-center">
-        <a href="/detailMateriStudent/{{ $item->id }}"><button type="button" class="btn btn-info"><i class="fa-solid fa-eye"></i></button></a>
-      </td>
-    </tr>
-    @endforeach
-  </tbody>
-</table>
-@endsection --}}
-
 @section('konten')
 <table id="myTable" class="table table-striped" style="width:100%">
   <thead>

@@ -21019,7 +21019,7 @@ fieldset:disabled .btn {
 }
 
 .card.card-background.card-background-mask-primary:after {
-  background-image: linear-gradient(310deg, #7928CA 0%, #FF0080 100%);
+  background-image: linear-gradient(310deg, #0000FF 0%, #0000A0 100%);
   opacity: .85;
 }
 

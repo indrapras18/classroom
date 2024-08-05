@@ -138,47 +138,27 @@
 </ul>
 @endsection
 
-@section('modal')
-     <a href="/tambahTugas"><button type="button" class="btn btn-primary float-end">Tambah Tugas</button></a>
-    </button>
-
-    <h6>Tugas</h6>
-@endsection
-
 @section('konten')
-<div class="container mt-5">
-    <div class="row row-cols-1 row-cols-md-3 g-4 mx-3">
-        @foreach ($data as $item)
-        <div class="col mb-4">
-            <div class="card h-100 text-muted position-relative">
-                <div class="dropdown position-absolute top-0 end-0 m-2">
-                    <button class="btn btn-light" type="button" id="dropdownMenuButton{{ $item->id }}" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="bi bi-three-dots"></i>
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton{{ $item->id }}">
-                        <li>
-                            <a class="dropdown-item" href="{{ $item->tipe === 'essay' ? route('detailTugasEssay', ['id' => $item->id]) : route('detailTugasPilihan', ['id' => $item->id]) }}">
-                                Preview
-                            </a>
-                        </li>
-                        <li><a class="dropdown-item" href="/tampildataPenugasan/{{ $item->id }}">Edit</a></li>
-                        <li><a class="dropdown-item" href="/deleteAssignment/{{ $item->id }}">Hapus</a></li>
-                    </ul>
-                </div>
-                <div class="card-body">
-                    <h5 class="card-title">{{ $item->judul_tugas }}</h5>
-                    <p class="card-text">{!! $item->deskripsi_tugas !!}</p>
-                    <p class="card-text">{{ $item->tipe }}</p>
-                </div>
-                <div class="card-footer">
-                    <small class="text-muted">{{ $item->created_at }}</small>
-                </div>
-            </div>
-        </div>
-        @endforeach
+<form method="POST" action="/updatePenugasan/{{ $items->id }}" class="row g-3 px-3">
+    @csrf
+    <div class="col-12">
+      <label class="form-label" for="inputAddress2">Judul Tugas</label>
+      <input class="form-control" name="judul_tugas" value="{{ $items->judul_tugas }}" id="inputAddress2" type="text" placeholder="Judul Tugas">
     </div>
-</div>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+    <div class="col-12">
+      <label class="form-label" for="inputAddress2">Tipe Tugas</label>
+      <input class="form-control" name="tipe" value="{{ $items->tipe }}" id="inputAddress2" type="text" placeholder="Tipe Tugas" disabled>
+    </div>
+    <div class="form-group">
+        <label for="editor1">Content</label>
+        <textarea name="deskripsi_tugas" id="editor1" rows="10" cols="80" placeholder="Deskripsi Tugas">{{ $items->deskripsi_tugas }}</textarea>
+    </div>
+    <div class="col-12 mt-5 d-flex justify-content-between">
+      <button class="btn btn-primary w-50 me-2" type="submit">Simpan</button>
+      <a href="/penugasan" class="w-50"><button class="btn btn-danger w-100" type="button">Kembali</button></a>
+    </div>
+</form>
+<script>
+    CKEDITOR.replace('editor1');
+</script>
 @endsection

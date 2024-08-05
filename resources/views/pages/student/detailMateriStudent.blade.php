@@ -1,15 +1,5 @@
 @extends('layouts/aplikasi')
 
-@section('navbrand')
-<nav aria-label="breadcrumb">
-    <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
-      <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Pages</a></li>
-      <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Materi</li>
-    </ol>
-    <h6 class="font-weight-bolder mb-0">Materi</h6>
-  </nav>
-@endsection
-
 @section('nav')
 <ul class="navbar-nav">
     <li class="nav-item">
@@ -80,117 +70,92 @@
 <div class="card">
     <div class="card-body">
         <div id="materi-content">
-            @foreach ($data as $materi)
-                <div class="materi-section" data-content="{!! $materi->content !!}" data-link="{{ $materi->link }}">
-                    <h5>{{ $materi->nama_materi }}</h5>
-                    <div class="materi-content"></div>
-                    <hr>
-                </div>
-            @endforeach
+            {!! $data->content !!}
+            <div id="video-container"></div>
         </div>
-        <!-- Kontainer Video (akan diisi melalui JavaScript) -->
-        <div id="video-container" style="display: none; text-align: center; margin-top: 10px;"></div>
     </div>
 </div>
 
-<!-- Tampilkan kontrol navigasi manual -->
 <div id="pagination-controls" style="text-align: center; margin-top: 10px;">
     <button type="button" onclick="prevPage()" id="prev-btn" class="btn btn-primary">Sebelum</button>
     <button type="button" onclick="nextPage()" id="next-btn" class="btn btn-primary">Lanjut</button>
 </div>
 
 <script>
-    let currentPage = 1;
-    const charactersPerPage = 500;
+    let currentPage = {{ $page }};
+    const itemsPerPage = 5;
     let contentSections;
-    let totalContentLength = 0;
-    let allVideoLinks = [];
+    let videoUrl = "{{ $data->link }}";
+    const nextMateriId = @json($next ? $next->id : null);
 
     document.addEventListener('DOMContentLoaded', function() {
-        contentSections = Array.from(document.querySelectorAll('.materi-section'));
-
-        // Calculate total content length for pagination
-        contentSections.forEach(section => {
-            totalContentLength += section.getAttribute('data-content').length;
-            const videoLink = section.getAttribute('data-link');
-            if (videoLink) {
-                allVideoLinks.push(videoLink);
+        contentSections = document.getElementById('materi-content').innerHTML.split(/(<\/p>)/).filter(Boolean);
+        
+        contentSections = contentSections.map((section, index) => {
+            if (index % 2 === 1) {
+                return contentSections[index - 1] + section;
             }
-        });
+            return section;
+        }).filter((_, index) => index % 2 === 0);
 
         renderPage(currentPage);
+
+        renderVideo(videoUrl);
     });
 
     function renderPage(page) {
-        const start = (page - 1) * charactersPerPage;
-        const end = start + charactersPerPage;
-
-        let currentLength = 0;
-        let sectionsOnPage = [];
-        let totalSections = contentSections.length;
-
-        contentSections.forEach((section, index) => {
-            const fullContent = section.getAttribute('data-content');
-            const visibleContent = fullContent.slice(start - currentLength, end - currentLength);
-            currentLength += fullContent.length;
-
-            if (currentLength > start && visibleContent.length > 0) {
-                section.style.display = 'block';
-                section.querySelector('.materi-content').innerHTML = visibleContent;
-                sectionsOnPage.push(section);
-            } else {
-                section.style.display = 'none';
-            }
-        });
-
-        // Clear previous video container content
-        const videoContainer = document.getElementById('video-container');
-        videoContainer.style.display = 'none'; // Hide video container initially
-        videoContainer.innerHTML = ''; // Clear existing content
-
-        // Render all videos on the last page of the content
-        if (currentPage * charactersPerPage >= totalContentLength) {
-            renderAllVideos();
-            videoContainer.style.display = 'block'; // Show video container
-        }
-
+        const start = (page - 1) * itemsPerPage;
+        const end = start + itemsPerPage;
+        const visibleContent = contentSections.slice(start, end).join('');
+        document.getElementById('materi-content').innerHTML = visibleContent;
         updateButtons();
+
+        renderVideo(videoUrl);
     }
 
     function prevPage() {
         if (currentPage > 1) {
             currentPage--;
             renderPage(currentPage);
+            updateURL();
         }
     }
 
     function nextPage() {
-        if (currentPage * charactersPerPage < totalContentLength) {
+        if (currentPage * itemsPerPage < contentSections.length) {
             currentPage++;
             renderPage(currentPage);
+            updateURL();
+        } else if (nextMateriId) {
+            // Navigate to next materi if on the last page
+            window.location.href = `{{ url('detailMateriStudent') }}/${nextMateriId}`;
         }
+    }
+
+    function updateURL() {
+        const currentUrl = `{{ url('detailMateriStudent/' . $data->id) }}/${currentPage}`;
+        window.history.pushState({ path: currentUrl }, '', currentUrl);
+        console.log("Navigating to: " + currentUrl); // Debug: Log generated URL
     }
 
     function updateButtons() {
         document.getElementById('prev-btn').disabled = currentPage === 1;
-        document.getElementById('next-btn').disabled = currentPage * charactersPerPage >= totalContentLength;
+        document.getElementById('next-btn').disabled = currentPage * itemsPerPage >= contentSections.length && !nextMateriId;
     }
 
-    function renderAllVideos() {
-        const videoContainer = document.getElementById('video-container');
-        const videoEmbedUrls = allVideoLinks.map(link => {
-            const pattern = /^(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
-            const matches = link.match(pattern);
-            const videoId = matches ? matches[1] : null;
-            return videoId ? `https://www.youtube.com/embed/${videoId}` : null;
-        });
+    function renderVideo(url) {
+        console.log("Video URL:", url); // Debug: Log video URL
+        const pattern = /^(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+        const matches = url.match(pattern);
+        const videoId = matches ? matches[1] : null;
+        const embedUrl = videoId ? `https://www.youtube.com/embed/${videoId}` : null;
 
-        videoEmbedUrls.forEach(embedUrl => {
-            if (embedUrl) {
-                videoContainer.innerHTML += `<iframe width="100%" height="315" src="${embedUrl}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe><br>`;
-            }
-        });
+        if (embedUrl) {
+            console.log("Embed URL:", embedUrl); // Debug: Log embed URL
+            document.getElementById('video-container').innerHTML = `<iframe width="100%" height="315" src="${embedUrl}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+        } else {
+            document.getElementById('video-container').innerHTML = `<p>${url}</p>`;
+        }
     }
 </script>
 @endsection
-

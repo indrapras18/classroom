@@ -33,11 +33,18 @@ class MateriController extends Controller
     }
 
 
-    function detailMateri($id) {
+    // function detailMateri($id) {
+    //     $data = Materis::find($id);
+    //     $next = Materis::where('id', '>', $id)->orderBy('id')->first();
+    //     return view('pages/teacher/detailMateri', compact('data', 'next'));
+    // }
+
+    function detailMateri($id, $page = 1) {
         $data = Materis::find($id);
         $next = Materis::where('id', '>', $id)->orderBy('id')->first();
-        return view('pages/teacher/detailMateri', compact('data', 'next'));
-    }
+        return view('pages/teacher/detailMateri', compact('data', 'next', 'page'));
+    }  
+    
 
     function uploadMateri(){
         return view('pages/teacher/uploadMateri');
@@ -54,20 +61,10 @@ class MateriController extends Controller
         return view('pages/student/materiStudent', compact('materi'));
     }
 
-    function detailMateriStudent($id){
-        $perPage = 5;
-        $page = request()->get('page', 1);
-        $skip = ($page - 1) * $perPage;
-        
-        $data = Materis::skip($skip)->take($perPage)->get();
-        $total = Materis::count();
-    
-        return view('pages.student.detailMateriStudent', [
-            'data' => $data,
-            'total' => $total,
-            'perPage' => $perPage,
-            'currentPage' => $page,
-        ]);
-    }
+    function detailMateriStudent($id, $page = 1) {
+        $data = Materis::find($id);
+        $next = Materis::where('id', '>', $id)->orderBy('id')->first();
+        return view('pages/student/detailMateriStudent', compact('data', 'next', 'page'));
+    } 
 
 }
