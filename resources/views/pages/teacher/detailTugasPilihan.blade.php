@@ -1,15 +1,5 @@
 @extends('layouts/aplikasi')
 
-@section('navbrand')
-<nav aria-label="breadcrumb">
-    <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
-      <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Pages</a></li>
-      <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Soal</li>
-    </ol>
-    <h6 class="font-weight-bolder mb-0">Soal</h6>
-  </nav>
-@endsection
-
 @section('nav')
 <ul class="navbar-nav">
     <li class="nav-item">
@@ -33,7 +23,7 @@
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="/kelas">
+      <a class="nav-link " href="/kelas">
         <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
           <svg width="12px" height="12px" viewBox="0 0 42 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
             <title>office</title>
@@ -73,7 +63,7 @@
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="/materi">
+      <a class="nav-link " href="/materi">
         <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
           <svg width="12px" height="12px" viewBox="0 0 42 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
             <title>box-3d-50</title>
@@ -139,12 +129,10 @@
 @endsection
 
 @section('modal')
-     <!-- Button trigger modal -->
-     <a href="/tambahSoal"><button type="button" class="btn btn-primary float-end">Tambah Soal</button></a>
-      Tambah Soal
+<a href="{{ route('tambahSoal', ['id' => $tugasPilihan->id]) }}"><button type="button" class="btn btn-primary float-end">Tambah Soal</button></a>
     </button>
 
-    <h6>Soal</h6>
+    <h6>Materi</h6>
 @endsection
 
 @section('konten')
@@ -158,17 +146,21 @@
       </tr>
   </thead>
   <tbody>
-    @foreach ($data as $item)
+    @foreach ($soal as $item)
       <tr>
           <td>{{ $item->id }}</td>
           <td>{!! $item->soal !!}</td>
           <td><span class="badge badge-sm bg-gradient-success">{{ $item->created_at }}</span></td>
           <td class="align-middle text-center">
-            {{-- <a href="/tampildataSiswa/{{ $item->id }}"><button type="button" class="btn btn-warning"><i class="fa-solid fa-pen-to-square "></i></button></a> --}}
+            <a href="/tampildataSoal/{{ $item->id }}"><button type="button" class="btn btn-warning"><i class="fa-solid fa-pen-to-square "></i></button></a>
             <a href="/deleteSoal/{{ $item->id }}"><button type="button" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button></a>
           </td>
       </tr>
     @endforeach
   </tbody>
 </table>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
 @endsection

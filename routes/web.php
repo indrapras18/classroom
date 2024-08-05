@@ -1,9 +1,15 @@
 <?php
 
+use App\Http\Controllers\AnswerController;
+use App\Http\Controllers\AssignmentController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\KelasController;
+use App\Http\Controllers\MateriController;
+use App\Http\Controllers\QuestionsController;
 use App\Http\Controllers\SesiController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TeacherController;
+use App\Models\Assignments;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -28,85 +34,105 @@ Route::post('login', [SesiController::class, 'login']);
 
 Route::middleware(['auth'])->group(function(){
 
-Route::get('kelas', [TeacherController::class, 'kelas'])->name('kelas');
+Route::get('kelas', [KelasController::class, 'kelas'])->name('kelas');
 
-Route::get('siswa', [TeacherController::class, 'siswa'])->name('siswa');
+Route::get('siswa', [StudentController::class, 'siswa'])->name('siswa');
 
 Route::get('pilihKelas', [TeacherController::class, 'pilihKelas'])->name('pilihKelas');
 
-Route::post('tambahKelas', [TeacherController::class, 'tambahKelas']);
+Route::post('tambahKelas', [KelasController::class, 'tambahKelas']);
 
-Route::post('tambahSiswa', [TeacherController::class, 'tambahSiswa']);
+Route::post('tambahSiswa', [StudentController::class, 'tambahSiswa']);
 
-Route::get('tampildata/{id}', [TeacherController::class, 'tampildata'])->name('tampildata');
+Route::get('tampildata/{id}', [KelasController::class, 'tampildata'])->name('tampildata');
 
-Route::post('updateKelas/{id}', [TeacherController::class, 'updateKelas'])->name('updateKelas');
+Route::get('tampildataSoal/{id}', [QuestionsController::class, 'tampildataSoal'])->name('tampildataSoal');
 
-Route::get('deleteKelas/{id}', [TeacherController::class, 'deleteKelas'])->name('deleteKelas');
+Route::get('tampildataSoalEssay/{id}', [QuestionsController::class, 'tampildataSoalEssay'])->name('tampildataSoalEssay');
 
-Route::get('tampildataSiswa/{id}', [TeacherController::class, 'tampildataSiswa'])->name('tampildataSiswa');
+Route::post('updateKelas/{id}', [KelasController::class, 'updateKelas'])->name('updateKelas');
 
-Route::post('updateSiswa/{id}', [TeacherController::class, 'updateSiswa'])->name('updateSiswa');
+Route::post('updatePilihan/{id}', [QuestionsController::class, 'updatePilihan'])->name('updatePilihan');
 
-Route::get('deleteSiswa/{id}', [TeacherController::class, 'deleteSiswa'])->name('deleteSiswa');
+Route::post('updateEssay/{id}', [QuestionsController::class, 'updateEssay'])->name('updateEssay');
 
-Route::get('/materi', [TeacherController::class, 'materi'])->name('materi');
+Route::get('deleteKelas/{id}', [KelasController::class, 'deleteKelas'])->name('deleteKelas');
 
-Route::post('tambahMateri', [TeacherController::class, 'tambahMateri']);
+Route::get('deleteSoalEssay/{id}', [QuestionsController::class, 'deleteSoalEssay'])->name('deleteSoalEssay');
 
-Route::get('/deleteMateri/{id}', [TeacherController::class, 'deleteMateri'])->name('deleteMateri');
+Route::get('tampildataSiswa/{id}', [StudentController::class, 'tampildataSiswa'])->name('tampildataSiswa');
 
-Route::get('tampildataMateri/{id}', [TeacherController::class, 'tampildataMateri'])->name('tampildataMateri');
+Route::post('updateSiswa/{id}', [StudentController::class, 'updateSiswa'])->name('updateSiswa');
 
-Route::get('detailMateri/{id}', [TeacherController::class, 'detailMateri'])->name('detailMateri');
+Route::get('deleteSiswa/{id}', [StudentController::class, 'deleteSiswa'])->name('deleteSiswa');
 
-Route::get('uploadMateri', [TeacherController::class, 'uploadMateri'])->name('uploadMateri');
+Route::get('/materi', [MateriController::class, 'materi'])->name('materi');
 
-Route::post('updateMateri/{id}', [TeacherController::class, 'updateMateri']);
+Route::post('tambahMateri', [MateriController::class, 'tambahMateri']);
 
-Route::get('/soal', [TeacherController::class, 'soal'])->name('soal');
+Route::get('/deleteMateri/{id}', [MateriController::class, 'deleteMateri'])->name('deleteMateri');
 
-Route::get('/tambahSoal', [TeacherController::class, 'tambahSoal'])->name('tambahSoal');
+Route::get('tampildataMateri/{id}', [MateriController::class, 'tampildataMateri'])->name('tampildataMateri');
 
-Route::post('uploadSoal', [TeacherController::class, 'uploadSoal']);
+Route::get('detailMateri/{id}', [MateriController::class, 'detailMateri'])->name('detailMateri');
 
-Route::get('deleteSoal/{id}', [TeacherController::class, 'deleteSoal'])->name('deleteSoal');
+Route::get('uploadMateri', [MateriController::class, 'uploadMateri'])->name('uploadMateri');
 
-Route::get('jawaban', [TeacherController::class, 'jawaban'])->name('jawaban');
+Route::post('updateMateri/{id}', [MateriController::class, 'updateMateri']);
 
-Route::get('tambahJawaban', [TeacherController::class, 'tambahJawaban'])->name('tambahJawaban');
+Route::get('/soal', [QuestionsController::class, 'soal'])->name('soal');
 
-Route::post('uploadJawaban', [TeacherController::class, 'uploadJawaban']);
+Route::get('/tambahSoal/{id}', [AssignmentController::class, 'tambahSoal'])->name('tambahSoal');
 
-Route::get('materiStudent', [StudentController::class, 'materiStudent'])->name('materiStudent');
+Route::post('uploadSoal', [QuestionsController::class, 'uploadSoal']);
 
-Route::get('detailMateriStudent/{id}', [StudentController::class, 'detailMateriStudent'])->name('detailMateriStudent');
+Route::get('deleteSoal/{id}', [QuestionsController::class, 'deleteSoal'])->name('deleteSoal');
+
+Route::get('jawaban', [AnswerController::class, 'jawaban'])->name('jawaban');
+
+Route::get('tambahJawaban', [AnswerController::class, 'tambahJawaban'])->name('tambahJawaban');
+
+Route::post('uploadJawaban', [AnswerController::class, 'uploadJawaban']);
+
+Route::get('materiStudent', [MateriController::class, 'materiStudent'])->name('materiStudent');
+
+Route::get('detailMateriStudent/{id}', [MateriController::class, 'detailMateriStudent'])->name('detailMateriStudent');
 
 Route::get('pilihan', [StudentController::class, 'pilihan'])->name('pilihan');
 
-Route::get('detailPilihan/{id}', [StudentController::class, 'detailPilihan'])->name('detailPilihan');
+Route::get('detailPilihan/{id}', [QuestionsController::class, 'detailPilihan'])->name('detailPilihan');
 
-Route::post('/submit', [StudentController::class, 'submit'])->middleware('auth')->name('submit');
+Route::post('/submit', [AnswerController::class, 'submit'])->middleware('auth')->name('submit');
 
-Route::get('show', [StudentController::class, 'show'])->name('show');
+Route::get('show', [QuestionsController::class, 'show'])->name('show');
 
 Route::get('hasilPilihan/{userId}/{materiId}', [StudentController::class, 'showScore'])->name('hasilPilihan');
 
-Route::get('essay', [TeacherController::class, 'essay'])->name('essay');
+Route::get('essay/{id}', [AssignmentController::class, 'essay'])->name('essay');
 
-Route::get('hasilEssay/{id}/{materiId}', [StudentController::class, 'hasilEssay'])->name('hasilEssay');
+Route::get('hasilEssay/{id}/{materiId}', [MateriController::class, 'hasilEssay'])->name('hasilEssay');
 
-Route::post('/uploadEssay', [TeacherController::class, 'uploadEssay'])->middleware('auth')->name('uploadEssay');
+Route::post('/uploadEssay', [QuestionsController::class, 'uploadEssay'])->middleware('auth')->name('uploadEssay');
 
-Route::get('detailEssay/{id}', [StudentController::class, 'detailEssay'])->name('detailEssay');
+Route::get('detailEssay/{id}', [QuestionsController::class, 'detailEssay'])->name('detailEssay');
 
-Route::post('saveAnswer', [StudentController::class, 'saveAnswer'])->name('saveAnswer');
+Route::post('saveAnswer', [AnswerController::class, 'saveAnswer'])->name('saveAnswer');
 
 Route::get('/admin', [App\Http\Controllers\HomeController::class, 'index'])->name('admin');
 
 Route::get('/user', [App\Http\Controllers\HomeController::class, 'users'])->name('user');
 
 Route::get('/pembelajaran', [TeacherController::class, 'pembelajaran'])->name('pembelajaran');
+
+Route::get('/penugasan', [AssignmentController::class, 'showPenugasan'])->name('penugasan');
+
+Route::get('/tambahTugas', [AssignmentController::class, 'tambahTugas'])->name('tambahTugas');
+
+Route::post('/submitTugas', [AssignmentController::class, 'submitTugas'])->name('submitTugas');
+
+Route::get('/detailTugasEssay/essay/{id}', [AssignmentController::class, 'detailTugasEssay'])->name('detailTugasEssay');
+
+Route::get('/detailTugasPilihan/{id}', [AssignmentController::class, 'detailTugasPilihan'])->name('detailTugasPilihan');
 
 });
 

@@ -81,7 +81,7 @@
       <tr>
           <th>Nomor</th>
           <th>Nama Materi</th>
-          <th>Refrensi</th>
+          <th>Tipe</th>
           <th>Aksi</th>
       </tr>
   </thead>
@@ -89,8 +89,8 @@
     @foreach ($materiWithScore as $item)
       <tr>
           <td>{{ $item->id }}</td>
-          <td><span class="badge badge-sm bg-gradient-success">{{ $item->nama_materi }}</span></td>
-          <td>{{ $item->link }}</td>
+          <td><span class="badge badge-sm bg-gradient-success">{{ $item->judul_tugas }}</span></td>
+          <td>{{ $item->tipe }}</td>
           <td class="align-middle text-center">
             <a href="/detailPilihan/{{ $item->id }}"><button type="button" class="btn btn-info"><i class="fa-solid fa-eye"></i></button></a>
           </td>
@@ -119,7 +119,7 @@
               <tr>
                   <th>Nomor</th>
                   <th>Nama Materi</th>
-                  <th>Refrensi</th>
+                  <th>Tipe</th>
                   <th>Aksi</th>
               </tr>
           </thead>
@@ -127,10 +127,10 @@
             @foreach ($materiWithoutScore as $item)
               <tr>
                   <td>{{ $item->id }}</td>
-                  <td><span class="badge badge-sm bg-gradient-success">{{ $item->nama_materi }}</span></td>
-                  <td>{{ $item->link }}</td>
+                  <td><span class="badge badge-sm bg-gradient-success">{{ $item->judul_tugas  }}</span></td>
+                  <td>{{ $item->tipe }}</td>
                   <td class="align-middle text-center">
-                    <a href="/detailPilihan/{{ $item->id }}"><button type="button" class="btn btn-info"><i class="fa-solid fa-eye"></i></button></a>
+                    <a href="/detailEssay/{{ $item->id }}"><button type="button" class="btn btn-info"><i class="fa-solid fa-eye"></i></button></a>
                   </td>
               </tr>
             @endforeach

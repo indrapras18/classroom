@@ -85,7 +85,7 @@
                 <div class="mb-3">
                     <label for="answer_{{ $question->id }}" class="form-label">Jawaban</label>
                     <textarea class="form-control" name="answers[{{ $question->id }}]" id="answer_{{ $question->id }}" rows="3"></textarea>
-                    <input type="hidden" name="materis[{{ $question->id }}]" value="{{ $question->id_materi }}">
+                    <input type="hidden" name="materis[{{ $question->id }}]" value="{{ $question->id_assignment }}">
                 </div>
             </div>
         </div>

@@ -70,7 +70,7 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header" style="background-color: rgb(179, 170, 170); color:white;">
-                    {{ $materi->nama_materi }}
+                    {{ $assignment->judul_tugas }}
                 </div>
                 <div class="card-body">
                     @if(session('status'))
@@ -85,7 +85,6 @@
 
                     <form method="POST" action="/submit">
                         @csrf
-                        <input type="hidden" name="id_materi" value="{{ $materi->id }}">
                         @foreach ($soal as $question_id => $answers)
                             <div class="card mb-3">
                                 <div class="card-header">{!! $answers[0]->soal !!}</div>

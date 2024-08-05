@@ -75,22 +75,25 @@
   </ul>
 @endsection
 
-
 @section('konten')
 <h6 style="margin-left: 20px;">Detail Materi</h6>
 <div class="card">
     <div class="card-body">
         <div id="materi-content">
-            {!! $data->content !!}
-
-            <!-- Link untuk video -->
-            <div id="video-container">
-                <!-- Video akan dimuat di sini oleh JavaScript -->
-            </div>
+            @foreach ($data as $materi)
+                <div class="materi-section" data-content="{!! $materi->content !!}" data-link="{{ $materi->link }}">
+                    <h5>{{ $materi->nama_materi }}</h5>
+                    <div class="materi-content"></div>
+                    <hr>
+                </div>
+            @endforeach
         </div>
+        <!-- Kontainer Video (akan diisi melalui JavaScript) -->
+        <div id="video-container" style="display: none; text-align: center; margin-top: 10px;"></div>
     </div>
 </div>
 
+<!-- Tampilkan kontrol navigasi manual -->
 <div id="pagination-controls" style="text-align: center; margin-top: 10px;">
     <button type="button" onclick="prevPage()" id="prev-btn" class="btn btn-primary">Sebelum</button>
     <button type="button" onclick="nextPage()" id="next-btn" class="btn btn-primary">Lanjut</button>
@@ -98,33 +101,60 @@
 
 <script>
     let currentPage = 1;
-    const itemsPerPage = 5;
+    const charactersPerPage = 500;
     let contentSections;
-    let videoUrl = "{{ $data->link }}";
+    let totalContentLength = 0;
+    let allVideoLinks = [];
 
     document.addEventListener('DOMContentLoaded', function() {
-        contentSections = document.getElementById('materi-content').innerHTML.split(/(<\/p>)/).filter(Boolean);
-        
-        contentSections = contentSections.map((section, index) => {
-            if (index % 2 === 1) {
-                return contentSections[index - 1] + section;
+        contentSections = Array.from(document.querySelectorAll('.materi-section'));
+
+        // Calculate total content length for pagination
+        contentSections.forEach(section => {
+            totalContentLength += section.getAttribute('data-content').length;
+            const videoLink = section.getAttribute('data-link');
+            if (videoLink) {
+                allVideoLinks.push(videoLink);
             }
-            return section;
-        }).filter((_, index) => index % 2 === 0);
+        });
 
         renderPage(currentPage);
-
-        renderVideo(videoUrl);
     });
 
     function renderPage(page) {
-        const start = (page - 1) * itemsPerPage;
-        const end = start + itemsPerPage;
-        const visibleContent = contentSections.slice(start, end).join('');
-        document.getElementById('materi-content').innerHTML = visibleContent;
-        updateButtons();
+        const start = (page - 1) * charactersPerPage;
+        const end = start + charactersPerPage;
 
-        renderVideo(videoUrl);
+        let currentLength = 0;
+        let sectionsOnPage = [];
+        let totalSections = contentSections.length;
+
+        contentSections.forEach((section, index) => {
+            const fullContent = section.getAttribute('data-content');
+            const visibleContent = fullContent.slice(start - currentLength, end - currentLength);
+            currentLength += fullContent.length;
+
+            if (currentLength > start && visibleContent.length > 0) {
+                section.style.display = 'block';
+                section.querySelector('.materi-content').innerHTML = visibleContent;
+                sectionsOnPage.push(section);
+            } else {
+                section.style.display = 'none';
+            }
+        });
+
+        // Clear previous video container content
+        const videoContainer = document.getElementById('video-container');
+        videoContainer.style.display = 'none'; // Hide video container initially
+        videoContainer.innerHTML = ''; // Clear existing content
+
+        // Render all videos on the last page of the content
+        if (currentPage * charactersPerPage >= totalContentLength) {
+            renderAllVideos();
+            videoContainer.style.display = 'block'; // Show video container
+        }
+
+        updateButtons();
     }
 
     function prevPage() {
@@ -135,7 +165,7 @@
     }
 
     function nextPage() {
-        if (currentPage * itemsPerPage < contentSections.length) {
+        if (currentPage * charactersPerPage < totalContentLength) {
             currentPage++;
             renderPage(currentPage);
         }
@@ -143,25 +173,24 @@
 
     function updateButtons() {
         document.getElementById('prev-btn').disabled = currentPage === 1;
-        document.getElementById('next-btn').disabled = currentPage * itemsPerPage >= contentSections.length;
+        document.getElementById('next-btn').disabled = currentPage * charactersPerPage >= totalContentLength;
     }
 
-    function renderVideo(url) {
-        console.log("Video URL:", url); // Debug: Log URL video
-        const pattern = /^(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
-        const matches = url.match(pattern);
-        const videoId = matches ? matches[1] : null;
-        const embedUrl = videoId ? `https://www.youtube.com/embed/${videoId}` : null;
+    function renderAllVideos() {
+        const videoContainer = document.getElementById('video-container');
+        const videoEmbedUrls = allVideoLinks.map(link => {
+            const pattern = /^(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+            const matches = link.match(pattern);
+            const videoId = matches ? matches[1] : null;
+            return videoId ? `https://www.youtube.com/embed/${videoId}` : null;
+        });
 
-        if (embedUrl) {
-            console.log("Embed URL:", embedUrl); // Debug: Log embed URL
-            document.getElementById('video-container').innerHTML = `<iframe width="100%" height="315" src="${embedUrl}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
-        } else {
-            document.getElementById('video-container').innerHTML = `<p>${url}</p>`;
-        }
+        videoEmbedUrls.forEach(embedUrl => {
+            if (embedUrl) {
+                videoContainer.innerHTML += `<iframe width="100%" height="315" src="${embedUrl}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe><br>`;
+            }
+        });
     }
 </script>
 @endsection
-
-
 

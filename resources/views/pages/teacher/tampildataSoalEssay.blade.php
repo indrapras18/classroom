@@ -4,9 +4,9 @@
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
     <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Pages</a></li>
-    <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Siswa</li>
+    <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Penugasan</li>
   </ol>
-  <h6 class="font-weight-bolder mb-0">Siswa</h6>
+  <h6 class="font-weight-bolder mb-0">Penugasan</h6>
 </nav>
 @endsection
 
@@ -53,7 +53,7 @@
     </a>
   </li>
   <li class="nav-item">
-    <a class="nav-link active" href="/siswa">
+    <a class="nav-link" href="/siswa">
       <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
         <svg width="12px" height="12px" viewBox="0 0 43 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
           <title>credit-card</title>
@@ -94,7 +94,7 @@
     </a>
   </li>
   <li class="nav-item">
-    <a class="nav-link  " href="/penugasan">
+    <a class="nav-link active" href="/penugasan">
       <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
         <svg width="12px" height="12px" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
           <title>settings</title>
@@ -115,7 +115,7 @@
     </a>
   </li>
   <li class="nav-item">
-    <a class="nav-link  " href="/pembelajaran">
+    <a class="nav-link" href="/pembelajaran">
       <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
         <svg width="12px" height="12px" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
           <title>settings</title>
@@ -138,83 +138,43 @@
 </ul>
 @endsection
 
-@section('modal')
-    <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#exampleModal">
-      Tambah Siswa
-    </button>
-
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h1 class="modal-title fs-5" id="exampleModalLabel">Tambah Data Siswa</h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <form action="/tambahSiswa" method="post">
-              @csrf
-            <label for="">Nama Siswa</label>
-            <div class="input-group mb-3">
-              <input type="text" name="name" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-            </div>
-            <label for="">Email Siswa</label>
-            <div class="input-group mb-3">
-              <input type="email" name="email" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-            </div>
-            <label for="">Password Siswa</label>
-            <div class="input-group mb-3">
-              <input type="password" name="password" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-            </div>
-            <label for="">Pilih Kelas</label>
-            <div class="input-group mb-3">
-              <select class="form-select" id="inputGroupSelect01" name="id_kelas" required>
-                  <option selected>Choose...</option>
-                  @foreach ($semuaKelas as $itemKelas)
-                  <option value="{{ $itemKelas->id }}">{{ $itemKelas->nama_kelas }}</option>
-                  @endforeach
-              </select>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary">Simpan</button>
-          </div>
-        </form>
-        </div>
-      </div>
-    </div>
-    <h6>Siswa</h6>
-@endsection
-
 @section('konten')
-<table id="myTable" class="table table-striped" style="width:100%">
-  <thead>
-      <tr>
-          <th>Nomor</th>
-          <th>Nama</th>
-          <th>Status</th>
-          <th>Kelas</th>
-          <th>Aksi</th>
-      </tr>
-  </thead>
-  <tbody>
-    @foreach ($siswa as $item)
-      <tr>
-          <td>{{ $item->id }}</td>
-          <td>{{ $item->name }}</td>
-          <td><span class="badge badge-sm bg-gradient-success">{{ $item->role }}</span></td>
-          <td>{{ $item->nama_kelas }}</td>
-          <td class="align-middle text-center">
-            <a href="/tampildataSiswa/{{ $item->id }}"><button type="button" class="btn btn-warning"><i class="fa-solid fa-pen-to-square "></i></button></a>
-            <a href="/deleteSiswa/{{ $item->id }}"><button type="button" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button></a>
-          </td>
-      </tr>
-    @endforeach
-  </tbody>
-</table>
-<link rel="stylesheet" href="	https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+<form action="/updateEssay/{{ $data->id }}" method="POST" style="margin-left: 20px; margin-right: 20px;">
+  @csrf
+  <div class="form-group col-12">
+    <label for="editor1">Deskripsi tugas</label>
+    <textarea name="soal" id="editor1" rows="10" cols="80" placeholder="Soal">{!! $data->soal !!}</textarea>
+</div>
+
+  @foreach($data->resultEssays as $essay)
+    <div class="col-12 mt-4">
+        <input type="hidden" name="essay_ids[]" value="{{ $essay->id }}">
+        <div class="col-12">
+            <label class="form-label" for="jawaban_essay_{{ $essay->id }}">Jawaban Essay</label>
+            <textarea class="form-control" name="jawaban_essay[]" id="jawaban_essay_{{ $essay->id }}" rows="3">{{ $essay->jawaban_essay }}</textarea>
+        </div>
+        <div class="col-12">
+            <label class="form-label" for="essay_score_{{ $essay->id }}">Score</label>
+            <input class="form-control" name="essay_score[]" value="{{ $essay->essay_score }}" id="essay_score_{{ $essay->id }}" type="number" placeholder="Nilai Essay">
+        </div>
+    </div>
+  @endforeach
+  <div class="col-12">
+    <label class="form-label" for="inputAddress2">Dibuat</label>
+    <input class="form-control" name="created_at" value="{{ $data->created_at }}" id="inputAddress2" type="text" placeholder="Refrensi" disabled>
+</div>
+  <div class="col-12 mt-5">
+      <div class="row">
+          <div class="col-6">
+              <button class="btn btn-primary w-100" type="submit">Simpan</button>
+          </div>
+          <div class="col-6">
+              <a href="/penugasan" class="btn btn-danger w-100">Kembali</a>
+          </div>
+      </div>
+  </div>
+</form>
+<script>
+  CKEDITOR.replace('editor1');
+</script>
 @endsection

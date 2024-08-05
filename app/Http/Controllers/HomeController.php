@@ -33,8 +33,8 @@ class HomeController extends Controller
 
     public function users(){
         $totalMateri = DB::table('materis')->count();
-        $totalTugas = Questions::distinct('id_materi')->count('id_materi');
+        // $totalTugas = Questions::distinct('id_materi')->count('id_materi');
 
-        return view('user', compact('totalMateri', 'totalTugas'));
+        return view('user', compact('totalMateri'));
     }
 }

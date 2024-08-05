@@ -4,9 +4,9 @@
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
     <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Pages</a></li>
-    <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Siswa</li>
+    <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Penugasan</li>
   </ol>
-  <h6 class="font-weight-bolder mb-0">Siswa</h6>
+  <h6 class="font-weight-bolder mb-0">Penugasan</h6>
 </nav>
 @endsection
 
@@ -53,7 +53,7 @@
     </a>
   </li>
   <li class="nav-item">
-    <a class="nav-link active" href="/siswa">
+    <a class="nav-link" href="/siswa">
       <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
         <svg width="12px" height="12px" viewBox="0 0 43 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
           <title>credit-card</title>
@@ -94,7 +94,7 @@
     </a>
   </li>
   <li class="nav-item">
-    <a class="nav-link  " href="/penugasan">
+    <a class="nav-link active" href="/penugasan">
       <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
         <svg width="12px" height="12px" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
           <title>settings</title>
@@ -115,7 +115,7 @@
     </a>
   </li>
   <li class="nav-item">
-    <a class="nav-link  " href="/pembelajaran">
+    <a class="nav-link" href="/pembelajaran">
       <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
         <svg width="12px" height="12px" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
           <title>settings</title>
@@ -139,82 +139,46 @@
 @endsection
 
 @section('modal')
-    <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#exampleModal">
-      Tambah Siswa
+     <a href="/tambahTugas"><button type="button" class="btn btn-primary float-end">Tambah Tugas</button></a>
     </button>
 
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h1 class="modal-title fs-5" id="exampleModalLabel">Tambah Data Siswa</h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <form action="/tambahSiswa" method="post">
-              @csrf
-            <label for="">Nama Siswa</label>
-            <div class="input-group mb-3">
-              <input type="text" name="name" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-            </div>
-            <label for="">Email Siswa</label>
-            <div class="input-group mb-3">
-              <input type="email" name="email" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-            </div>
-            <label for="">Password Siswa</label>
-            <div class="input-group mb-3">
-              <input type="password" name="password" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-            </div>
-            <label for="">Pilih Kelas</label>
-            <div class="input-group mb-3">
-              <select class="form-select" id="inputGroupSelect01" name="id_kelas" required>
-                  <option selected>Choose...</option>
-                  @foreach ($semuaKelas as $itemKelas)
-                  <option value="{{ $itemKelas->id }}">{{ $itemKelas->nama_kelas }}</option>
-                  @endforeach
-              </select>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary">Simpan</button>
-          </div>
-        </form>
-        </div>
-      </div>
-    </div>
-    <h6>Siswa</h6>
+    <h6>Tugas</h6>
 @endsection
 
 @section('konten')
-<table id="myTable" class="table table-striped" style="width:100%">
-  <thead>
-      <tr>
-          <th>Nomor</th>
-          <th>Nama</th>
-          <th>Status</th>
-          <th>Kelas</th>
-          <th>Aksi</th>
-      </tr>
-  </thead>
-  <tbody>
-    @foreach ($siswa as $item)
-      <tr>
-          <td>{{ $item->id }}</td>
-          <td>{{ $item->name }}</td>
-          <td><span class="badge badge-sm bg-gradient-success">{{ $item->role }}</span></td>
-          <td>{{ $item->nama_kelas }}</td>
-          <td class="align-middle text-center">
-            <a href="/tampildataSiswa/{{ $item->id }}"><button type="button" class="btn btn-warning"><i class="fa-solid fa-pen-to-square "></i></button></a>
-            <a href="/deleteSiswa/{{ $item->id }}"><button type="button" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button></a>
-          </td>
-      </tr>
-    @endforeach
-  </tbody>
-</table>
-<link rel="stylesheet" href="	https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+<div class="container mt-5">
+    <div class="row row-cols-1 row-cols-md-3 g-4 mx-3">
+        @foreach ($data as $item)
+        <div class="col mb-4">
+            <div class="card h-100 text-muted position-relative">
+                <div class="dropdown position-absolute top-0 end-0 m-2">
+                    <button class="btn btn-light" type="button" id="dropdownMenuButton{{ $item->id }}" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-three-dots"></i>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton{{ $item->id }}">
+                        <li>
+                            <a class="dropdown-item" href="{{ $item->tipe === 'essay' ? route('detailTugasEssay', ['id' => $item->id]) : route('detailTugasPilihan', ['id' => $item->id]) }}">
+                                Preview
+                            </a>
+                        </li>
+                        <li><a class="dropdown-item" href="#">Edit</a></li>
+                        <li><a class="dropdown-item" href="#">Hapus</a></li>
+                    </ul>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">{{ $item->judul_tugas }}</h5>
+                    <p class="card-text">{!! $item->deskripsi_tugas !!}</p>
+                    <p class="card-text">{{ $item->tipe }}</p>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">{{ $item->created_at }}</small>
+                </div>
+            </div>
+        </div>
+        @endforeach
+    </div>
+</div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
 @endsection

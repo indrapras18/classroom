@@ -25,4 +25,14 @@ class Questions extends Model
     {
         return $this->belongsTo(Materis::class, 'id_materi');
     }
+
+    // public function assignment()
+    // {
+    //     return $this->belongsTo(Assignments::class, 'id_assignment');
+    // }
+
+    public function resultEssays()
+    {
+        return $this->hasMany(ResultEssay::class, 'id_question');
+    }
 }

@@ -18,12 +18,10 @@ class Results extends Migration
             $table->string('answer_text');
             $table->unsignedBigInteger('id_user');
             $table->unsignedBigInteger('id_question');
-            $table->unsignedBigInteger('id_materi');
             $table->timestamps();
 
             $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('id_question')->references('id')->on('questions')->onDelete('cascade');
-            $table->foreign('id_materi')->references('id')->on('materis')->onDelete('cascade');
         });
     }
 

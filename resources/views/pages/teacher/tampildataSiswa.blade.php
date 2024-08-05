@@ -84,7 +84,7 @@
     </a>
   </li>
   <li class="nav-item">
-    <a class="nav-link  " href="/soal">
+    <a class="nav-link  " href="/penugasan">
       <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
         <svg width="12px" height="12px" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
           <title>settings</title>
@@ -129,10 +129,9 @@
       <label class="form-label" for="inputAddress2">Dibuat</label>
       <input class="form-control" name="created_at" value="{{ $data->created_at }}" id="inputAddress2" type="text" placeholder="Refrensi" disabled>
   </div>
-  <div class="col-12 mt-5">
-      <button style="margin-left: 20px;" class="btn btn-primary float-end" type="submit">Simpan</button>
-      <a href="/siswa"><button class="btn btn-primary float-end" type="button">Kembali</button></a>
+  <div class="col-12 mt-5 d-flex justify-content-between">
+      <button class="btn btn-primary w-50 me-2" type="submit">Simpan</button>
+      <a href="/siswa" class="w-50"><button class="btn btn-danger w-100" type="button">Kembali</button></a>
   </div>
 </form>
-
 @endsection

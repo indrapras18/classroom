@@ -134,10 +134,7 @@
     <div class="card-body">
         <div id="materi-content">
             {!! $data->content !!}
-
-            <!-- Link untuk video -->
             <div id="video-container">
-                <!-- Video akan dimuat di sini oleh JavaScript -->
             </div>
         </div>
     </div>
