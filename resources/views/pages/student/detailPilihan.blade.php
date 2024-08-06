@@ -85,6 +85,8 @@
 
                     <form method="POST" action="/submit">
                         @csrf
+                        <input type="hidden" name="id_assignments" value="{{ $assignment->id }}">
+
                         @foreach ($soal as $question_id => $answers)
                             <div class="card mb-3">
                                 <div class="card-header">{!! $answers[0]->soal !!}</div>
@@ -93,8 +95,7 @@
                                         <div class="form-check">
                                             <input class="form-check-input" type="radio" name="answers[{{ $question_id }}]" id="answer_{{ $answer->answer_id }}" value="{{ $answer->answer_id }}" @if(old("answers.$question_id") == $answer->answer_id) checked @endif>
                                             <label class="form-check-label" for="answer_{{ $answer->answer_id }}">
-                                                {{ $answer->option_alphabet }}
-                                                {{ $answer->option_text }}
+                                                {{ $answer->option_alphabet }}. {{ $answer->option_text }}
                                             </label>
                                         </div>
                                     @endforeach
@@ -122,4 +123,3 @@
     </div>
 </div>
 @endsection
-

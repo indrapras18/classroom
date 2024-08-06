@@ -13,7 +13,11 @@ class KelasController extends Controller
         return view('pages/teacher/kelas', compact('semuaKelas'));
     }
 
-    function tambahKelas(Request $request){
+    function tambahKelas(Request $request)
+    {
+        $request->validate([
+            'nama_kelas' => 'required|string|max:255',
+        ]);
         Kelas::create($request->all());
         return redirect()->route('kelas')->with('success', 'Data Kelas Berhasil Ditambahkan!');
     }

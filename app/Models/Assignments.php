@@ -9,4 +9,9 @@ class Assignments extends Model
 {
     protected $guarded = [];
     use HasFactory;
+
+    public function scores()
+    {
+        return $this->hasMany(StudentScores::class, 'id_assignments');
+    }
 }

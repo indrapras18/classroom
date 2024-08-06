@@ -141,16 +141,18 @@
             <thead>
                 <tr>
                     <th>Nama Siswa</th>
-                    <th>Nama Materi</th>
                     <th>Score</th>
+                    <th>Judul Tugas</th>
+                    <th>Tipe Tugas</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach($scores as $score)
                     <tr>
                         <td>{{ $score->user->name }}</td>
-                        <td>{{ $score->materi->nama_materi }}</td>
                         <td>{{ $score->total_score }}</td>
+                        <td>{{ $score->assignment->judul_tugas }}</td>
+                        <td>{{ $score->assignment->tipe }}</td>
                     </tr>
                 @endforeach
             </tbody>

@@ -138,7 +138,6 @@
 </ul>
 @endsection
 
-
 @section('konten')
 <form action="/uploadEssay" method="post" class="mx-3">
     @csrf
@@ -162,9 +161,9 @@
             </div>
         </div>
     </div>
-    <div class="form-group row mt-3">
+    <div class="form-group row">
         <div class="col">
-            <button type="submit" class="btn btn-primary">Simpan</button>
+            <button type="submit" class="btn btn-primary w-100">Simpan</button>
         </div>
     </div>
 </form>

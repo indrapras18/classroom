@@ -31,9 +31,9 @@ class User extends Authenticatable
     }
 
     public function scores()
-{
-    return $this->hasMany(StudentScores::class, 'id_user');
-}
+    {
+        return $this->hasMany(StudentScores::class, 'id_user');
+    }
 
 
     /**

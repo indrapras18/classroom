@@ -125,9 +125,7 @@
         <label for="editor1">Content</label>
         <textarea name="content" id="editor1" rows="10" cols="80"></textarea>
     </div>
-    <div class="col-12">
-      <button class="btn btn-primary float-end" type="submit">Simpan</button>
-    </div>
+      <button type="submit" class="btn btn-primary float-end">Simpan</button>
 </form>
 <script>
     CKEDITOR.replace('editor1');

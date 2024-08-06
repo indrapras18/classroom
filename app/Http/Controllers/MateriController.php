@@ -16,9 +16,16 @@ class MateriController extends Controller
         return view('pages/teacher/uploadMateri');
     }
 
-    function tambahMateri(Request $request){
+    function tambahMateri(Request $request)
+    {
+        $request->validate([
+            'nama_materi' => 'required|string|max:255',
+            'content' => 'required|string',
+            'link' => 'nullable|url|max:255',
+        ]);
+
         Materis::create($request->all());
-        return redirect()->route('materi');
+        return redirect()->route('materi')->with('success', 'Materi Berhasil Ditambahkan!');
     }
 
     function deleteMateri($id){
@@ -45,7 +52,6 @@ class MateriController extends Controller
         return view('pages/teacher/detailMateri', compact('data', 'next', 'page'));
     }  
     
-
     function uploadMateri(){
         return view('pages/teacher/uploadMateri');
     }

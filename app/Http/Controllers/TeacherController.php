@@ -20,19 +20,16 @@ use Illuminate\Support\Facades\Log;
 
 class TeacherController extends Controller{
 
-    // function essay(){pppppppppppppppp
-    //     $data = Materis::all();
-    //     return view('pages/teacher/essay', compact('data'));
+    // function pembelajaran()
+    // {
+    //     $scores = StudentScores::with(['user', 'materi'])->get();
+
+    //     return view('pages/teacher/pembelajaran', compact('scores'));
     // }
 
-
-
-    function pembelajaran()
-    {
-        $scores = StudentScores::with(['user', 'materi'])->get();
-
-    
-        return view('pages/teacher/pembelajaran', compact('scores'));
+    function pembelajaran(){
+        $scores = StudentScores::with(['user', 'assignment'])->get();
+        return view('pages\teacher\pembelajaran', compact('scores'));
     }
 
 }

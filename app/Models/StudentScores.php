@@ -12,12 +12,15 @@ class StudentScores extends Model
     protected $guarded = [];
 
     public function user()
-{
-    return $this->belongsTo(User::class, 'id_user');
-}
+    {
+        return $this->belongsTo(User::class, 'id_user');
+    }
 
-public function materi()
-{
-    return $this->belongsTo(Materis::class, 'id_materi');
-}
+    public function assignment()
+    {
+        return $this->belongsTo(Assignments::class, 'id_assignments');
+    }
+
+
+
 }

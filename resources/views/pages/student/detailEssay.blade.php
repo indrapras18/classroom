@@ -75,17 +75,17 @@
 @endsection
 
 @section('konten')
-<form action="/saveAnswer" method="post">
+<form action="{{ route('saveAnswer') }}" method="post">
     @csrf
     <div class="container mt-2">
-        @forelse ($questionsWithoutScore as $question)
+        <input type="hidden" name="id_assignments" value="{{ $assignmentId }}">
+        @forelse ($questions as $question)
         <div class="card mb-1">
             <div class="card-body">
                 <p class="card-text">{!! $question->soal !!}</p>
                 <div class="mb-3">
                     <label for="answer_{{ $question->id }}" class="form-label">Jawaban</label>
                     <textarea class="form-control" name="answers[{{ $question->id }}]" id="answer_{{ $question->id }}" rows="3"></textarea>
-                    <input type="hidden" name="materis[{{ $question->id }}]" value="{{ $question->id_assignment }}">
                 </div>
             </div>
         </div>

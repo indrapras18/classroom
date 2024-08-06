@@ -116,7 +116,7 @@ Route::get('hasilEssay/{id}/{materiId}', [MateriController::class, 'hasilEssay']
 
 Route::post('/uploadEssay', [QuestionsController::class, 'uploadEssay'])->middleware('auth')->name('uploadEssay');
 
-Route::get('detailEssay/{id}', [QuestionsController::class, 'detailEssay'])->name('detailEssay');
+Route::get('detailEssay/{id}', [AnswerController::class, 'detailEssay'])->name('detailEssay');
 
 Route::post('saveAnswer', [AnswerController::class, 'saveAnswer'])->name('saveAnswer');
 

@@ -127,7 +127,6 @@
             renderPage(currentPage);
             updateURL();
         } else if (nextMateriId) {
-            // Navigate to next materi if on the last page
             window.location.href = `{{ url('detailMateriStudent') }}/${nextMateriId}`;
         }
     }
@@ -135,7 +134,7 @@
     function updateURL() {
         const currentUrl = `{{ url('detailMateriStudent/' . $data->id) }}/${currentPage}`;
         window.history.pushState({ path: currentUrl }, '', currentUrl);
-        console.log("Navigating to: " + currentUrl); // Debug: Log generated URL
+        console.log("Navigating to: " + currentUrl);
     }
 
     function updateButtons() {
@@ -144,14 +143,14 @@
     }
 
     function renderVideo(url) {
-        console.log("Video URL:", url); // Debug: Log video URL
+        console.log("Video URL:", url);
         const pattern = /^(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
         const matches = url.match(pattern);
         const videoId = matches ? matches[1] : null;
         const embedUrl = videoId ? `https://www.youtube.com/embed/${videoId}` : null;
 
         if (embedUrl) {
-            console.log("Embed URL:", embedUrl); // Debug: Log embed URL
+            console.log("Embed URL:", embedUrl);
             document.getElementById('video-container').innerHTML = `<iframe width="100%" height="315" src="${embedUrl}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
         } else {
             document.getElementById('video-container').innerHTML = `<p>${url}</p>`;

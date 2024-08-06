@@ -41,7 +41,8 @@ class AnswerController extends Controller
     {
         $userId = Auth::id();
         $answers = $request->input('answers');
-    
+        $assignmentId = $request->input('id_assignments');
+        
         foreach ($answers as $questionId => $answerText) {
             $question = Questions::find($questionId);
             if ($question) {
@@ -59,66 +60,88 @@ class AnswerController extends Controller
             }
         }
     
-        $totalScore = DB::table('results')
+        $totalScore = 0;
+        
+        $results = DB::table('results')
             ->join('questions', 'results.id_question', '=', 'questions.id')
             ->join('result_essays', 'results.id_question', '=', 'result_essays.id_question')
             ->where('results.id_user', $userId)
-            ->whereColumn('results.answer_text', 'result_essays.jawaban_essay')
-            ->sum('result_essays.essay_score');
+            ->where('questions.id_assignment', $assignmentId)
+            ->select('result_essays.essay_score', 'results.answer_text', 'result_essays.jawaban_essay')
+            ->get();
     
-        StudentScores::updateOrCreate(
-            ['id_user' => $userId],
-            ['total_score' => $totalScore]
-        );
-    
-        return redirect()->route('pilihan')->with('success', 'Jawaban berhasil disimpan dan skor dihitung.');
-    }
-
-    public function submit(Request $request){
-        $request->validate([
-            'answers' => 'required|array',
-            'answers.*' => 'required|exists:answers,id',
-        ]);
-    
-        $user_id = Auth::id();
-    
-        foreach ($request->answers as $question_id => $answer_id) {
-            $existingSubmission = Results::where('id_user', $user_id)
-                                         ->where('id_question', $question_id)
-                                         ->exists();
-    
-            if ($existingSubmission) {
-                return redirect()->route('pilihan')->with('status', 'You have already submitted the quiz for this question.');
+        foreach ($results as $result) {
+            if (str_contains($result->answer_text, $result->jawaban_essay)) {
+                $totalScore += $result->essay_score;
             }
-    
-            $answer = Answers::find($answer_id);
-    
-            Results::create([
-                'answer_text' => $answer->option_text,
-                'id_user' => $user_id,
-                'id_question' => $question_id,
-            ]);
         }
     
-        $totalScore = DB::table('results')
-            ->join('questions', 'results.id_question', '=', 'questions.id')
-            ->join('answers', function($join) {
-                $join->on('results.answer_text', '=', 'answers.option_text')
-                     ->on('results.id_question', '=', 'answers.id_questions');
-            })
-            ->where('results.id_user', $user_id)
-            ->whereColumn('questions.answer_key', 'answers.option_alphabet')
-            ->sum('questions.score');
-    
-        DB::table('student_scores')->insert([
-            'id_user' => $user_id,
-            'total_score' => $totalScore,
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
-    
-        return redirect()->route('pilihan')->with('status', 'Quiz submitted successfully.');
+        StudentScores::updateOrCreate(
+            ['id_user' => $userId, 'id_assignments' => $assignmentId],
+            ['total_score' => $totalScore]
+        );
+        
+        return redirect()->route('pilihan')->with('success', 'Jawaban berhasil disimpan dan skor dihitung.');
     }
+    
+
+
+    public function detailEssay($assignmentId){
+    $questions = Questions::where('id_assignment', $assignmentId)->get();
+    return view('pages/student/detailEssay', [
+        'questions' => $questions,
+        'assignmentId' => $assignmentId
+    ]);
+}
+
+public function submit(Request $request)
+{
+    $request->validate([
+        'id_assignments' => 'required|exists:assignments,id',
+        'answers' => 'required|array',
+        'answers.*' => 'required|exists:answers,id',
+    ]);
+
+    $user_id = Auth::id();
+    $assignment_id = $request->id_assignments;
+
+    foreach ($request->answers as $question_id => $answer_id) {
+        $existingSubmission = Results::where('id_user', $user_id)
+                                     ->where('id_question', $question_id)
+                                     ->exists();
+
+        if ($existingSubmission) {
+            return redirect()->route('pilihan')->with('status', 'You have already submitted the quiz for this question.');
+        }
+
+        $answer = Answers::find($answer_id);
+
+        Results::create([
+            'answer_text' => $answer->option_text,
+            'id_user' => $user_id,
+            'id_question' => $question_id,
+        ]);
+    }
+
+    $totalScore = DB::table('results')
+        ->join('questions', 'results.id_question', '=', 'questions.id')
+        ->join('answers', function($join) {
+            $join->on('results.answer_text', '=', 'answers.option_text')
+                 ->on('results.id_question', '=', 'answers.id_questions');
+        })
+        ->where('results.id_user', $user_id)
+        ->where('questions.id_assignment', $assignment_id)
+        ->whereColumn('questions.answer_key', 'answers.option_alphabet')
+        ->sum('questions.score');
+
+    StudentScores::updateOrCreate(
+        ['id_user' => $user_id, 'id_assignments' => $assignment_id],
+        ['total_score' => $totalScore]
+    );
+
+    return redirect()->route('pilihan')->with('status', 'Quiz submitted successfully.');
+}
+
 
     public function uploadJawaban(Request $request){
         Log::info('Request data:', $request->all());
