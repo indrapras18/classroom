@@ -69,7 +69,7 @@
 <table id="myTable" class="table table-striped" style="width:100%">
   <thead>
       <tr>
-          <th>Nomor</th>
+          <th>No</th>
           <th>Nama Materi</th>
           <th>Refrensi</th>
           <th>Aksi</th>
@@ -88,5 +88,8 @@
     @endforeach
   </tbody>
 </table>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
 @endsection
 

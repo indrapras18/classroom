@@ -79,6 +79,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('tambahJawaban', [AnswerController::class, 'tambahJawaban'])->name('tambahJawaban');
     Route::post('uploadJawaban', [AnswerController::class, 'uploadJawaban']);
     Route::get('essay/{id}', [AssignmentController::class, 'essay'])->name('essay');
+    Route::get('/detailScore/{id}', [App\Http\Controllers\TeacherController::class, 'show'])->name('detailScore');
+
 
 });
 

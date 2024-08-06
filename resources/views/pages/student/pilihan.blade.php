@@ -79,16 +79,19 @@
 <table id="myTable" class="table table-striped" style="width:100%">
   <thead>
       <tr>
-          <th>Nomor</th>
+          <th>No</th>
           <th>Nama Materi</th>
           <th>Tipe</th>
           <th>Aksi</th>
       </tr>
   </thead>
   <tbody>
+    @php
+        $no = 1;
+    @endphp
     @foreach ($materiWithScore as $item)
       <tr>
-          <td>{{ $item->id }}</td>
+          <td>{{ $no++ }}</td>
           <td><span class="badge badge-sm bg-gradient-success">{{ $item->judul_tugas }}</span></td>
           <td>{{ $item->tipe }}</td>
           <td class="align-middle text-center">
@@ -98,6 +101,9 @@
     @endforeach
   </tbody>
 </table>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
 @endsection
 
 @section('table')
@@ -117,16 +123,19 @@
         <table id="table" class="table table-striped" style="width:100%">
           <thead>
               <tr>
-                  <th>Nomor</th>
+                  <th>No</th>
                   <th>Nama Materi</th>
                   <th>Tipe</th>
                   <th>Aksi</th>
               </tr>
           </thead>
           <tbody>
+            @php
+                $no = 1;
+            @endphp
             @foreach ($materiWithoutScore as $item)
               <tr>
-                  <td>{{ $item->id }}</td>
+                  <td>{{ $no++}}</td>
                   <td><span class="badge badge-sm bg-gradient-success">{{ $item->judul_tugas  }}</span></td>
                   <td>{{ $item->tipe }}</td>
                   <td class="align-middle text-center">
@@ -153,4 +162,7 @@
       $('#table thead th').addClass('dt-center');
   });
 </script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
 @endsection

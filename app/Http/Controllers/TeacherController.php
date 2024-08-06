@@ -20,16 +20,20 @@ use Illuminate\Support\Facades\Log;
 
 class TeacherController extends Controller{
 
-    // function pembelajaran()
-    // {
-    //     $scores = StudentScores::with(['user', 'materi'])->get();
-
-    //     return view('pages/teacher/pembelajaran', compact('scores'));
-    // }
-
-    function pembelajaran(){
+    public function pembelajaran()
+    {
         $scores = StudentScores::with(['user', 'assignment'])->get();
-        return view('pages\teacher\pembelajaran', compact('scores'));
+        return view('pages.teacher.pembelajaran', compact('scores'));
+    }
+
+    public function show($id)
+    {
+        $score = StudentScores::find($id);
+        if (!$score) {
+            abort(404);
+        }
+        $userScores = StudentScores::where('id_user', $score->id_user)->with('assignment')->get();
+        return view('pages.teacher.detailScore', compact('score', 'userScores'));
     }
 
 }
