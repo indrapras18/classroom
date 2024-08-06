@@ -146,9 +146,12 @@
       </tr>
   </thead>
   <tbody>
+    @php
+      $no = 1;
+    @endphp
     @foreach ($soal as $item)
       <tr>
-          <td>{{ $item->id }}</td>
+          <td>{{ $no++ }}</td>
           <td>{!! $item->soal !!}</td>
           <td><span class="badge badge-sm bg-gradient-success">{{ $item->created_at }}</span></td>
           <td class="align-middle text-center">

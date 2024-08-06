@@ -149,16 +149,19 @@
 <table id="myTable" class="table table-striped" style="width:100%">
   <thead>
       <tr>
-          <th>Nomor</th>
+          <th>No</th>
           <th>Nama Materi</th>
           <th>Refrensi</th>
           <th>Aksi</th>
       </tr>
   </thead>
   <tbody>
+    @php
+        $no = 1;
+    @endphp
     @foreach ($materi as $item)
       <tr>
-          <td>{{ $item->id }}</td>
+          <td>{{ $no++}}</td>
           <td><span class="badge badge-sm bg-gradient-success">{{ $item->nama_materi }}</span></td>
           <td>{{ $item->link }}</td>
           <td class="align-middle text-center">

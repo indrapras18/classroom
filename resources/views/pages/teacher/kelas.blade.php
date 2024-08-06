@@ -175,16 +175,19 @@
 <table id="myTable" class="table table-striped" style="width:100%">
   <thead>
       <tr>
-          <th>Nomor</th>
+          <th>No</th>
           <th>Nama Kelas</th>
           <th>Dibuat</th>
           <th>Aksi</th>
       </tr>
   </thead>
   <tbody>
+    @php
+        $no = 1;
+    @endphp
     @foreach ($semuaKelas as $item)
       <tr>
-          <td>{{ $item->id }}</td>
+          <td>{{ $no++ }}</td>
           <td>{{ $item->nama_kelas }}</td>
           <td><span class="badge badge-sm bg-gradient-success">{{ $item->created_at }}</span></td>
           <td class="align-middle text-center">

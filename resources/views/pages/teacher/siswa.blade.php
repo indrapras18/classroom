@@ -192,7 +192,7 @@
 <table id="myTable" class="table table-striped" style="width:100%">
   <thead>
       <tr>
-          <th>Nomor</th>
+          <th>No</th>
           <th>Nama</th>
           <th>Status</th>
           <th>Kelas</th>
@@ -200,9 +200,12 @@
       </tr>
   </thead>
   <tbody>
+    @php
+      $no = 1;
+    @endphp
     @foreach ($siswa as $item)
       <tr>
-          <td>{{ $item->id }}</td>
+          <td>{{ $no++ }}</td>
           <td>{{ $item->name }}</td>
           <td><span class="badge badge-sm bg-gradient-success">{{ $item->role }}</span></td>
           <td>{{ $item->nama_kelas }}</td>

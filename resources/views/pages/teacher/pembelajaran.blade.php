@@ -140,6 +140,7 @@
         <table table id="myTable" class="table table-striped" style="width:100%">
             <thead>
                 <tr>
+                    <th>No</th>
                     <th>Nama Siswa</th>
                     <th>Score</th>
                     <th>Judul Tugas</th>
@@ -147,8 +148,12 @@
                 </tr>
             </thead>
             <tbody>
+              @php
+                $no = 1;
+              @endphp
                 @foreach($scores as $score)
                     <tr>
+                        <td>{{ $no++ }}</td>
                         <td>{{ $score->user->name }}</td>
                         <td>{{ $score->total_score }}</td>
                         <td>{{ $score->assignment->judul_tugas }}</td>
