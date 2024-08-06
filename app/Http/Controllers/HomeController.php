@@ -30,11 +30,4 @@ class HomeController extends Controller
         $totalhasil = DB::table('student_scores')->count();
         return view('admin', compact('totalKelas', 'totalSiswa', 'totalMateri', 'totalhasil'));
     }
-
-    public function users(){
-        $totalMateri = DB::table('materis')->count();
-        // $totalTugas = Questions::distinct('id_materi')->count('id_materi');
-
-        return view('user', compact('totalMateri'));
-    }
 }

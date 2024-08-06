@@ -19,13 +19,10 @@ class StudentController extends Controller
 {
 
 
-    // function detailEssay($materiId){
-    //     $questionsWithoutScore = Questions::where('id_materi', $materiId)
-    //     ->whereNull('score')
-    //     ->get();
-    
-    //     return view('pages.student.detailEssay', compact('questionsWithoutScore'));
-    // }
+    public function users(){
+        $totalMateri = DB::table('materis')->count();
+        return view('user', compact('totalMateri'));
+    }
 
     function siswa(){
         $siswa = DB::table('users')
