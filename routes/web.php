@@ -9,6 +9,7 @@ use App\Http\Controllers\MateriController;
 use App\Http\Controllers\QuestionsController;
 use App\Http\Controllers\SesiController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\Teacher\StudentController as TeacherStudentController;
 use App\Http\Controllers\TeacherController;
 use App\Models\Assignments;
 use Illuminate\Support\Facades\Auth;
@@ -39,7 +40,6 @@ Auth::routes();
 Route::post('login', [SesiController::class, 'login']);
 
 Route::middleware(['auth', 'admin'])->group(function () {
-
     Route::get('/admin', [App\Http\Controllers\HomeController::class, 'index'])->name('admin');
     Route::get('kelas', [KelasController::class, 'kelas'])->name('kelas');
     Route::get('tampildata/{id}', [KelasController::class, 'tampildata'])->name('tampildata');
@@ -80,8 +80,6 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::post('uploadJawaban', [AnswerController::class, 'uploadJawaban']);
     Route::get('essay/{id}', [AssignmentController::class, 'essay'])->name('essay');
     Route::get('/detailScore/{id}', [App\Http\Controllers\TeacherController::class, 'show'])->name('detailScore');
-
-
 });
 
 
