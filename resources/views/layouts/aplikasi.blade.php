@@ -69,7 +69,7 @@
 
         @yield('konten')
       </div>
-      {{-- @yield('table') --}}
+      @yield('table')
     </div>
   </main>
 

@@ -17,26 +17,70 @@
 @endsection
 
 @section('konten')
-<form method="POST" action="/submitTugas" class="row g-3 px-3">
-    @csrf
-    <div class="col-12">
-        <label class="form-label" for="inputAddress2">Judul Tugas</label>
-        <input class="form-control" name="judul_tugas" id="inputAddress2" type="text" placeholder="Judul Tugas">
+<div class="col-md-12">
+  <div class="card border-0">
+    <div class="card-header bg-white d-flex align-items-center justify-content-between py-3">
+      <form method="POST" action="/submitTugas" class="row g-3 px-3">
+        @csrf
+        <div>
+          <label for="">Judul Tugas</label>
+          <div class="input-group mb-3">
+            <input
+              type="text"
+              name="judul_tugas"
+              class="form-control @if($errors->has('judul_tugas')) is-invalid @endif"
+              placeholder="Judul Tugas"
+              value="{{ old('judul_tugas') }}"
+              {{-- required --}}
+            >
+            @if ($errors->has('judul_tugas'))
+              <span class="invalid-feedback" role="alert">
+                <strong>{{ $errors->first('judul_tugas') }}</strong>
+              </span>
+            @endif
+          </div>
+        </div>
+
+        <div class="col-12 mb-3">
+          <label class="form-label" for="selectTugas">Pilih Tipe</label>
+          <select
+              class="form-select @error('tipe') is-invalid @enderror"
+              id="selectTugas"
+              name="tipe"
+          >
+              <option value="" disabled selected>Buka Untuk Memilih</option>
+              <option value="pilihan" {{ old('tipe') == 'pilihan' ? 'selected' : '' }}>Pilihan Ganda</option>
+              <option value="essay" {{ old('tipe') == 'essay' ? 'selected' : '' }}>Essay</option>
+          </select>
+          @error('tipe')
+              <div class="invalid-feedback">
+                  <strong>{{ $message }}</strong>
+              </div>
+          @enderror
+        </div>
+
+        <div class="form-group mb-3">
+          <label for="editor1" class="form-label">Content</label>
+          <textarea
+              name="deskripsi_tugas"
+              id="editor1"
+              rows="10"
+              cols="80"
+              class="form-control @error('deskripsi_tugas') is-invalid @enderror"
+          >{{ old('deskripsi_tugas') }}</textarea>
+          @error('deskripsi_tugas')
+              <span class="invalid-feedback" role="alert">
+                  <strong>{{ $message }}</strong>
+              </span>
+          @enderror
+        </div>
+
+        <button type="submit" class="btn btn-primary float-end">Simpan</button>
+    </form>
     </div>
-    <div class="col-12">
-        <label class="form-label" for="selectTugas">Pilih Tipe</label>
-        <select class="form-select" id="selectTugas" name="tipe">
-            <option selected>Buka Untuk Memilih</option>
-            <option value="pilihan">Pilihan Ganda</option>
-            <option value="essay">Essay</option>
-        </select>
-    </div>
-    <div class="form-group col-12">
-        <label for="editor1">Deskripsi tugas</label>
-        <textarea name="deskripsi_tugas" id="editor1" rows="10" cols="80" placeholder="Deskripsi Tugas"></textarea>
-    </div>
-    <button type="submit" class="btn btn-primary float-end">Simpan</button>
-</form>
+  </div>
+</div>
+
 @push('js')
 <script>
   CKEDITOR.replace('editor1');

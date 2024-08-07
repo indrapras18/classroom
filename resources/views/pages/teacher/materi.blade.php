@@ -8,11 +8,11 @@
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5 mb-1">
     <li class="breadcrumb-item text-sm">
-      <a class="opacity-5 text-dark" href="{{ auth()->user()->role == 'Guru' ? route('admin') : route('user') }}">LearnClass</a>
+      <a class="opacity-5 text-dark" href="{{ route('admin') }}">LearnClass</a>
     </li>
-    <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Materi</li>
+    <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Siswa</li>
   </ol>
-  <h4 class="font-weight-bolder mb-0">Materi</h4>
+  <h4 class="font-weight-bolder mb-0">Siswa</h4>
 </nav>
 @endsection
 
@@ -30,7 +30,7 @@
         <table id="myTable" class="table table-striped" style="width:100%">
           <thead>
               <tr>
-                  <th>No</th>
+                  <th class="text-center" style="width: 5%;">No</th>
                   <th>Nama Materi</th>
                   <th>Refrensi</th>
                   <th>Aksi</th>
@@ -42,7 +42,7 @@
             @endphp
             @foreach ($materi as $item)
               <tr>
-                  <td>{{ $no++}}</td>
+                  <td class="text-center">{{ $no++}}</td>
                   <td><span class="badge badge-sm bg-gradient-success">{{ $item->nama_materi }}</span></td>
                   <td>{{ $item->link }}</td>
                   <td class="align-middle text-center">

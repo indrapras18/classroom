@@ -24,15 +24,15 @@
         @csrf
         <div class="col-12">
           <label class="form-label" for="inputAddress2">Judul Materi</label>
-          <input class="form-control" name="nama_materi" value="{{ $data->nama_materi }}" type="text" placeholder="Judul Materi">
+          <input class="form-control" name="nama_materi" value="{{ $data->nama_materi }}" type="text" placeholder="Judul Materi" required>
         </div>
         <div class="col-12">
           <label class="form-label" for="inputAddress2">Refrensi</label>
-          <input class="form-control" name="link" value="{{ $data->link }}" type="text" placeholder="Refrensi">
+          <input class="form-control" name="link" value="{{ $data->link }}" type="text" placeholder="Refrensi" required>
         </div>
         <div class="form-group">
             <label for="editor1">Content</label>
-            <textarea name="content" id="editor1" rows="10" cols="80">{{ $data->content }}</textarea>
+            <textarea name="content" id="editor1" rows="10" cols="80" required>{{ $data->content }}</textarea>
         </div>
         <div class="col-12 mt-5 d-flex justify-content-between">
           <button class="btn btn-primary w-50 me-2" type="submit">Simpan</button>

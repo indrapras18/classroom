@@ -17,8 +17,6 @@ use Illuminate\Support\Facades\Log;
 
 class StudentController extends Controller
 {
-
-
     public function users(){
         $totalMateri = DB::table('materis')->count();
         return view('user', compact('totalMateri'));

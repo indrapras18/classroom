@@ -22,18 +22,54 @@
     <div class="card-header bg-white d-flex align-items-center justify-content-between py-3">
       <form method="POST" action="/tambahMateri" class="row g-3 px-3">
         @csrf
-        <div class="col-12">
-          <label class="form-label" for="inputAddress2">Judul Materi</label>
-          <input class="form-control" name="nama_materi" id="inputAddress2" type="text" placeholder="Judul Materi">
-        </div>
-        <div class="col-12">
-          <label class="form-label" for="inputAddress2">Refrensi</label>
-          <input class="form-control" name="link" id="inputAddress2" type="text" placeholder="https://">
-        </div>
-        <div class="form-group">
-            <label for="editor1">Content</label>
-            <textarea name="content" id="editor1" rows="10" cols="80"></textarea>
-        </div>
+        <div class="form-group mb-3">
+          <label for="nama_materi" class="form-label">Nama Materi</label>
+          <input
+              type="text"
+              name="nama_materi"
+              class="form-control @if($errors->has('nama_materi')) is-invalid @endif"
+              placeholder="Judul Materi"
+              value="{{ old('nama_materi') }}"
+          >
+          @if ($errors->has('nama_materi'))
+              <span class="invalid-feedback" role="alert">
+                  <strong>{{ $errors->first('nama_materi') }}</strong>
+              </span>
+          @endif
+      </div>
+
+      <div class="form-group mb-3">
+        <label for="link" class="form-label">Refrensi</label>
+        <input
+            type="text"
+            name="link"
+            class="form-control @if($errors->has('link')) is-invalid @endif"
+            placeholder="Link Youtube"
+            value="{{ old('link') }}"
+        >
+        @if ($errors->has('link'))
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $errors->first('link') }}</strong>
+            </span>
+        @endif
+      </div>
+
+      <div class="form-group mb-3">
+        <label for="editor1" class="form-label">Content</label>
+        <textarea
+            name="content"
+            id="editor1"
+            rows="10"
+            cols="80"
+            placeholder="Isi content materi"
+            class="form-control @error('content') is-invalid @enderror"
+        >{{ old('content') }}</textarea>
+        @error('content')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+        @enderror
+     </div>
           <button type="submit" class="btn btn-primary float-end">Simpan</button>
       </form>
     </div>

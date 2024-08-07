@@ -22,21 +22,22 @@
     <div class="card-header bg-white d-flex align-items-center justify-content-between py-3">
       <form action="/updateEssay/{{ $data->id }}" method="POST" class="row g-3 px-3">
         @csrf
-        <div class="form-group col-12">
-          <label for="editor1">Deskripsi tugas</label>
-          <textarea name="soal" id="editor1" rows="10" cols="80" placeholder="Soal">{!! $data->soal !!}</textarea>
-      </div>
+        <div class="form-group">
+          <label for="editor1">Content</label>
+          <textarea name="deskripsi_tugas" id="editor1" rows="10" cols="80" placeholder="Deskripsi Tugas" required>{{ $data->soal }}</textarea>
+          <div id="editor1-error" style="color: red; display: none;"></div>
+        </div>
       
         @foreach($data->resultEssays as $essay)
           <div class="col-12 mt-4">
               <input type="hidden" name="essay_ids[]" value="{{ $essay->id }}">
               <div class="col-12">
                   <label class="form-label" for="jawaban_essay_{{ $essay->id }}">Jawaban Essay</label>
-                  <textarea class="form-control" name="jawaban_essay[]" id="jawaban_essay_{{ $essay->id }}" rows="3">{{ $essay->jawaban_essay }}</textarea>
+                  <textarea class="form-control" required name="jawaban_essay[]" id="jawaban_essay_{{ $essay->id }}" rows="3">{{ $essay->jawaban_essay }}</textarea>
               </div>
               <div class="col-12">
                   <label class="form-label" for="essay_score_{{ $essay->id }}">Score</label>
-                  <input class="form-control" name="essay_score[]" value="{{ $essay->essay_score }}" id="essay_score_{{ $essay->id }}" type="number" placeholder="Nilai Essay">
+                  <input class="form-control" name="essay_score[]" value="{{ $essay->essay_score }}" id="essay_score_{{ $essay->id }}" type="number" placeholder="Nilai Essay" required>
               </div>
           </div>
         @endforeach
@@ -62,6 +63,22 @@
 @push('js')
   <script>
     CKEDITOR.replace('editor1');
+    document.addEventListener("DOMContentLoaded", function() {
+        var form = document.querySelector("form");
+        var editor = CKEDITOR.instances.editor1;
+        var errorDiv = document.getElementById("editor1-error");
+
+        form.addEventListener("submit", function(event) {
+            errorDiv.style.display = 'none';
+            errorDiv.textContent = '';
+            if (!editor.getData().trim()) {
+                errorDiv.textContent = "Content is required.";
+                errorDiv.style.display = 'block';
+                event.preventDefault();
+                document.querySelector("textarea[name='deskripsi_tugas']").value = editor.getData();
+            }
+        });
+    });
   </script>
 @endpush
 @endsection

@@ -21,7 +21,7 @@ class MateriController extends Controller
         $request->validate([
             'nama_materi' => 'required|string|max:255',
             'content' => 'required|string',
-            'link' => 'nullable|url|max:255',
+            'link' => 'required|url|max:255',
         ]);
 
         Materis::create($request->all());

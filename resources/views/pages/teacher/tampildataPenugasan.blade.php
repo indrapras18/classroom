@@ -24,16 +24,17 @@
         @csrf
         <div class="col-12">
           <label class="form-label" for="inputAddress2">Judul Tugas</label>
-          <input class="form-control" name="judul_tugas" value="{{ $items->judul_tugas }}" id="inputAddress2" type="text" placeholder="Judul Tugas">
+          <input class="form-control" name="judul_tugas" value="{{ $items->judul_tugas }}" id="inputAddress2" type="text" placeholder="Judul Tugas" required>
         </div>
         <div class="col-12">
           <label class="form-label" for="inputAddress2">Tipe Tugas</label>
           <input class="form-control" name="tipe" value="{{ $items->tipe }}" id="inputAddress2" type="text" placeholder="Tipe Tugas" disabled>
         </div>
         <div class="form-group">
-            <label for="editor1">Content</label>
-            <textarea name="deskripsi_tugas" id="editor1" rows="10" cols="80" placeholder="Deskripsi Tugas">{{ $items->deskripsi_tugas }}</textarea>
-        </div>
+          <label for="editor1">Content</label>
+          <textarea name="deskripsi_tugas" id="editor1" rows="10" cols="80" placeholder="Deskripsi Tugas" required>{{ $items->deskripsi_tugas }}</textarea>
+          <div id="editor1-error" style="color: red; display: none;"></div> <!-- Error message container -->
+      </div>
         <div class="col-12 mt-5 d-flex justify-content-between">
           <button class="btn btn-primary w-50 me-2" type="submit">Simpan</button>
           <a href="/penugasan" class="w-50"><button class="btn btn-danger w-100" type="button">Kembali</button></a>
@@ -46,6 +47,23 @@
 @push('js')
   <script>
     CKEDITOR.replace('editor1');
+    document.addEventListener("DOMContentLoaded", function() {
+        var form = document.querySelector("form");
+        var editor = CKEDITOR.instances.editor1;
+        var errorDiv = document.getElementById("editor1-error");
+
+        form.addEventListener("submit", function(event) {
+            errorDiv.style.display = 'none';
+            errorDiv.textContent = '';
+            if (!editor.getData().trim()) {
+                errorDiv.textContent = "Content is required.";
+                errorDiv.style.display = 'block';
+                event.preventDefault();
+                document.querySelector("textarea[name='deskripsi_tugas']").value = editor.getData();
+            }
+        });
+    });
+
   </script>
 @endpush
 @endsection

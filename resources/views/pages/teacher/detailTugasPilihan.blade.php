@@ -37,7 +37,7 @@
       <table id="myTable" class="table table-striped" style="width:100%">
         <thead>
             <tr>
-                <th>Nomor</th>
+                <th class="text-center" style="width: 5%;">No</th>
                 <th>Soal</th>
                 <th>Dibuat</th>
                 <th>Aksi</th>

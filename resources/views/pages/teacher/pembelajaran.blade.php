@@ -25,7 +25,7 @@
         <table table id="myTable" class="table table-striped" style="width:100%">
             <thead>
                 <tr>
-                    <th>No</th>
+                    <th class="text-center" style="width: 5%;">No</th>
                     <th>Nama Siswa</th>
                     <th>Score</th>
                     <th>Judul Tugas</th>

@@ -24,15 +24,16 @@
         @csrf
         <div class="form-group">
           <label for="editor1">Content</label>
-          <textarea name="soal" id="editor1" rows="10" cols="80">{{ $data->soal }}</textarea>
+          <textarea name="soal" id="editor1" rows="10" cols="80" placeholder="Soal" required>{{ $data->soal }}</textarea>
+          <div id="editor1-error" style="color: red; display: none;"></div>
         </div>
         <div class="col-12">
           <label class="form-label" for="inputAddress2">Score</label>
-          <input class="form-control" name="score" value="{{ $data->score }}" id="inputAddress2" type="number" placeholder="Nilai">
+          <input class="form-control" name="score" value="{{ $data->score }}" id="inputAddress2" type="number" placeholder="Nilai" required>
         </div>
         <div class="col-12">
           <label class="form-label" for="inputAddress2">Kunci Jawaban</label>
-          <input class="form-control" name="answer_key" value="{{ $data->answer_key }}" id="inputAddress2" type="role" placeholder="Kunci Jawaban">
+          <input class="form-control" name="answer_key" value="{{ $data->answer_key }}" id="inputAddress2" type="role" placeholder="Kunci Jawaban" required>
         </div>
         <div class="col-12">
             <label class="form-label" for="inputAddress2">Dibuat</label>
@@ -55,6 +56,22 @@
 @push('js')
   <script>
     CKEDITOR.replace('editor1');
+    document.addEventListener("DOMContentLoaded", function() {
+        var form = document.querySelector("form");
+        var editor = CKEDITOR.instances.editor1;
+        var errorDiv = document.getElementById("editor1-error");
+
+        form.addEventListener("submit", function(event) {
+            errorDiv.style.display = 'none';
+            errorDiv.textContent = '';
+            if (!editor.getData().trim()) {
+                errorDiv.textContent = "Content is required.";
+                errorDiv.style.display = 'block';
+                event.preventDefault();
+                document.querySelector("textarea[name='deskripsi_tugas']").value = editor.getData();
+            }
+        });
+    });
   </script>
 @endpush
 @endsection

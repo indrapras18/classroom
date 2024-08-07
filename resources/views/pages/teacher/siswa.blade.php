@@ -30,7 +30,7 @@
         <table id="myTable" class="table table-striped" style="width:100%">
           <thead>
             <tr>
-              <th>No</th>
+              <th class="text-center" style="width: 5%;">No</th>
               <th>Nama</th>
               <th>Status</th>
               <th>Kelas</th>
@@ -144,7 +144,6 @@
       <div class="modal-body">
         <form action="/tambahSiswa" method="post">
           @csrf
-
           <div>
             <label for="">Nama Siswa</label>
             <div class="input-group mb-3">
@@ -163,6 +162,7 @@
               @endif
             </div>
           </div>
+
           <div>
             <label for="">Email</label>
             <div class="input-group mb-3">
@@ -181,6 +181,7 @@
               @endif
             </div>
           </div>
+
           <div>
             <label for="">Password</label>
             <div class="input-group mb-3">
@@ -198,6 +199,7 @@
               @endif
             </div>
           </div>
+
           <div>
             <label for="">Pilih Kelas</label>
             <div class="input-group mb-3">
@@ -209,6 +211,7 @@
               </select>
             </div>
           </div>
+          
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -219,8 +222,3 @@
   </div>
 </div>
 @endsection
-
-@push('js')
-{{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script> --}}
-@endpush

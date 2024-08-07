@@ -132,11 +132,17 @@
             <input
               type="text"
               name="nama_kelas"
-              class="form-control"
+              class="form-control @if($errors->has('nama_kelas')) is-invalid @endif"
               placeholder="Nama Kelas"
-              required
-            >
+              value="{{ old('nama_kelas') }}">
+
+              @if ($errors->has('nama_kelas'))
+                <span class="invalid-feedback" role="alert">
+                  <strong>{{ $errors->first('nama_kelas') }}</strong>
+                </span>
+              @endif
           </div>
+
           <div class="d-flex align-items-center justify-content-between gap-3">
             <button type="button" class="btn btn-secondary w-100 m-0" data-bs-dismiss="modal">Tutup</button>
             <button type="submit" class="btn btn-primary w-100 m-0">Submit</button>

@@ -18,35 +18,40 @@
 
 @section('konten')
 <div class="container">
-    <h2>Tugas yang Sudah Dikerjakan</h2>
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th>No</th>
-                {{-- <th>ID</th> --}}
-                <th>Nama Siswa</th>
-                <th>Total Score</th>
-                <th>Judul Tugas</th>
-                <th>Tipe Tugas</th>
-            </tr>
-        </thead>
-        <tbody>
-            @php
-                $no = 1;
-            @endphp
-            @foreach($userScores as $userScore)
-                <tr>
-                    <td>{{ $no++ }}</td>
-                    {{-- <td>{{ $userScore->id }}</td> --}}
-                    <td>{{ $userScore->user->name }}</td>
-                    <td>{{ $userScore->total_score }}</td>
-                    <td>{{ $userScore->assignment->judul_tugas }}</td>
-                    <td>{{ $userScore->assignment->tipe }}</td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
-
-    <a href="{{ url()->previous() }}" class="btn btn-secondary">Kembali</a>
+    <div class="col-md-12">
+        <div class="card border-0">
+          <div class="card-header bg-white d-flex align-items-center justify-content-between py-3">
+            <div class="card-body px-2 py-3">
+                <div class="table-responsive p-0">
+                    <table class=table id="myTable" class="table table-striped" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th class="text-center" style="width: 5%;">No</th>
+                                <th>Nama Siswa</th>
+                                <th>Total Score</th>
+                                <th>Judul Tugas</th>
+                                <th>Tipe Tugas</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @php
+                                $no = 1;
+                            @endphp
+                            @foreach($userScores as $userScore)
+                                <tr>
+                                    <td>{{ $no++ }}</td>
+                                    <td>{{ $userScore->user->name }}</td>
+                                    <td>{{ $userScore->total_score }}</td>
+                                    <td>{{ $userScore->assignment->judul_tugas }}</td>
+                                    <td>{{ $userScore->assignment->tipe }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                  </div>
+                </div>
+            </div>
+                </div>
+            </div>
 </div>
 @endsection
