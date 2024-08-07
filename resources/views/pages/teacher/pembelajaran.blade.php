@@ -19,9 +19,8 @@
 @section('konten')
 <div class="col-md-12">
   <div class="card border-0">
-    <div class="card-header bg-white d-flex align-items-center justify-content-between py-3">
-    </div>
-    <div class="container">
+    <div class="card-body px-2 py-3">
+      <div class="table-responsive p-0">
         <table table id="myTable" class="table table-striped" style="width:100%">
             <thead>
                 <tr>
@@ -51,5 +50,4 @@
                 @endforeach
             </tbody>
         </table>
-    </div>
 @endsection

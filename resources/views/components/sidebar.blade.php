@@ -3,7 +3,7 @@
     <li class="nav-item">
       <a class="nav-link {{ in_array(Route::currentRouteName(), ['admin']) ? 'active' : '' }}" href="/admin">
         <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-          <svg width="12px" height="12px" viewBox="0 0 45 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M575.8 255.5c0 18-15 32.1-32 32.1l-32 0 .7 160.2c0 2.7-.2 5.4-.5 8.1l0 16.2c0 22.1-17.9 40-40 40l-16 0c-1.1 0-2.2 0-3.3-.1c-1.4 .1-2.8 .1-4.2 .1L416 512l-24 0c-22.1 0-40-17.9-40-40l0-24 0-64c0-17.7-14.3-32-32-32l-64 0c-17.7 0-32 14.3-32 32l0 64 0 24c0 22.1-17.9 40-40 40l-24 0-31.9 0c-1.5 0-3-.1-4.5-.2c-1.2 .1-2.4 .2-3.6 .2l-16 0c-22.1 0-40-17.9-40-40l0-112c0-.9 0-1.9 .1-2.8l0-69.7-32 0c-18 0-32-14-32-32.1c0-9 3-17 10-24L266.4 8c7-7 15-8 22-8s15 2 21 7L564.8 231.5c8 7 12 15 11 24z"/></svg>
             <title>shop </title>
             <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
               <g transform="translate(-1716.000000, -439.000000)" fill="#FFFFFF" fill-rule="nonzero">
@@ -124,7 +124,7 @@
     </li>
   @else
     <li class="nav-item">
-      <a class="nav-link  active" href="/user">
+      <a class="nav-link {{ in_array(Route::currentRouteName(), ['user']) ? 'active' : '' }}" href="/user">
         <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
           <svg width="12px" height="12px" viewBox="0 0 45 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
             <title>shop </title>
@@ -144,7 +144,7 @@
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="/materiStudent">
+      <a class="nav-link {{ in_array(Route::currentRouteName(), ['materiStudent', 'detailMateriStudent']) ? 'active' : '' }}" href="/materiStudent">
         <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
           <svg width="12px" height="12px" viewBox="0 0 42 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
             <title>office</title>
@@ -164,7 +164,7 @@
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link  " href="/pilihan">
+      <a class="nav-link {{ in_array(Route::currentRouteName(), ['pilihan', 'detailPilihan','detailEssay']) ? 'active' : '' }}" href="/pilihan">
         <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
           <svg width="12px" height="12px" viewBox="0 0 43 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
             <title>credit-card</title>

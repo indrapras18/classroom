@@ -66,30 +66,37 @@
 @endsection
 
 @section('konten')
-<table id="myTable" class="table table-striped" style="width:100%">
-  <thead>
-      <tr>
-          <th>No</th>
-          <th>Nama Materi</th>
-          <th>Refrensi</th>
-          <th>Aksi</th>
-      </tr>
-  </thead>
-  <tbody>
-    @foreach ($materi as $item)
-      <tr>
-          <td>{{ $item->id }}</td>
-          <td><span class="badge badge-sm bg-gradient-success">{{ $item->nama_materi }}</span></td>
-          <td>{{ $item->link }}</td>
-          <td class="align-middle text-center">
-            <a href="/detailMateriStudent/{{ $item->id }}"><button type="button" class="btn btn-info"><i class="fa-solid fa-eye"></i></button></a>
-          </td>
-      </tr>
-    @endforeach
-  </tbody>
-</table>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+<div class="col-md-12">
+  <div class="card border-0">
+    <div class="card-header bg-white d-flex align-items-center justify-content-between py-3">
+      <div class="container">
+        <table id="myTable" class="table table-striped" style="width:100%">
+          <thead>
+              <tr>
+                  <th class="text-center" style="width: 5%;">No</th>
+                  <th>Nama Materi</th>
+                  <th>Refrensi</th>
+                  <th>Aksi</th>
+              </tr>
+          </thead>
+          <tbody>
+            @php
+                $no = 1;
+            @endphp
+            @foreach ($materi as $item)
+              <tr>
+                  <td class="text-center">{{ $no++ }}</td>
+                  <td><span class="badge badge-sm bg-gradient-success">{{ $item->nama_materi }}</span></td>
+                  <td>{{ $item->link }}</td>
+                  <td class="align-middle text-center">
+                    <a href="/detailMateriStudent/{{ $item->id }}"><button type="button" class="btn btn-info"><i class="fa-solid fa-eye"></i></button></a>
+                  </td>
+              </tr>
+            @endforeach
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
 @endsection
-
