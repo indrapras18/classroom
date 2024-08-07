@@ -80,6 +80,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::post('uploadJawaban', [AnswerController::class, 'uploadJawaban']);
     Route::get('essay/{id}', [AssignmentController::class, 'essay'])->name('essay');
     Route::get('/detailScore/{id}', [App\Http\Controllers\TeacherController::class, 'show'])->name('detailScore');
+    Route::post('/uploadEssay', [QuestionsController::class, 'uploadEssay'])->middleware('auth')->name('uploadEssay');
+
 });
 
 
@@ -95,7 +97,6 @@ Route::middleware(['auth', 'user'])->group(function () {
     Route::get('show', [QuestionsController::class, 'show'])->name('show');
     Route::get('hasilPilihan/{userId}/{materiId}', [StudentController::class, 'showScore'])->name('hasilPilihan');
     Route::get('hasilEssay/{id}/{materiId}', [MateriController::class, 'hasilEssay'])->name('hasilEssay');
-    Route::post('/uploadEssay', [QuestionsController::class, 'uploadEssay'])->middleware('auth')->name('uploadEssay');
     Route::get('detailEssay/{id}', [AnswerController::class, 'detailEssay'])->name('detailEssay');
     Route::post('saveAnswer', [AnswerController::class, 'saveAnswer'])->name('saveAnswer');
     Route::get('pilihKelas', [TeacherController::class, 'pilihKelas'])->name('pilihKelas');

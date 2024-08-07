@@ -27,7 +27,7 @@ class StudentController extends Controller
     function siswa(){
         $siswa = DB::table('users')
         ->join('kelas', 'users.id_kelas', '=', 'kelas.id')
-        ->select('users.id', 'users.name', 'users.role', 'kelas.nama_kelas')
+        ->select('users.id', 'users.name', 'users.email', 'users.role', 'kelas.nama_kelas')
         ->where('users.role', 'Siswa')
         ->get();
         $semuaKelas = Kelas::all();

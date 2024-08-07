@@ -43,15 +43,88 @@
             @endphp
             @foreach ($siswa as $item)
               <tr>
-                <td>{{ $no++ }}</td>
-                <td>{{ $item->name }}</td>
-                <td><span class="badge badge-sm bg-gradient-success">{{ $item->role }}</span></td>
-                <td>{{ $item->nama_kelas }}</td>
-                <td class="align-middle text-center">
-                  <a href="/tampildataSiswa/{{ $item->id }}"><button type="button" class="btn btn-warning"><i class="fa-solid fa-pen-to-square "></i></button></a>
-                  <a href="/deleteSiswa/{{ $item->id }}"><button type="button" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button></a>
-                </td>
+                <th class="text-center">{{ $no++ }}</th>
+                <th>{{ $item->name }}</th>
+                <th><span class="badge badge-sm bg-gradient-success">{{ $item->role }}</span></th>
+                <th>{{ $item->nama_kelas }}</th>
+                <th class="d-flex align-items-center justify-content-center gap-2">
+                  <button class="btn btn-warning m-0" data-bs-toggle="modal" data-bs-target="#editModal{{ $item->id }}">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                  </button>
+                  <button class="btn btn-danger m-0" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $item->id }}">
+                    <i class="fa-solid fa-trash"></i>
+                  </button>
+                </th>
               </tr>
+
+                <!-- Modal Edit -->
+                <div class="modal fade" id="editModal{{ $item->id }}" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="editModalLabel">Edit Data Kelas</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                        <form action="/updateSiswa/{{ $item->id }}" method="POST">
+                          @csrf
+
+                          <label for="">Nama Siswa</label>
+                          <div class="input-group mb-3">
+                            <input
+                              type="text"
+                              name="name"
+                              class="form-control"
+                              placeholder="Nama Siswa"
+                              value="{{ $item->name }}"
+                              required
+                            >
+                          </div>
+
+                          <label for="">Email Siswa</label>
+                          <div class="input-group mb-3">
+                            <input
+                              type="text"
+                              name="email"
+                              class="form-control"
+                              placeholder="Email Siswa"
+                              value="{{ $item->email }}"
+                              required
+                            >
+                          </div>
+                          <div class="d-flex align-items-center justify-content-between gap-3">
+                            <button type="button" class="btn btn-secondary w-100 m-0" data-bs-dismiss="modal">Tutup</button>
+                            <button type="submit" class="btn btn-primary w-100 m-0">Simpan</button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Modal Delete -->
+              <div class="modal fade" id="deleteModal{{ $item->id }}" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h1 class="modal-title fs-5" id="deleteModalLabel">Hapus Data Siswa</h1>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <form action="/deleteSiswa/{{ $item->id }}" method="GET">
+                        <div class="text-center mb-5">
+                          <i class="fa-solid fa-trash text-danger" style="font-size: 10rem;"></i>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-between gap-3">
+                          <button type="button" class="btn btn-secondary w-100 m-0" data-bs-dismiss="modal">Tutup</button>
+                          <button type="submit" class="btn btn-danger w-100 m-0">Hapus</button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
             @endforeach
           </tbody>
         </table>
