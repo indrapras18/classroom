@@ -2,35 +2,56 @@
 
 @section('navbrand')
 <nav aria-label="breadcrumb">
-  <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5 mb-1">
-    <li class="breadcrumb-item text-sm">
-      <a class="opacity-5 text-dark" href="{{ auth()->user()->role == 'Guru' ? route('admin') : route('user') }}">LearnClass</a>
-    </li>
-    <li class="breadcrumb-item text-sm text-dark active" aria-current="page">LearnClass</li>
+  <ol class="breadcrumb bg-light">
+    <li class="breadcrumb-item"><a href="{{ auth()->user()->role == 'Guru' ? route('admin') : route('user') }}">LearnClass</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Essay Assignment</li>
   </ol>
-  <h4 class="font-weight-bolder mb-0">Dashboard</h4>
+  <h4 class="font-weight-bold">Essay</h4>
 </nav>
 @endsection
 
 @section('konten')
-<form action="{{ route('saveAnswer') }}" method="post">
-    @csrf
-    <div class="container mt-2">
-        <input type="hidden" name="id_assignments" value="{{ $assignmentId }}">
-        @forelse ($questions as $question)
-        <div class="card mb-1">
-            <div class="card-body">
-                <p class="card-text">{!! $question->soal !!}</p>
-                <div class="mb-3">
-                    <label for="answer_{{ $question->id }}" class="form-label">Jawaban</label>
-                    <textarea class="form-control" name="answers[{{ $question->id }}]" id="answer_{{ $question->id }}" rows="3"></textarea>
-                </div>
-            </div>
-        </div>
-        @empty
+<div class="container mt-4">
+    @if($questions->isEmpty())
         <p>Tidak ada soal essay yang ditemukan.</p>
-        @endforelse
-        <button type="submit" class="btn btn-primary float-end">Simpan</button>
-    </div>
-</form>
+    @else
+        <form action="{{ route('saveAnswer') }}" method="post">
+            @csrf
+            <input type="hidden" name="id_assignments" value="{{ $assignmentId }}">
+            <input type="hidden" name="currentPage" value="{{ $currentPage }}">
+
+            @foreach ($questions as $index => $question)
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">Pertanyaan {{ $index + 1 }}</h5>
+                        <p class="card-text">{!! $question->soal !!}</p>
+                        @php
+                            $savedAnswer = \App\Models\Results::where('id_user', Auth::id())
+                                           ->where('id_question', $question->id)
+                                           ->first();
+                            $answerText = old('answers.' . $question->id, $savedAnswer ? $savedAnswer->answer_text : '');
+                        @endphp
+                        <textarea class="form-control" name="answers[{{ $question->id }}]" id="answer_{{ $question->id }}" rows="3" required>{{ $answerText }}</textarea>
+                    </div>
+                </div>
+            @endforeach
+
+            <div class="d-flex justify-content-between">
+                @if ($currentPage > 1)
+                    <button type="submit" name="action" value="previous" class="btn btn-primary">Previous</button>
+                @endif
+                @if ($currentPage < $totalPages)
+                    <button type="submit" name="action" value="next" class="btn btn-primary">Next</button>
+                @endif
+                @if ($currentPage == $totalPages)
+                    <button type="submit" name="action" value="finish" class="btn btn-primary">Simpan Jawaban</button>
+                @endif
+            </div>
+        </form>
+    @endif
+</div>
 @endsection
+
+
+
+

@@ -40,7 +40,13 @@
                     <td><span class="badge badge-sm bg-gradient-success">{{ $item->judul_tugas }}</span></td>
                     <td>{{ $item->tipe }}</td>
                     <td class="align-middle text-center">
-                      <a href="/detailPilihan/{{ $item->id }}"><button type="button" class="btn btn-info"><i class="fa-solid fa-eye"></i></button></a>
+                      @if ($item->completed)
+                          <button type="button" class="btn btn-info" disabled><i class="fa-solid fa-eye"></i></button>
+                      @else
+                          <a href="/detailPilihan/{{ $item->id }}">
+                              <button type="button" class="btn btn-info"><i class="fa-solid fa-eye"></i></button>
+                          </a>
+                      @endif
                     </td>
                 </tr>
               @endforeach
@@ -77,13 +83,19 @@
             @php
                 $no = 1;
             @endphp
-            @foreach ($materiWithoutScore  as $item)
+            @foreach ($materiWithoutScore as $item)
               <tr>
                   <td class="text-center">{{ $no++ }}</td>
                   <td><span class="badge badge-sm bg-gradient-success">{{ $item->judul_tugas }}</span></td>
                   <td>{{ $item->tipe }}</td>
                   <td class="align-middle text-center">
-                    <a href="/detailEssay/{{ $item->id }}"><button type="button" class="btn btn-info"><i class="fa-solid fa-eye"></i></button></a>
+                    @if ($item->completed)
+                      <button type="button" class="btn btn-info" disabled><i class="fa-solid fa-eye"></i></button>
+                    @else
+                      <a href="/detailEssay/{{ $item->id }}">
+                        <button type="button" class="btn btn-info"><i class="fa-solid fa-eye"></i></button>
+                      </a>
+                    @endif
                   </td>
               </tr>
             @endforeach
@@ -91,9 +103,7 @@
         </table>
       </div>
     </div>
-    </div>
   </div>
-</div>
 </div>
 @push('js')
 <script>
@@ -103,9 +113,7 @@
           // { "className": "dt-center", "targets": "_all" }
         ]
     });
-    // $('#myTable thead th').addClass('dt-center');
   });
 </script>
 @endpush
 @endsection
-

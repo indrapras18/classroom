@@ -92,13 +92,15 @@ Route::middleware(['auth', 'user'])->group(function () {
     Route::get('materiStudent', [MateriController::class, 'materiStudent'])->name('materiStudent');
     Route::get('detailMateriStudent/{id}', [MateriController::class, 'detailMateriStudent'])->name('detailMateriStudent');
     Route::get('pilihan', [QuestionsController::class, 'pilihan'])->name('pilihan');
-    Route::get('detailPilihan/{id}', [QuestionsController::class, 'detailPilihan'])->name('detailPilihan');
+    Route::get('/detailPilihan/{id_assignment}/{page?}', [QuestionsController::class, 'detailPilihan'])->name('detailPilihan');
     Route::post('/submit', [AnswerController::class, 'submit'])->middleware('auth')->name('submit');
     Route::get('show', [QuestionsController::class, 'show'])->name('show');
     Route::get('hasilPilihan/{userId}/{materiId}', [StudentController::class, 'showScore'])->name('hasilPilihan');
     Route::get('hasilEssay/{id}/{materiId}', [MateriController::class, 'hasilEssay'])->name('hasilEssay');
-    Route::get('detailEssay/{id}', [AnswerController::class, 'detailEssay'])->name('detailEssay');
+    Route::get('detailEssay/{id}/{page?}', [QuestionsController::class, 'detailEssay'])->name('detailEssay');
     Route::post('saveAnswer', [AnswerController::class, 'saveAnswer'])->name('saveAnswer');
     Route::get('pilihKelas', [TeacherController::class, 'pilihKelas'])->name('pilihKelas');
+    Route::get('/question/{page}', [AnswerController::class, 'detailEssay'])->name('question');
+
 
 });

@@ -5,13 +5,16 @@ namespace App\Http\Controllers;
 use App\Models\Answers;
 use App\Models\Materis;
 use App\Models\Questions;
+use App\Models\StudentScores;
 use App\Models\ResultEssay;
+use App\Models\Results;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class QuestionsController extends Controller
 {
-    public function uploadSoal(Request $request) {
+     function uploadSoal(Request $request) {
         $request->validate([
             'soal' => 'required',
             'score' => 'required|integer',
@@ -85,7 +88,7 @@ class QuestionsController extends Controller
         return redirect()->route('penugasan');
     }
 
-    public function updateEssay(Request $request, $id){
+     function updateEssay(Request $request, $id){
         $question = Questions::find($id);
     
         if (!$question) {
@@ -124,6 +127,8 @@ class QuestionsController extends Controller
     }
 
     public function pilihan() {
+        $userId = Auth::id();
+    
         $materiWithScore = DB::table('assignments')
             ->join('questions', 'assignments.id', '=', 'questions.id_assignment')
             ->where('questions.score', '>', 0)
@@ -140,20 +145,66 @@ class QuestionsController extends Controller
             })
             ->get();
     
+        $completedAssignments = StudentScores::where('id_user', $userId)
+                                             ->pluck('id_assignments')
+                                             ->toArray();
+    
+        $materiWithScore = $materiWithScore->map(function($item) use ($completedAssignments) {
+            $item->completed = in_array($item->id, $completedAssignments);
+            return $item;
+        });
+    
+        $materiWithoutScore = $materiWithoutScore->map(function($item) use ($completedAssignments) {
+            $item->completed = in_array($item->id, $completedAssignments);
+            return $item;
+        });
+    
         return view('pages/student/pilihan', compact('materiWithScore', 'materiWithoutScore'));
     }
-
-    public function detailPilihan($id_assignment) {
+    
+    public function detailPilihan($id_assignment, $page = 1)
+    {
         $assignment = DB::table('assignments')->find($id_assignment);
-        $soal = DB::table('questions')
-            ->join('answers', 'questions.id', '=', 'answers.id_questions')
-            ->where('questions.id_assignment', $id_assignment)
-            ->select('questions.id as question_id', 'questions.soal', 'questions.score', 'questions.answer_key', 'answers.id as answer_id', 'answers.option_alphabet', 'answers.option_text')
-            ->get()
-            ->groupBy('question_id');
-        $listSoal = Questions::where('id_assignment', $id_assignment)->get();
         
-        return view('pages/student/detailPilihan', compact('assignment', 'soal', 'listSoal'));
+        $totalQuestions = Questions::where('id_assignment', $id_assignment)->count();
+    
+        $soal = Questions::where('id_assignment', $id_assignment)
+            ->with(['answers'])
+            ->skip(($page - 1) * 1)
+            ->take(1)
+            ->first();
+    
+        $existingAnswer = Results::where('id_user', Auth::id())
+                                 ->where('id_question', $soal->id)
+                                 ->first();
+    
+        return view('pages/student/detailPilihan', compact('assignment', 'soal', 'page', 'totalQuestions', 'existingAnswer'));
+    }
+    
+     function detailEssay($assignmentId, $page = 1){
+        $questionsPerPage = 1;
+        $offset = ($page - 1) * $questionsPerPage;
+
+        $questions = Questions::where('id_assignment', $assignmentId)
+                                ->skip($offset)
+                                ->take($questionsPerPage)
+                                ->get();
+
+        $totalQuestions = Questions::where('id_assignment', $assignmentId)->count();
+        $totalPages = ceil($totalQuestions / $questionsPerPage);
+
+        return view('pages/student/detailEssay', [
+            'questions' => $questions,
+            'assignmentId' => $assignmentId,
+            'currentPage' => $page,
+            'totalPages' => $totalPages,
+        ]);
+    }
+
+    function updatePilihan($id, Request $request){
+        $data = Questions::find($id);
+        $data->update($request->all());
+        return redirect()->route('penugasan');
     }
 
     public function show()
@@ -163,21 +214,5 @@ class QuestionsController extends Controller
         
         return view('detailPilihan', compact('soal', 'materi'));
     }
-
-    public function detailEssay($id_assignment) {
-        $questionsWithoutScore = DB::table('questions')
-            ->where('id_assignment', $id_assignment)
-            ->whereNull('score')
-            ->get();
     
-        $materi = DB::table('assignments')->find($id_assignment);
-        
-        return view('pages/student/detailEssay', compact('materi', 'questionsWithoutScore'));
-    }
-
-    function updatePilihan($id, Request $request){
-        $data = Questions::find($id);
-        $data->update($request->all());
-        return redirect()->route('penugasan');
-    }
 }
