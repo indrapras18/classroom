@@ -52,14 +52,10 @@
             @endforeach
         </div>
         <div class="row">
-          <div class="col-6">
-              <a href="/penugasan">
-                  <button class="btn btn-danger w-100" type="button">Kembali</button>
-              </a>
-          </div>
-          <div class="col-6">
-              <button class="btn btn-primary w-100" type="submit">Simpan</button>
-          </div>
+          <div class="col-12 mt-5 d-flex justify-content-between">
+            <button class="btn btn-primary w-50 me-2" type="submit">Simpan</button>
+            <a href="/penugasan" class="w-50"><button class="btn btn-warning w-100" type="button">Kembali</button></a>
+        </div>
       </div>
 </form>
     </div>

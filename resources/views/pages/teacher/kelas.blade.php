@@ -1,7 +1,7 @@
 @extends('layouts/aplikasi')
 
 @section('css')
-{{-- <link rel="stylesheet" href="	https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"> --}}
+
 @endsection
 
 @section('navbrand')
@@ -17,6 +17,7 @@
 @endsection
 
 @section('konten')
+
 <div class="col-md-12">
   <div class="card border-0">
     <div class="card-header bg-white d-flex align-items-center justify-content-between py-3">
@@ -75,6 +76,11 @@
                             value="{{ $item->nama_kelas }}"
                             required
                           >
+                        @if ($errors->has('nama_kelas'))
+                          <span class="invalid-feedback" role="alert">
+                            <strong>{{ $errors->first('nama_kelas') }}</strong>
+                          </span>
+                        @endif
                         </div>
                         <div class="d-flex align-items-center justify-content-between gap-3">
                           <button type="button" class="btn btn-secondary w-100 m-0" data-bs-dismiss="modal">Tutup</button>
@@ -99,6 +105,11 @@
                         <div class="text-center mb-5">
                           <i class="fa-solid fa-trash text-danger" style="font-size: 10rem;"></i>
                         </div>
+                        @if ($errors->has('nama_kelas'))
+                        <span class="invalid-feedback" role="alert">
+                          <strong>{{ $errors->first('nama_kelas') }}</strong>
+                        </span>
+                        @endif
                         <div class="d-flex align-items-center justify-content-between gap-3">
                           <button type="button" class="btn btn-secondary w-100 m-0" data-bs-dismiss="modal">Tutup</button>
                           <button type="submit" class="btn btn-danger w-100 m-0">Hapus</button>
@@ -108,6 +119,7 @@
                   </div>
                 </div>
               </div>
+
             @endforeach
           </tbody>
         </table>
@@ -155,6 +167,5 @@
 @endsection
 
 @push('js')
-{{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script> --}}
+
 @endpush

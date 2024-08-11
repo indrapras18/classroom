@@ -48,7 +48,7 @@
                         <div class="numbers">
                             <p class="text-sm mb-0 text-capitalize font-weight-bold">Tugas</p>
                             <h5 class="font-weight-bolder mb-0">
-                              {{ $totalMateri }}
+                              {{ $totalTugas }}
                             </h5>
                         </div>
                     </div>

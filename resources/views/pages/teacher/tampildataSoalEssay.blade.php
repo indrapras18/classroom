@@ -23,8 +23,8 @@
       <form action="/updateEssay/{{ $data->id }}" method="POST" class="row g-3 px-3">
         @csrf
         <div class="form-group">
-          <label for="editor1">Content</label>
-          <textarea name="deskripsi_tugas" id="editor1" rows="10" cols="80" placeholder="Deskripsi Tugas" required>{{ $data->soal }}</textarea>
+          <label for="editor1">Soal</label>
+          <textarea name="soal" id="editor1" rows="10" cols="80" placeholder="Deskripsi Tugas" required>{{ $data->soal }}</textarea>
           <div id="editor1-error" style="color: red; display: none;"></div>
         </div>
       

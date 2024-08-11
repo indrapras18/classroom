@@ -70,7 +70,10 @@
             </span>
         @enderror
      </div>
-          <button type="submit" class="btn btn-primary float-end">Simpan</button>
+     <div class="col-12 mt-5 d-flex justify-content-between">
+        <button class="btn btn-primary w-50 me-2" type="submit">Simpan</button>
+        <a href="/materi" class="w-50"><button class="btn btn-warning w-100" type="button">Kembali</button></a>
+    </div>
       </form>
     </div>
   </div>

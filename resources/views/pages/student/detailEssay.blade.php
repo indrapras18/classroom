@@ -20,10 +20,10 @@
             <input type="hidden" name="id_assignments" value="{{ $assignmentId }}">
             <input type="hidden" name="currentPage" value="{{ $currentPage }}">
 
-            @foreach ($questions as $index => $question)
+            @foreach ($questions as $question)
                 <div class="card mb-3">
                     <div class="card-body">
-                        <h5 class="card-title">Pertanyaan {{ $index + 1 }}</h5>
+                        <h5 class="card-title">Pertanyaan {{ $currentQuestionNumber }}</h5>
                         <p class="card-text">{!! $question->soal !!}</p>
                         @php
                             $savedAnswer = \App\Models\Results::where('id_user', Auth::id())
@@ -34,14 +34,17 @@
                         <textarea class="form-control" name="answers[{{ $question->id }}]" id="answer_{{ $question->id }}" rows="3" required>{{ $answerText }}</textarea>
                     </div>
                 </div>
+                @php
+                    $currentQuestionNumber++;
+                @endphp
             @endforeach
 
             <div class="d-flex justify-content-between">
                 @if ($currentPage > 1)
-                    <button type="submit" name="action" value="previous" class="btn btn-primary">Previous</button>
+                    <button type="submit" name="action" value="previous" class="btn btn-primary">Kembali</button>
                 @endif
                 @if ($currentPage < $totalPages)
-                    <button type="submit" name="action" value="next" class="btn btn-primary">Next</button>
+                    <button type="submit" name="action" value="next" class="btn btn-primary">Lanjut</button>
                 @endif
                 @if ($currentPage == $totalPages)
                     <button type="submit" name="action" value="finish" class="btn btn-primary">Simpan Jawaban</button>
@@ -51,7 +54,3 @@
     @endif
 </div>
 @endsection
-
-
-
-

@@ -34,7 +34,7 @@
               <th>Nama</th>
               <th>Status</th>
               <th>Kelas</th>
-              <th>Aksi</th>
+              <th style="width: 5%;">Aksi</th>
             </tr>
           </thead>
           <tbody>
@@ -79,6 +79,11 @@
                               value="{{ $item->name }}"
                               required
                             >
+                            @if ($errors->has('name'))
+                            <span class="invalid-feedback" role="alert">
+                              <strong>{{ $errors->first('name') }}</strong>
+                            </span>
+                            @endif
                           </div>
 
                           <label for="">Email Siswa</label>
@@ -91,6 +96,21 @@
                               value="{{ $item->email }}"
                               required
                             >
+                          </div>
+
+                          <div class="mb-3">
+                            <label for="password" class="form-label">Password Siswa</label>
+                            <input type="password" class="form-control" id="password" name="password" placeholder="Password Siswa">
+                          </div>
+                        
+                          <div class="mb-3">
+                            <label for="id_kelas" class="form-label">Pilih Kelas</label>
+                            <select class="form-select" id="id_kelas" name="id_kelas" required>
+                                <option selected disabled value="">Pilih Kelas</option>
+                                @foreach ($semuaKelas as $kelas)
+                                <option value="{{ $kelas->id }}" {{ $kelas->id == $item->id_kelas ? 'selected' : '' }}>{{ $kelas->nama_kelas }}</option>
+                                @endforeach
+                            </select>
                           </div>
                           <div class="d-flex align-items-center justify-content-between gap-3">
                             <button type="button" class="btn btn-secondary w-100 m-0" data-bs-dismiss="modal">Tutup</button>
@@ -115,6 +135,11 @@
                         <div class="text-center mb-5">
                           <i class="fa-solid fa-trash text-danger" style="font-size: 10rem;"></i>
                         </div>
+                        @if ($errors->has('name'))
+                        <span class="invalid-feedback" role="alert">
+                          <strong>{{ $errors->first('name') }}</strong>
+                        </span>
+                        @endif
                         <div class="d-flex align-items-center justify-content-between gap-3">
                           <button type="button" class="btn btn-secondary w-100 m-0" data-bs-dismiss="modal">Tutup</button>
                           <button type="submit" class="btn btn-danger w-100 m-0">Hapus</button>

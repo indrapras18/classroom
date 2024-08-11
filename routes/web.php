@@ -80,6 +80,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::post('uploadJawaban', [AnswerController::class, 'uploadJawaban']);
     Route::get('essay/{id}', [AssignmentController::class, 'essay'])->name('essay');
     Route::get('/detailScore/{id}', [App\Http\Controllers\TeacherController::class, 'show'])->name('detailScore');
+    // Route::get('/showUserScores/{id}', [App\Http\Controllers\TeacherController::class, 'showUserScores'])->name('showUserScores');
     Route::post('/uploadEssay', [QuestionsController::class, 'uploadEssay'])->middleware('auth')->name('uploadEssay');
 
 });
@@ -101,6 +102,5 @@ Route::middleware(['auth', 'user'])->group(function () {
     Route::post('saveAnswer', [AnswerController::class, 'saveAnswer'])->name('saveAnswer');
     Route::get('pilihKelas', [TeacherController::class, 'pilihKelas'])->name('pilihKelas');
     Route::get('/question/{page}', [AnswerController::class, 'detailEssay'])->name('question');
-
-
+    Route::get('hasilPembelajaran', [StudentController::class, 'hasilPembelajaran'])->name('hasilPembelajaran');
 });

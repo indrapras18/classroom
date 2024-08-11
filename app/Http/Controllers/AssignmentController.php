@@ -35,7 +35,7 @@ class AssignmentController extends Controller
             'deskripsi_tugas' => $request->input('deskripsi_tugas'),
         ]);
 
-        return redirect()->route('penugasan');
+        return redirect()->route('penugasan')->with('success', 'Tugas Berhasil Ditambahkan!');
     }
 
     function detailTugasEssay($id){
@@ -62,12 +62,14 @@ class AssignmentController extends Controller
     function updatePenugasan(Request $request, $id){
         $data = Assignments::find($id);
         $data->update($request->all());
-        return redirect()->route('penugasan');
+        return redirect()->route('penugasan')->with('success', 'Tugas Berhasil Diperbarui!');
+
     }
 
     function deleteAssignment($id){
         $data = Assignments::find($id);
         $data->delete();
-        return redirect()->route('penugasan');
+        return redirect()->route('penugasan')->with('success', 'Tugas Berhasil Dihapus!');
+
     }
 }

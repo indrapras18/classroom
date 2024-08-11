@@ -36,4 +36,10 @@ class TeacherController extends Controller{
         return view('pages.teacher.detailScore', compact('score', 'userScores'));
     }
 
+    public function showUserScores($id)
+{
+    $userScore = StudentScores::with(['assignment.questions.results'])->find($id);
+    return view('pages.teacher.detailScore', compact('userScore'));
+}
+
 }

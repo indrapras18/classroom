@@ -12,3 +12,6 @@
 <!-- CSS Files -->
 {{-- <link id="pagestyle" href="{{asset('../assets/css/soft-ui-dashboard.css?v=1.0.7') }}" rel="stylesheet" /> --}}
 <link rel="stylesheet" href="{{ asset('/assets/css/soft-ui-dashboard.css') }}">
+  <!-- SweetAlert2 CSS -->
+
+

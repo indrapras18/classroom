@@ -10,9 +10,9 @@
     <li class="breadcrumb-item text-sm">
       <a class="opacity-5 text-dark" href="{{ route('admin') }}">LearnClass</a>
     </li>
-    <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Siswa</li>
+    <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Materi</li>
   </ol>
-  <h4 class="font-weight-bolder mb-0">Siswa</h4>
+  <h4 class="font-weight-bolder mb-0">Materi</h4>
 </nav>
 @endsection
 
@@ -31,9 +31,9 @@
           <thead>
               <tr>
                   <th class="text-center" style="width: 5%;">No</th>
-                  <th>Nama Materi</th>
-                  <th>Refrensi</th>
-                  <th>Aksi</th>
+                  <th style="width: 10%;">Nama Materi</th>
+                  <th style="width: 10%;">Refrensi</th>
+                  <th style="width: 3%;">Aksi</th>
               </tr>
           </thead>
           <tbody>
@@ -44,7 +44,9 @@
               <tr>
                   <td class="text-center">{{ $no++}}</td>
                   <td><span class="badge badge-sm bg-gradient-success">{{ $item->nama_materi }}</span></td>
-                  <td>{{ $item->link }}</td>
+                  <td>
+                    <a href="{{ $item->link }}" class="btn btn-primary" target="_blank">Buka Link</a>
+                  </td>
                   <td class="align-middle text-center">
                     <a href="/detailMateri/{{ $item->id }}" class="btn btn-info">
                       <i class="fa-solid fa-eye"></i>

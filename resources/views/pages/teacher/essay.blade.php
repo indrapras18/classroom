@@ -1,9 +1,5 @@
 @extends('layouts/aplikasi')
 
-@section('css')
-{{-- <link rel="stylesheet" href="	https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"> --}}
-@endsection
-
 @section('navbrand')
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5 mb-1">
@@ -16,7 +12,7 @@
 </nav>
 @endsection
 
-@section('konten')
+{{-- @section('konten')
 <div class="col-md-12">
   <div class="card border-0">
     <div class="card-header bg-white d-flex align-items-center justify-content-between py-3">
@@ -38,13 +34,13 @@
                     <input type="text" name="inputs[0][essay_score]" placeholder="Poin" class="form-control">
                 </div>
                 <div class="col">
-                    <button type="button" name="add" id="add" class="btn btn-success">Tambah Bidang</button>
+                    <button type="button" name="add" id="add" class="btn btn-success">Tambah Opsi Jawaban</button>
                 </div>
             </div>
         </div>
         <div class="col-12 mt-5 d-flex justify-content-between">
           <button class="btn btn-primary w-50 me-2" type="submit">Simpan</button>
-          <a href="/penugasan" class="w-50"><button class="btn btn-danger w-100" type="button">Kembali</button></a>
+          <a href="/penugasan" class="w-50"><button class="btn btn-warning w-100" type="button">Kembali</button></a>
       </div>
     </form>
     
@@ -77,5 +73,76 @@
     });
 
     CKEDITOR.replace('editor1');
+</script>
+@endsection --}}
+
+
+@section('konten')
+<div class="col-md-12">
+  <div class="card border-light shadow-sm">
+    <div class="card-header bg-white d-flex align-items-center justify-content-between py-3">
+      <form action="/uploadEssay" method="post" class="row g-3 px-3">
+        @csrf
+        <input type="hidden" name="id_assignment" value="{{ $assignment->id }}">
+
+        <div class="form-group row">
+          <label for="editor1" class="col-sm-2 col-form-label mt-2">Soal</label>
+          <div class="col-sm-12">
+            <textarea name="soal" id="editor1" rows="15" class="form-control"></textarea>
+          </div>
+        </div>
+
+        <div id="input-fields">
+          <div class="form-group row">
+            <div class="col-md-6">
+              <input type="text" name="inputs[0][jawaban_essay]" placeholder="Jawaban" class="form-control">
+            </div>
+            <div class="col-md-3">
+              <input type="text" name="inputs[0][essay_score]" placeholder="Poin" class="form-control">
+            </div>
+            <div class="col-md-3">
+              <button type="button" name="add" id="add" class="btn btn-success">Tambah Opsi Jawaban</button>
+            </div>
+          </div>
+          </div>
+
+        <div class="col-12 mt-5 d-flex justify-content-between">
+            <button class="btn btn-primary w-50 me-2" type="submit">Simpan</button>
+            <a href="/penugasan" class="w-50"><button class="btn btn-warning w-100" type="button">Kembali</button></a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
+<script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
+<script>
+    var i = 0;
+    $('#add').click(function() {
+        ++i;
+        $('#input-fields').append(
+            `<div class="form-group row">
+                <div class="col">
+                    <input type="text" name="inputs[${i}][jawaban_essay]" placeholder="Jawaban" class="form-control"/>
+                </div>
+                <div class="col">
+                    <input type="text" name="inputs[${i}][essay_score]" placeholder="Poin" class="form-control"/>
+                </div>
+                <div class="col">
+                    <button type="button" class="btn btn-danger remove-field">Hapus</button>
+                </div>
+            </div>`);
+    });
+
+    $(document).on('click', '.remove-field', function() {
+        $(this).closest('.form-group').remove();
+    });
+
+    CKEDITOR.replace('editor1');
+</script>
 </script>
 @endsection

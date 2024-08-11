@@ -31,7 +31,7 @@ class MateriController extends Controller
     function deleteMateri($id){
         $data = Materis::find($id);
         $data->delete();
-        return redirect()->route('materi');
+        return redirect()->route('materi')->with('success', 'Materi Berhasil Dihapus!');
     }
 
     function tampildataMateri($id){
@@ -59,7 +59,7 @@ class MateriController extends Controller
     function updateMateri($id, Request $request){
         $data = Materis::find($id);
         $data->update($request->all());
-        return redirect()->route('materi');
+        return redirect()->route('materi')->with('success', 'Materi Berhasil Diperbarui!');
     }
 
     function materiStudent(){

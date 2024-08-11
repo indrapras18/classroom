@@ -17,20 +17,31 @@ use Illuminate\Support\Facades\Log;
 
 class StudentController extends Controller
 {
-    public function users(){
+    function users(){
+        $totalTugas = DB::table('assignments')->count();
         $totalMateri = DB::table('materis')->count();
-        return view('user', compact('totalMateri'));
+        return view('user', compact('totalMateri', 'totalTugas'));
+    }
+
+    function hasilPembelajaran(){
+        $userId = Auth::id();
+        $studentScores = StudentScores::with('assignment')
+            ->where('id_user', $userId)
+            ->get();
+    
+        return view('pages/student/hasilPembelajaran', compact('studentScores'));
     }
 
     function siswa(){
         $siswa = DB::table('users')
-        ->join('kelas', 'users.id_kelas', '=', 'kelas.id')
-        ->select('users.id', 'users.name', 'users.email', 'users.role', 'kelas.nama_kelas')
-        ->where('users.role', 'Siswa')
-        ->get();
+            ->join('kelas', 'users.id_kelas', '=', 'kelas.id')
+            ->select('users.id', 'users.name', 'users.email', 'users.password', 'users.role', 'users.id_kelas', 'kelas.nama_kelas') // Tambahkan 'users.id_kelas'
+            ->where('users.role', 'Siswa')
+            ->get();
         $semuaKelas = Kelas::all();
         return view('pages/teacher/siswa', compact('siswa', 'semuaKelas'));
     }
+    
 
     function tambahSiswa(Request $request){
         $validatedData = $request->validate([
@@ -50,15 +61,25 @@ class StudentController extends Controller
         return view('pages/teacher/tampildataSiswa', compact('data','kelas'));
     }
 
-    function updateSiswa($id, Request $request){
+    function updateSiswa($id, Request $request) {
         $data = User::find($id);
-        $data->update($request->all());
-        return redirect()->route('siswa');
+    
+        if ($request->filled('password')) {
+            $data->password = Hash::make($request->password);
+        }
+    
+        $data->name = $request->name;
+        $data->email = $request->email;
+        $data->id_kelas = $request->id_kelas;
+    
+        $data->save();
+    
+        return redirect()->route('siswa')->with('success', 'Data Siswa Berhasil di Perbarui!');
     }
 
     function deleteSiswa($id){
         $data = User::find($id);
         $data->delete();
-        return redirect()->route('siswa');
+        return redirect()->route('siswa')->with('success', 'Data Siswa Berhasil di Hapus!');
     }
 }

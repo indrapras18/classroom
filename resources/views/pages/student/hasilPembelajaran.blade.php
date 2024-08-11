@@ -24,30 +24,25 @@
             <div class="card-body px-2 py-3">
                 <div class="table-responsive p-0">
                     <table class=table id="myTable" class="table table-striped" style="width:100%">
-                        <thead>
-                            <tr>
-                                <th class="text-center" style="width: 5%;">No</th>
-                                <th style="width: 5%;">Total Score</th>
-                                <th>Judul Tugas</th>
-                                <th>Tipe Tugas</th>
-                                <th>Tanggal</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @php
-                                $no = 1;
-                            @endphp
-                            @foreach($userScores as $userScore)
+                            <thead>
                                 <tr>
-                                    <td class="text-center">{{ $no++ }}</td>
-                                    <td class="text-center">{{ $userScore->total_score }}</td>
-                                    <td>{{ $userScore->assignment->judul_tugas }}</td>
-                                    <td>{{ $userScore->assignment->tipe }}</td>
-                                    <td>{{ $userScore->assignment->created_at }}</td>
+                                    <th>Judul Tugas</th>
+                                    <th>Tipe</th>
+                                    <th>Total Skor</th>
+                                    <th>Tanggal</th>
                                 </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                @foreach($studentScores as $score)
+                                    <tr>
+                                        <td>{{ $score->assignment->judul_tugas }}</td>
+                                        <td>{{ $score->assignment->tipe }}</td>
+                                        <td>{{ $score->total_score }}</td>
+                                        <td>{{ $score->created_at }}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
                   </div>
                 </div>
             </div>

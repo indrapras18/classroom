@@ -26,10 +26,7 @@
                 <tr>
                     <th class="text-center" style="width: 5%;">No</th>
                     <th>Nama Siswa</th>
-                    <th>Score</th>
-                    <th>Judul Tugas</th>
-                    <th>Tipe Tugas</th>
-                    <th>Aksi</th>
+                    <th style="width: 5%;">Aksi</th>
                 </tr>
             </thead>
             <tbody>
@@ -40,9 +37,6 @@
                     <tr>
                         <td>{{ $no++ }}</td>
                         <td>{{ $score->user->name }}</td>
-                        <td>{{ $score->total_score }}</td>
-                        <td>{{ $score->assignment->judul_tugas }}</td>
-                        <td>{{ $score->assignment->tipe }}</td>
                         <td class="align-middle text-center">
                           <a href="{{ route('detailScore', $score->id) }}"><button type="button" class="btn btn-info"><i class="fa-solid fa-eye"></i></button></a>
                         </td>

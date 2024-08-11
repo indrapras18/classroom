@@ -39,7 +39,7 @@ class QuestionsController extends Controller
                 'id_questions' => $question->id,
             ]);
         }
-        return redirect()->route('penugasan')->with('success', 'Question and answers have been added successfully.');
+        return redirect()->route('penugasan')->with('success', 'Soal dan Jawaban Berhasil Ditambahkan.');
     }
 
     function tampildataSoal($id){
@@ -55,7 +55,7 @@ class QuestionsController extends Controller
     function deleteSoal($id){
         $data = Questions::find($id);
         $data->delete();
-        return redirect()->route('penugasan');
+        return redirect('/penugasan')->with('success', 'Data berhasil Dihapus.');
     }
 
     public function uploadEssay(Request $request)
@@ -79,7 +79,7 @@ class QuestionsController extends Controller
             ]);
         }
     
-        return redirect()->route('penugasan')->with('success', 'Data berhasil disimpan.');
+        return redirect()->route('penugasan')->with('success', 'Soal dan jawaban berhasil Ditambahkan.');
     }
 
     function deleteSoalEssay($id){
@@ -114,7 +114,7 @@ class QuestionsController extends Controller
             }
         }
     
-        return redirect('/penugasan')->with('success', 'Data updated successfully.');
+        return redirect('/penugasan')->with('success', 'Data berhasil Diperbarui.');
     }
 
     function tampildataSoalEssay($id){
@@ -162,10 +162,8 @@ class QuestionsController extends Controller
         return view('pages/student/pilihan', compact('materiWithScore', 'materiWithoutScore'));
     }
     
-    public function detailPilihan($id_assignment, $page = 1)
-    {
+    public function detailPilihan($id_assignment, $page = 1){
         $assignment = DB::table('assignments')->find($id_assignment);
-        
         $totalQuestions = Questions::where('id_assignment', $id_assignment)->count();
     
         $soal = Questions::where('id_assignment', $id_assignment)
@@ -181,23 +179,29 @@ class QuestionsController extends Controller
         return view('pages/student/detailPilihan', compact('assignment', 'soal', 'page', 'totalQuestions', 'existingAnswer'));
     }
     
-     function detailEssay($assignmentId, $page = 1){
-        $questionsPerPage = 1;
+    function detailEssay($assignmentId, $page = 1)
+    {
+        $questionsPerPage = 1; // Number of questions per page
         $offset = ($page - 1) * $questionsPerPage;
-
+    
         $questions = Questions::where('id_assignment', $assignmentId)
                                 ->skip($offset)
                                 ->take($questionsPerPage)
                                 ->get();
-
+    
         $totalQuestions = Questions::where('id_assignment', $assignmentId)->count();
         $totalPages = ceil($totalQuestions / $questionsPerPage);
-
+    
+        // Calculate the question number for the current page
+        $currentQuestionNumber = $offset + 1;
+    
         return view('pages/student/detailEssay', [
             'questions' => $questions,
             'assignmentId' => $assignmentId,
             'currentPage' => $page,
             'totalPages' => $totalPages,
+            'currentQuestionNumber' => $currentQuestionNumber,
+            'totalQuestions' => $totalQuestions,
         ]);
     }
 

@@ -12,7 +12,7 @@
     </li>
     <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Tugas</li>
   </ol>
-  <h4 class="font-weight-bolder mb-0">Tugas</h4>
+  <h4 class="font-weight-bolder mb-0">Tambah Tugas</h4>
 </nav>
 @endsection
 
@@ -74,8 +74,10 @@
               </span>
           @enderror
         </div>
-
-        <button type="submit" class="btn btn-primary float-end">Simpan</button>
+        <div class="col-12 mt-5 d-flex justify-content-between">
+          <button class="btn btn-primary w-50 me-2" type="submit">Simpan</button>
+          <a href="/penugasan" class="w-50"><button class="btn btn-warning w-100" type="button">Kembali</button></a>
+      </div>
     </form>
     </div>
   </div>

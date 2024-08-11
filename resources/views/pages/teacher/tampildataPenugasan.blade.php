@@ -1,9 +1,5 @@
 @extends('layouts/aplikasi')
 
-@section('css')
-{{-- <link rel="stylesheet" href="	https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"> --}}
-@endsection
-
 @section('navbrand')
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5 mb-1">
@@ -12,7 +8,7 @@
     </li>
     <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Tugas</li>
   </ol>
-  <h4 class="font-weight-bolder mb-0">Tugas</h4>
+  <h4 class="font-weight-bolder mb-0">Edit Tugas</h4>
 </nav>
 @endsection
 
@@ -22,14 +18,41 @@
     <div class="card-header bg-white d-flex align-items-center justify-content-between py-3">
       <form method="POST" action="/updatePenugasan/{{ $items->id }}" class="row g-3 px-3">
         @csrf
-        <div class="col-12">
-          <label class="form-label" for="inputAddress2">Judul Tugas</label>
-          <input class="form-control" name="judul_tugas" value="{{ $items->judul_tugas }}" id="inputAddress2" type="text" placeholder="Judul Tugas" required>
+        <div>
+          <label for="">Judul Tugas</label>
+          <div class="input-group mb-3">
+            <input
+              type="text"
+              name="judul_tugas"
+              class="form-control @if($errors->has('judul_tugas')) is-invalid @endif"
+              placeholder="Judul Tugas"
+              value="{{ $items->judul_tugas }}"
+              {{-- required --}}
+            >
+            @if ($errors->has('judul_tugas'))
+              <span class="invalid-feedback" role="alert">
+                <strong>{{ $errors->first('judul_tugas') }}</strong>
+              </span>
+            @endif
+          </div>
         </div>
-        <div class="col-12">
-          <label class="form-label" for="inputAddress2">Tipe Tugas</label>
-          <input class="form-control" name="tipe" value="{{ $items->tipe }}" id="inputAddress2" type="text" placeholder="Tipe Tugas" disabled>
+        <div class="col-12 mb-3">
+          <label class="form-label" for="selectTugas">Pilih Tipe</label>
+          <select
+              class="form-select @error('tipe') is-invalid @enderror"
+              id="selectTugas"
+              name="tipe"
+              disabled
+          >
+              <option>{{ $items->tipe }}</option>
+          </select>
+          @error('tipe')
+              <div class="invalid-feedback">
+                  <strong>{{ $message }}</strong>
+              </div>
+          @enderror
         </div>
+
         <div class="form-group">
           <label for="editor1">Content</label>
           <textarea name="deskripsi_tugas" id="editor1" rows="10" cols="80" placeholder="Deskripsi Tugas" required>{{ $items->deskripsi_tugas }}</textarea>
@@ -37,7 +60,7 @@
       </div>
         <div class="col-12 mt-5 d-flex justify-content-between">
           <button class="btn btn-primary w-50 me-2" type="submit">Simpan</button>
-          <a href="/penugasan" class="w-50"><button class="btn btn-danger w-100" type="button">Kembali</button></a>
+          <a href="/penugasan" class="w-50"><button class="btn btn-warning w-100" type="button">Kembali</button></a>
         </div>
     </form>
     </div>
