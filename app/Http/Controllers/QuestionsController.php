@@ -181,7 +181,7 @@ class QuestionsController extends Controller
     
     function detailEssay($assignmentId, $page = 1)
     {
-        $questionsPerPage = 1; // Number of questions per page
+        $questionsPerPage = 1;
         $offset = ($page - 1) * $questionsPerPage;
     
         $questions = Questions::where('id_assignment', $assignmentId)
@@ -192,7 +192,6 @@ class QuestionsController extends Controller
         $totalQuestions = Questions::where('id_assignment', $assignmentId)->count();
         $totalPages = ceil($totalQuestions / $questionsPerPage);
     
-        // Calculate the question number for the current page
         $currentQuestionNumber = $offset + 1;
     
         return view('pages/student/detailEssay', [
