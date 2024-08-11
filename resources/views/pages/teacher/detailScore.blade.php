@@ -31,6 +31,7 @@
                                 <th>Judul Tugas</th>
                                 <th>Tipe Tugas</th>
                                 <th>Tanggal</th>
+                                <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -44,6 +45,11 @@
                                     <td>{{ $userScore->assignment->judul_tugas }}</td>
                                     <td>{{ $userScore->assignment->tipe }}</td>
                                     <td>{{ $userScore->assignment->created_at }}</td>
+                                    <td>
+                                        <a href="{{ route('detailJawaban.show', $userScore->assignment->id) }}" class="btn btn-info">
+                                            <i class="fa-solid fa-eye"></i>
+                                        </a>
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>

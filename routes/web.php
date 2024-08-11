@@ -80,8 +80,9 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::post('uploadJawaban', [AnswerController::class, 'uploadJawaban']);
     Route::get('essay/{id}', [AssignmentController::class, 'essay'])->name('essay');
     Route::get('/detailScore/{id}', [App\Http\Controllers\TeacherController::class, 'show'])->name('detailScore');
-    // Route::get('/showUserScores/{id}', [App\Http\Controllers\TeacherController::class, 'showUserScores'])->name('showUserScores');
     Route::post('/uploadEssay', [QuestionsController::class, 'uploadEssay'])->middleware('auth')->name('uploadEssay');
+    Route::get('/detailJawaban/{id}', [AnswerController::class, 'detailJawaban'])->name('detailJawaban.show');
+
 
 });
 
