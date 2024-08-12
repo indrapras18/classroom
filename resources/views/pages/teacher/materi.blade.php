@@ -29,35 +29,38 @@
       <div class="table-responsive p-0">
         <table id="myTable" class="table table-striped" style="width:100%">
           <thead>
-              <tr>
-                  <th class="text-center" style="width: 5%;">No</th>
-                  <th style="width: 10%;">Nama Materi</th>
-                  <th style="width: 10%;">Refrensi</th>
-                  <th style="width: 3%;">Aksi</th>
-              </tr>
+            <tr>
+              <th class="text-center w-5">No</th>
+              <th class="w-auto">Nama Materi</th>
+              <th class="text-center w-20">Refrensi</th>
+              <th class="text-center w-20">Aksi</th>
+            </tr>
           </thead>
           <tbody>
             @php
-                $no = 1;
+              $no = 1;
             @endphp
-            @foreach ($materi as $item)
+            @foreach($materi as $item)
               <tr>
-                  <td class="text-center">{{ $no++}}</td>
-                  <td><span class="badge badge-sm bg-gradient-success">{{ $item->nama_materi }}</span></td>
-                  <td>
-                    <a href="{{ $item->link }}" class="btn btn-primary" target="_blank">Buka Link</a>
-                  </td>
-                  <td class="align-middle text-center">
-                    <a href="/detailMateri/{{ $item->id }}" class="btn btn-info">
-                      <i class="fa-solid fa-eye"></i>
-                    </a>
-                    <a href="/tampildataMateri/{{ $item->id }}" class="btn btn-warning">
-                      <i class="fa-solid fa-pen-to-square"></i>
-                    </a>
-                    <button class="btn btn-danger " data-bs-toggle="modal" data-bs-target="#deleteModal{{ $item->id }}">
-                      <i class="fa-solid fa-trash"></i>
-                    </button>                    
-                  </td>
+                <th class="text-center">{{ $no++ }}</th>
+                <th>{{ $item->nama_materi }}</th>
+                <th class="text-center">
+                  <a href="{{ $item->link }}" class="btn btn-danger mb-0" target="_blank">
+                    <i class="fa-brands fa-youtube fa-xl me-2"></i>
+                    Buka Link
+                  </a>
+                </th>
+                <th class="d-flex align-items-center justify-content-between gap-2">
+                  <a href="/detailMateri/{{ $item->id }}" class="btn btn-info mb-0">
+                    <i class="fa-solid fa-eye fa-xl"></i>
+                  </a>
+                  <a href="/tampildataMateri/{{ $item->id }}" class="btn btn-warning mb-0">
+                    <i class="fa-solid fa-pen-to-square fa-xl"></i>
+                  </a>
+                  <button class="btn btn-danger mb-0" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $item->id }}">
+                    <i class="fa-solid fa-trash fa-xl"></i>
+                  </button>                    
+                </th>
               </tr>
 
                 <!-- Modal Delete -->

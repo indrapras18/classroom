@@ -6,21 +6,24 @@
     <li class="breadcrumb-item text-sm">
       <a class="opacity-5 text-dark" href="{{ auth()->user()->role == 'Guru' ? route('admin') : route('user') }}">LearnClass</a>
     </li>
-    <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Tugas</li>
+    <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Penugasan</li>
   </ol>
-  <h4 class="font-weight-bolder mb-0">Edit Tugas</h4>
+  <h4 class="font-weight-bolder mb-0">Penugasan</h4>
 </nav>
 @endsection
 
 @section('konten')
 <div class="col-md-12">
   <div class="card border-0">
-    <div class="card-header bg-white d-flex align-items-center justify-content-between py-3">
-      <form method="POST" action="/updatePenugasan/{{ $items->id }}" class="row g-3 px-3">
+    <div class="card-header bg-white d-flex align-items-center justify-content-between pb-0">
+      <h5 class="mb-0">Edit Tugas</h5>
+    </div>
+    <div class="card-body bg-white">
+      <form method="POST" action="/updatePenugasan/{{ $items->id }}" class="d-flex flex-column">
         @csrf
-        <div>
+        <div class="form-group">
           <label for="">Judul Tugas</label>
-          <div class="input-group mb-3">
+          <div class="input-group">
             <input
               type="text"
               name="judul_tugas"
@@ -36,36 +39,45 @@
             @endif
           </div>
         </div>
-        <div class="col-12 mb-3">
-          <label class="form-label" for="selectTugas">Pilih Tipe</label>
+        <div class="form-group">
+          <label class="form-label" for="selectTugas">Jenis Tugas</label>
           <select
-              class="form-select @error('tipe') is-invalid @enderror"
-              id="selectTugas"
-              name="tipe"
-              disabled
+            class="form-select @error('tipe') is-invalid @enderror"
+            id="selectTugas"
+            name="tipe"
           >
-              <option>{{ $items->tipe }}</option>
+            <option value="" disabled selected>Pilih Jenis Tugas</option>
+            <option value="pilihan" {{ $items->tipe == 'pilihan' ? 'selected' : '' }}>Pilihan Ganda</option>
+            <option value="essay" {{ $items->tipe == 'essay' ? 'selected' : '' }}>Essay</option>
           </select>
           @error('tipe')
-              <div class="invalid-feedback">
-                  <strong>{{ $message }}</strong>
-              </div>
+            <div class="invalid-feedback">
+              <strong>{{ $message }}</strong>
+            </div>
           @enderror
         </div>
 
         <div class="form-group">
-          <label for="editor1">Content</label>
+          <label for="editor1">Konten</label>
           <textarea name="deskripsi_tugas" id="editor1" rows="10" cols="80" placeholder="Deskripsi Tugas" required>{{ $items->deskripsi_tugas }}</textarea>
           <div id="editor1-error" style="color: red; display: none;"></div> <!-- Error message container -->
-      </div>
-        <div class="col-12 mt-5 d-flex justify-content-between">
-          <button class="btn btn-primary w-50 me-2" type="submit">Simpan</button>
-          <a href="/penugasan" class="w-50"><button class="btn btn-warning w-100" type="button">Kembali</button></a>
         </div>
-    </form>
+
+        <div class="d-flex align-items-center justify-content-end mt-3">
+          <div class="w-50 d-flex align-items-center justify-content-between gap-3">
+            <div class="w-100">
+              <a href="/penugasan" class="btn btn-warning w-100 mb-0">Kembali</a>
+            </div>
+            <div class="w-100">
+              <button class="btn btn-primary w-100 mb-0" type="submit">Simpan</button>
+            </div>
+          </div>
+        </div>
+      </form>
     </div>
   </div>
 </div>
+@endsection
 
 @push('js')
   <script>
@@ -89,4 +101,3 @@
 
   </script>
 @endpush
-@endsection

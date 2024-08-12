@@ -17,21 +17,49 @@
 @endsection
 
 @section('konten')
-<h6 style="margin-left: 20px;">Detail Materi</h6>
-<div class="card">
-    <div class="card-body">
-        <div id="materi-content">
-            {!! $data->content !!}
-            <div id="video-container"></div>
+<div class="col-md-12">
+    <div class="card border-0">
+        <div class="card-header bg-white d-flex align-items-center justify-content-between pb-0">
+            <h5 class="mb-0">Detail Materi - {{ $data->nama_materi }}</h5>
+        </div>
+        <div class="card-body">
+            {{-- Old --}}
+            {{-- <div id="materi-content">
+                {!! $data->content !!}
+                <div id="video-container"></div>
+            </div> --}}
+
+            {{-- New --}}
+            <div class="content">
+                <div class="material-content">
+                    {!! $data->content !!}
+                </div>
+                <div class="material-video text-center">
+                    <iframe width="600" height="400" src="{{ $data->link }}"></iframe>
+                </div>
+            </div>
+
+            {{-- Button --}}
+            {{-- <div id="pagination-controls" class="mt-3 d-flex justify-content-center">
+                <div class="col-md-6 d-flex justify-content-center justify-content-between gap-3">
+                    <button type="button" onclick="prevPage()" id="prev-btn" class="btn btn-primary mb-0 w-100">Sebelumnya</button>
+                    <button type="button" onclick="nextPage()" id="next-btn" class="btn btn-primary mb-0 w-100">Selanjutnya</button>
+                </div>
+            </div> --}}
+
+            <div class="d-flex justify-content-end mt-3">
+                <div class="col-md-4 d-flex justify-content-between gap-3">
+                  <div class="w-100">
+                    <a href="/materi" class="btn btn-warning w-100 mb-0">Kembali</a>
+                  </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
+@endsection
 
-<div id="pagination-controls" style="text-align: center; margin-top: 10px;">
-    <button type="button" onclick="prevPage()" id="prev-btn" class="btn btn-primary">Sebelum</button>
-    <button type="button" onclick="nextPage()" id="next-btn" class="btn btn-primary">Lanjut</button>
-</div>
-
+@push('js')
 <script>
     let currentPage = {{ $page }};
     const itemsPerPage = 5;
@@ -108,4 +136,4 @@
         }
     }
 </script>
-@endsection
+@endpush

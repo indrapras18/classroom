@@ -19,29 +19,48 @@
 @section('konten')
 <div class="col-md-12">
   <div class="card border-0">
-    <div class="card-header bg-white d-flex align-items-center justify-content-between py-3">
-      <h5 class="mb-0">Detail Materi</h5>
+    <div class="card-header bg-white d-flex align-items-center justify-content-between pb-0">
+      <h5 class="mb-0">Detail Tugas - {{ $tugasEssay->judul_tugas }}</h5>
     </div>
     <div class="card-body">
       <div class="row">
         <div class="col-md-12">
-          <h6>Judul Materi  : {{ $tugasEssay->judul_tugas }}</h6>
-          <p>Tipe Materi  : {{ ucfirst($tugasEssay->tipe) }}</p>
+          <p>Jenis Tugas  : {{ ucfirst($tugasEssay->tipe) }}</p>
           <p>Jumlah Soal : {{ $jumlahSoal }}</p>
           <p>Deskripsi  : {!! $tugasEssay->deskripsi_tugas !!}</p>
         </div>
       </div>
     </div>
     <div class="card-footer">
-      <small class="text-muted">
+      <div class="d-flex justify-content-end">
+        <div class="col-md-6 d-flex justify-content-between gap-3">
+          <div class="w-100">
+            <a href="/pilihan" class="btn btn-warning w-100 mb-0">Kembali</a>
+          </div>
+          <div class="w-100">
+            @if ($tugasEssay->completed)
+              <button type="button" class="btn btn-info w-100" disabled>Sudah Selesai</button>
+            @else
+              <a
+                class="btn btn-primary w-100 mb-0"
+                href="{{ $tugasEssay->tipe === 'essay' ? '/detailEssay/' . $tugasEssay->id : '/detailPilihan/' . $tugasEssay->id }}">
+                Mulai
+              </a>
+            @endif
+          </div>
+        </div>
+      </div>
+      {{-- <small class="text-muted">
         @if ($tugasEssay->completed)
           <button type="button" class="btn btn-info w-100" disabled>Sudah Selesai</button>
         @else
-          <a href="{{ $tugasEssay->tipe === 'essay' ? '/detailEssay/' . $tugasEssay->id : '/detailPilihan/' . $tugasEssay->id }}">
-            <button type="button" class="btn btn-primary w-100">Mulai</button>
+          <a
+            class="btn btn-primary w-100 mb-0"
+            href="{{ $tugasEssay->tipe === 'essay' ? '/detailEssay/' . $tugasEssay->id : '/detailPilihan/' . $tugasEssay->id }}">
+            Mulai
           </a>
         @endif
-      </small>
+      </small> --}}
     </div>
   </div>
 </div>

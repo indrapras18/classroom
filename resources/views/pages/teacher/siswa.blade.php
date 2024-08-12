@@ -32,9 +32,9 @@
             <tr>
               <th class="text-center" style="width: 5%;">No</th>
               <th>Nama</th>
-              <th>Status</th>
-              <th>Kelas</th>
-              <th style="width: 5%;">Aksi</th>
+              <th class="text-center w-20">Status</th>
+              <th class="text-center w-20">Kelas</th>
+              <th class="text-center w-20">Aksi</th>
             </tr>
           </thead>
           <tbody>
@@ -45,84 +45,89 @@
               <tr>
                 <th class="text-center">{{ $no++ }}</th>
                 <th>{{ $item->name }}</th>
-                <th><span class="badge badge-sm bg-gradient-success">{{ $item->role }}</span></th>
-                <th>{{ $item->nama_kelas }}</th>
+                <th class="text-center">
+                  <span class="badge badge-sm bg-gradient-success w-50">{{ $item->role }}</span>
+                </th>
+                <th class="text-center">
+                  {{ $item->nama_kelas }}
+                </th>
                 <th class="d-flex align-items-center justify-content-center gap-2">
                   <button class="btn btn-warning m-0" data-bs-toggle="modal" data-bs-target="#editModal{{ $item->id }}">
-                    <i class="fa-solid fa-pen-to-square"></i>
+                    <i class="fa-solid fa-pen-to-square fa-xl"></i>
                   </button>
                   <button class="btn btn-danger m-0" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $item->id }}">
-                    <i class="fa-solid fa-trash"></i>
+                    <i class="fa-solid fa-trash fa-xl"></i>
                   </button>
                 </th>
               </tr>
 
-                <!-- Modal Edit -->
-                <div class="modal fade" id="editModal{{ $item->id }}" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
-                  <div class="modal-dialog">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="editModalLabel">Edit Data Kelas</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                      </div>
-                      <div class="modal-body">
-                        <form action="/updateSiswa/{{ $item->id }}" method="POST">
-                          @csrf
+              <!-- Modal Edit -->
+              <div class="modal fade" id="editModal{{ $item->id }}" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h1 class="modal-title fs-5" id="editModalLabel">Edit Data Kelas</h1>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <form action="/updateSiswa/{{ $item->id }}" method="POST">
+                        @csrf
 
-                          <label for="">Nama Siswa</label>
-                          <div class="input-group mb-3">
-                            <input
-                              type="text"
-                              name="name"
-                              class="form-control"
-                              placeholder="Nama Siswa"
-                              value="{{ $item->name }}"
-                              required
-                            >
-                            @if ($errors->has('name'))
-                            <span class="invalid-feedback" role="alert">
-                              <strong>{{ $errors->first('name') }}</strong>
-                            </span>
-                            @endif
-                          </div>
+                        <label for="">Nama Lengkap</label>
+                        <div class="input-group mb-3">
+                          <input
+                            type="text"
+                            name="name"
+                            class="form-control"
+                            placeholder="Nama Lengkap"
+                            value="{{ $item->name }}"
+                            required
+                          >
+                          @if ($errors->has('name'))
+                          <span class="invalid-feedback" role="alert">
+                            <strong>{{ $errors->first('name') }}</strong>
+                          </span>
+                          @endif
+                        </div>
 
-                          <label for="">Email Siswa</label>
-                          <div class="input-group mb-3">
-                            <input
-                              type="text"
-                              name="email"
-                              class="form-control"
-                              placeholder="Email Siswa"
-                              value="{{ $item->email }}"
-                              required
-                            >
-                          </div>
+                        <label for="">Email</label>
+                        <div class="input-group mb-3">
+                          <input
+                            type="text"
+                            name="email"
+                            class="form-control"
+                            placeholder="Email"
+                            value="{{ $item->email }}"
+                            required
+                          >
+                        </div>
 
-                          <div class="mb-3">
-                            <label for="password" class="form-label">Password Siswa</label>
-                            <input type="password" class="form-control" id="password" name="password" placeholder="Password Siswa">
-                          </div>
-                        
-                          <div class="mb-3">
-                            <label for="id_kelas" class="form-label">Pilih Kelas</label>
-                            <select class="form-select" id="id_kelas" name="id_kelas" required>
-                                <option selected disabled value="">Pilih Kelas</option>
-                                @foreach ($semuaKelas as $kelas)
-                                <option value="{{ $kelas->id }}" {{ $kelas->id == $item->id_kelas ? 'selected' : '' }}>{{ $kelas->nama_kelas }}</option>
-                                @endforeach
-                            </select>
-                          </div>
-                          <div class="d-flex align-items-center justify-content-between gap-3">
-                            <button type="button" class="btn btn-secondary w-100 m-0" data-bs-dismiss="modal">Tutup</button>
-                            <button type="submit" class="btn btn-primary w-100 m-0">Simpan</button>
-                          </div>
-                        </form>
-                      </div>
+                        <div class="mb-3">
+                          <label for="password" class="form-label">Password</label>
+                          <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+                        </div>
+                      
+                        <div class="mb-3">
+                          <label for="id_kelas" class="form-label">Pilih Kelas</label>
+                          <select class="form-select" id="id_kelas" name="id_kelas" required>
+                              <option selected disabled value="">Pilih Kelas</option>
+                              @foreach ($semuaKelas as $kelas)
+                              <option value="{{ $kelas->id }}" {{ $kelas->id == $item->id_kelas ? 'selected' : '' }}>{{ $kelas->nama_kelas }}</option>
+                              @endforeach
+                          </select>
+                        </div>
+
+                        <div class="d-flex align-items-center justify-content-between gap-3">
+                          <button type="button" class="btn btn-secondary w-100 m-0" data-bs-dismiss="modal">Tutup</button>
+                          <button type="submit" class="btn btn-primary w-100 m-0">Simpan</button>
+                        </div>
+                      </form>
                     </div>
                   </div>
                 </div>
+              </div>
 
-                <!-- Modal Delete -->
+              <!-- Modal Delete -->
               <div class="modal fade" id="deleteModal{{ $item->id }}" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                   <div class="modal-content">
@@ -149,7 +154,6 @@
                   </div>
                 </div>
               </div>
-
             @endforeach
           </tbody>
         </table>
@@ -171,14 +175,14 @@
           @csrf
           <div>
             <label for="">Nama Siswa</label>
-            <div class="input-group mb-3">
+            <div class="input-group mb-2">
               <input
                 type="text"
                 name="name"
                 class="form-control @if($errors->has('name')) is-invalid @endif"
                 placeholder="Nama Lengkap"
                 value="{{ old('name') }}"
-                {{-- required --}}
+                required
               >
               @if ($errors->has('name'))
                 <span class="invalid-feedback" role="alert">
@@ -190,14 +194,14 @@
 
           <div>
             <label for="">Email</label>
-            <div class="input-group mb-3">
+            <div class="input-group mb-2">
               <input
                 type="email"
                 name="email"
                 class="form-control @if($errors->has('email')) is-invalid @endif"
                 placeholder="Email"
                 value="{{ old('email') }}"
-                {{-- required --}}
+                required
               >
               @if ($errors->has('email'))
                 <span class="invalid-feedback" role="alert">
@@ -209,13 +213,13 @@
 
           <div>
             <label for="">Password</label>
-            <div class="input-group mb-3">
+            <div class="input-group mb-2">
               <input
                 type="password"
                 name="password"
                 class="form-control @if($errors->has('password')) is-invalid @endif"
                 placeholder="Password"
-                {{-- required --}}
+                required
               >
               @if ($errors->has('password'))
                 <span class="invalid-feedback" role="alert">
@@ -226,8 +230,8 @@
           </div>
 
           <div>
-            <label for="">Pilih Kelas</label>
-            <div class="input-group mb-3">
+            <label for="">Kelas</label>
+            <div class="input-group mb-2">
               <select class="form-select" id="id_kelas" name="id_kelas" required>
                 <option selected>Pilih Kelas</option>
                 @foreach ($semuaKelas as $item)
@@ -236,13 +240,13 @@
               </select>
             </div>
           </div>
-          
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary">Simpan</button>
-        </div>
-      </form>
+
+          <div class="d-flex align-items-center justify-content-between gap-3 mt-4">
+            <button type="button" class="btn btn-secondary w-100 mb-0" data-bs-dismiss="modal">Tutup</button>
+            <button type="submit" class="btn btn-primary w-100 mb-0">Submit</button>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 </div>

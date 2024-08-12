@@ -19,33 +19,42 @@
 @section('konten')
 <div class="col-md-12">
   <div class="card border-0">
-    <div class="card-header bg-white d-flex align-items-center justify-content-between py-3">
-      <form method="POST" action="/updateMateri/{{ $data->id }}" class="row g-3 px-3">
+    <div class="card-header bg-white d-flex align-items-center justify-content-between pb-0">
+      <h5 class="mb-0">Edit Materi</h5>
+    </div>
+    <div class="card-body bg-white">
+      <form method="POST" action="/updateMateri/{{ $data->id }}" class="d-flex flex-column">
         @csrf
-        <div class="col-12">
+        <div class="form-group">
           <label class="form-label" for="inputAddress2">Judul Materi</label>
           <input class="form-control" name="nama_materi" value="{{ $data->nama_materi }}" type="text" placeholder="Judul Materi" required>
         </div>
-        <div class="col-12">
+        <div class="form-group">
           <label class="form-label" for="inputAddress2">Refrensi</label>
           <input class="form-control" name="link" value="{{ $data->link }}" type="text" placeholder="Refrensi" required>
         </div>
         <div class="form-group">
-            <label for="editor1">Content</label>
-            <textarea name="content" id="editor1" rows="10" cols="80" required>{{ $data->content }}</textarea>
+          <label for="editor1">Konten</label>
+          <textarea name="content" id="editor1" rows="10" cols="80" required>{{ $data->content }}</textarea>
         </div>
-        <div class="col-12 mt-5 d-flex justify-content-between">
-          <button class="btn btn-primary w-50 me-2" type="submit">Simpan</button>
-          <a href="/materi" class="w-50"><button class="btn btn-warning w-100" type="button">Kembali</button></a>
-      </div>
-    </form>
+        <div class="form-group d-flex align-items-center justify-content-end mt-3">
+          <div class="w-50 d-flex align-items-center justify-content-between gap-3">
+            <div class="w-100">
+              <a href="/materi" class="btn btn-warning w-100 mb-0">Kembali</a>
+            </div>
+            <div class="w-100">
+              <button class="btn btn-primary w-100 mb-0" type="submit">Simpan</button>
+            </div>
+          </div>
+        </div>
+      </form>
     </div>
   </div>
 </div>
+@endsection
 
 @push('js')
   <script>
     CKEDITOR.replace('editor1');
   </script>
 @endpush
-@endsection

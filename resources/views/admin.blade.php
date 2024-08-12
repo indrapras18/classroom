@@ -20,7 +20,7 @@
           <div class="row">
             <div class="col-8">
               <div class="numbers">
-                <p class="text-sm mb-0 text-capitalize font-weight-bold">Kelas</p>
+                <p class="text-sm mb-0 text-capitalize font-weight-bold">Total Kelas</p>
                 <h5 class="font-weight-bolder mb-0">
                   {{ $totalKelas }}
                 </h5>
@@ -41,7 +41,7 @@
           <div class="row">
             <div class="col-8">
               <div class="numbers">
-                <p class="text-sm mb-0 text-capitalize font-weight-bold">Siswa</p>
+                <p class="text-sm mb-0 text-capitalize font-weight-bold">Total Siswa</p>
                 <h5 class="font-weight-bolder mb-0">
                   {{ $totalSiswa }}
                 </h5>
@@ -62,7 +62,7 @@
           <div class="row">
             <div class="col-8">
               <div class="numbers">
-                <p class="text-sm mb-0 text-capitalize font-weight-bold">Materi</p>
+                <p class="text-sm mb-0 text-capitalize font-weight-bold">Total Materi</p>
                 <h5 class="font-weight-bolder mb-0">
                   {{ $totalMateri }}
                 </h5>
@@ -83,7 +83,7 @@
           <div class="row">
             <div class="col-8">
               <div class="numbers">
-                <p class="text-sm mb-0 text-capitalize font-weight-bold">Hasil Quiz</p>
+                <p class="text-sm mb-0 text-capitalize font-weight-bold">Total Tugas</p>
                 <h5 class="font-weight-bolder mb-0">
                   {{ $totalhasil }}
                 </h5>

@@ -10,43 +10,43 @@
     <li class="breadcrumb-item text-sm">
       <a class="opacity-5 text-dark" href="{{ auth()->user()->role == 'Guru' ? route('admin') : route('user') }}">LearnClass</a>
     </li>
-    <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Hasil Quiz</li>
+    <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Hasil Belajar</li>
   </ol>
-  <h4 class="font-weight-bolder mb-0">Hasil Quiz</h4>
+  <h4 class="font-weight-bolder mb-0">Hasil Belajar</h4>
 </nav>
 @endsection
 
 @section('konten')
-<div class="container">
-    <div class="col-md-12">
-        <div class="card border-0">
-          <div class="card-header bg-white d-flex align-items-center justify-content-between py-3">
-            <div class="card-body px-2 py-3">
-                <div class="table-responsive p-0">
-                    <table class=table id="myTable" class="table table-striped" style="width:100%">
-                            <thead>
-                                <tr>
-                                    <th>Judul Tugas</th>
-                                    <th>Tipe</th>
-                                    <th>Total Skor</th>
-                                    <th>Tanggal</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($studentScores as $score)
-                                    <tr>
-                                        <td>{{ $score->assignment->judul_tugas }}</td>
-                                        <td>{{ $score->assignment->tipe }}</td>
-                                        <td>{{ $score->total_score }}</td>
-                                        <td>{{ $score->created_at }}</td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                  </div>
-                </div>
-            </div>
-                </div>
-            </div>
+<div class="col-md-12">
+  <div class="card border-0">
+    <div class="card-header bg-white d-flex align-items-center justify-content-between pb-0">
+      <h5 class="mb-0">List Hasil Belajar</h5>
+    </div>
+    <div class="card-body px-2 py-3">
+      <div class="table-responsive p-0">
+        <table id="myTable" class="table table-striped" style="width:100%">
+          <thead>
+            <tr>
+              <th class="text-center w-5">No</th>
+              <th class="w-auto">Judul Tugas</th>
+              <th class="w-20 text-center">Jenis Tugas</th>
+              <th class="w-10 text-center">Skor</th>
+              <th class="w-10 text-center">Tanggal</th>
+            </tr>
+          </thead>
+          <tbody>
+            @foreach($studentScores as $score)
+              <tr>
+                <th>{{ $score->assignment->judul_tugas }}</th>
+                <th>{{ $score->assignment->tipe }}</th>
+                <th>{{ $score->total_score }}</th>
+                <th>{{ $score->created_at }}</th>
+              </tr>
+            @endforeach
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 </div>
 @endsection

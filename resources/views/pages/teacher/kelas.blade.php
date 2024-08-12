@@ -33,7 +33,7 @@
             <tr>
               <th class="text-center" style="width: 5%;">No</th>
               <th>Nama Kelas</th>
-              <th class="text-center" style="width: 15%;">Aksi</th>
+              <th class="text-center w-20">Aksi</th>
             </tr>
           </thead>
           <tbody>
@@ -46,10 +46,10 @@
                 <th>{{ $item->nama_kelas }}</th>
                 <th class="d-flex align-items-center justify-content-center gap-2">
                   <button class="btn btn-warning m-0" data-bs-toggle="modal" data-bs-target="#editModal{{ $item->id }}">
-                    <i class="fa-solid fa-pen-to-square"></i>
+                    <i class="fa-solid fa-pen-to-square fa-xl"></i>
                   </button>
                   <button class="btn btn-danger m-0" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $item->id }}">
-                    <i class="fa-solid fa-trash"></i>
+                    <i class="fa-solid fa-trash fa-xl"></i>
                   </button>
                 </th>
               </tr>
@@ -146,7 +146,9 @@
               name="nama_kelas"
               class="form-control @if($errors->has('nama_kelas')) is-invalid @endif"
               placeholder="Nama Kelas"
-              value="{{ old('nama_kelas') }}">
+              value="{{ old('nama_kelas') }}"
+              required
+            >
 
               @if ($errors->has('nama_kelas'))
                 <span class="invalid-feedback" role="alert">

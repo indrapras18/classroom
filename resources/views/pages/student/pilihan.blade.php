@@ -17,52 +17,58 @@
 @endsection
 
 @section('konten')
-<div class="container">
-  <div class="row">
-    <div class="col-md-12">
-      <div class="card border-0">
-        <div class="card-header bg-white d-flex align-items-center justify-content-between py-3">
-          <h5 class="mb-0">Daftar Tugas</h5>
-        </div>
-        <div class="card-body">
-          @if ($materiWithScore->isNotEmpty() || $materiWithoutScore->isNotEmpty())
-            <div class="row row-cols-1 row-cols-md-3 g-4">
-              @foreach ($materiWithScore->merge($materiWithoutScore) as $item)
-                <div class="col mb-4">
-                  <div class="card h-100 text-muted position-relative">
-                    <div class="card-body">
-                      <h5 class="card-title">{{ $item->judul_tugas }}</h5>
-                      <p class="card-text">{{ $item->tipe }}</p>
-                      <p class="card-text">{!! Str::limit($item->deskripsi_tugas, 100) !!}</p>
-                    </div>
-                    <div class="card-footer">
-                      <small class="text-muted">
-                        @if ($item->completed)
-                          <button type="button" class="btn btn-info" disabled><i class="fa-solid fa-eye"></i></button>
-                        @else
-                          <a href="{{ $item->tipe === 'essay' ? '/deskripsiEssay/' . $item->id : '/deskripsiPilihan/' . $item->id }}">
-                            <button type="button" class="btn btn-info"><i class="fa-solid fa-eye"></i></button>
-                          </a>
-                        @endif
-                      </small>
-                    </div>
+  <div class="col-md-12">
+    <div class="card border-0">
+      <div class="card-header bg-white d-flex align-items-center justify-content-between pb-0">
+        <h5 class="mb-0">List Tugas</h5>
+      </div>
+      <div class="card-body">
+        @if ($materiWithScore->isNotEmpty() || $materiWithoutScore->isNotEmpty())
+          <div class="row row-cols-1 row-cols-md-3 g-4">
+            @foreach ($materiWithScore->merge($materiWithoutScore) as $item)
+              <div class="col">
+                <div class="card h-100 text-muted position-relative">
+                  <div class="card-header d-flex align-items-center justify-content-between">
+                    <h5 class="card-title">{{ $item->judul_tugas }}</h5>
+                    <span class="badge badge-sm bg-gradient-success w-auto">{{ $item->tipe }}</span>
+                  </div>
+                  <div class="card-body">
+                    <p class="card-text mb-0">{!! Str::limit($item->deskripsi_tugas, 100) !!}</p>
+                  </div>
+                  <div class="card-footer">
+                    <small class="text-muted">
+                      @if ($item->completed)
+                        {{-- <button type="button" class="btn btn-info" disabled><i class="fa-solid fa-eye"></i></button> --}}
+                        <button type="button" class="btn btn-info w-100 mb-0" disabled>
+                          <i class="fa-solid fa-eye"></i>
+                          <span class="ms-2">Lihat Tugas</span>
+                        </button>
+                      @else
+                        {{-- <a href="{{ $item->tipe === 'essay' ? '/deskripsiEssay/' . $item->id : '/deskripsiPilihan/' . $item->id }}">
+                          <button type="button" class="btn btn-info"><i class="fa-solid fa-eye"></i></button>
+                        </a> --}}
+                        <a href="{{ $item->tipe === 'essay' ? '/deskripsiEssay/' . $item->id : '/deskripsiPilihan/' . $item->id }}" class="btn btn-info w-100 mb-0">
+                          <i class="fa-solid fa-eye"></i>
+                          <span class="ms-2">Lihat Tugas</span>
+                        </a>
+                      @endif
+                    </small>
                   </div>
                 </div>
-              @endforeach
-            </div>
-          @else
-            <div class="alert alert-info" role="alert">
-              <p style="color: white"></p>
-            </div>
-          @endif
-        </div>
+              </div>
+            @endforeach
+          </div>
+        @else
+          <div class="alert alert-info" role="alert">
+            <p style="color: white"></p>
+          </div>
+        @endif
       </div>
     </div>
   </div>
-</div>
+@endsection
 
 @push('js')
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 @endpush
-@endsection
 

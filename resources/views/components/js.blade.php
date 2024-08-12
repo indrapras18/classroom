@@ -20,8 +20,7 @@
 <script src="{{ asset('/assets/js/plugins/perfect-scrollbar.min.js') }}"></script>
 <script src="{{ asset('/assets/js/plugins/smooth-scrollbar.min.js') }}"></script>
 
-  <!-- SweetAlert2 JS -->
-
+<!-- SweetAlert2 JS -->
 
 <script>
   var win = navigator.platform.indexOf('Win') > -1;

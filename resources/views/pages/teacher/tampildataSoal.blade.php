@@ -10,9 +10,9 @@
     <li class="breadcrumb-item text-sm">
       <a class="opacity-5 text-dark" href="{{ auth()->user()->role == 'Guru' ? route('admin') : route('user') }}">LearnClass</a>
     </li>
-    <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Tugas</li>
+    <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Penugasan</li>
   </ol>
-  <h4 class="font-weight-bolder mb-0">Tugas</h4>
+  <h4 class="font-weight-bolder mb-0">Penugasan</h4>
 </nav>
 @endsection
 
