@@ -117,9 +117,9 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
-<script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
+<script src="https://cdn.ckeditor.com/ckeditor5/34.1.0/classic/ckeditor.js"></script>
+
 <script>
     var i = 0;
     $('#add').click(function() {
@@ -143,6 +143,5 @@
     });
 
     CKEDITOR.replace('editor1');
-</script>
 </script>
 @endsection

@@ -35,4 +35,9 @@ class Questions extends Model
     {
         return $this->hasMany(ResultEssay::class, 'id_question');
     }
+
+    public function results()
+    {
+        return $this->hasMany(Results::class, 'id_question');
+    }
 }

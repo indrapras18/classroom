@@ -20,54 +20,49 @@
 <div class="col-md-12">
   <div class="card border-0">
     <div class="card-header bg-white d-flex align-items-center justify-content-between py-3">
-      <form action="/updatePilihan/{{ $data->id }}" method="POST" class="row g-3 px-3" >
+      <form method="POST" action="{{ url('/updatePilihan/' . $data->id) }}" class="row g-3 px-3">
         @csrf
-        <div class="form-group">
-          <label for="editor1">Content</label>
-          <textarea name="soal" id="editor1" rows="10" cols="80" placeholder="Soal" required>{{ $data->soal }}</textarea>
-          <div id="editor1-error" style="color: red; display: none;"></div>
-        </div>
         <div class="col-12">
-          <label class="form-label" for="inputAddress2">Score</label>
-          <input class="form-control" name="score" value="{{ $data->score }}" id="inputAddress2" type="number" placeholder="Nilai" required>
+          <label for="editor1">Soal</label>
+          <textarea name="soal" id="editor1" rows="10" cols="80">{{ old('soal', $data->soal) }}</textarea>
         </div>
+        
+        <div class="col-md-6">
+          <label for="inputAnswerKey" class="form-label">Kunci Jawaban</label>
+          <input type="text" name="answer_key" value="{{ old('answer_key', $data->answer_key) }}" class="form-control" id="inputAnswerKey">
+        </div>
+
+        <div class="col-md-6">
+          <label for="inputScore" class="form-label">Skor</label>
+          <input type="number" name="score" value="{{ old('score', $data->score) }}" class="form-control" id="inputScore">
+        </div>
+        
         <div class="col-12">
-          <label class="form-label" for="inputAddress2">Kunci Jawaban</label>
-          <input class="form-control" name="answer_key" value="{{ $data->answer_key }}" id="inputAddress2" type="role" placeholder="Kunci Jawaban" required>
+          <label for="inputOptions" class="form-label">Opsi Jawaban</label>
+          <div class="row">
+              @foreach ($answers as $key => $answer)
+              <div class="col-md-6 mb-3">
+                  <label for="inputOption{{ $answer->option_alphabet }}" class="form-label">Jawaban {{ $answer->option_alphabet }}</label>
+                  <input type="text" class="form-control" name="answers[{{ $key }}][option_text]" value="{{ old('answers.' . $key . '.option_text', $answer->option_text) }}" placeholder="Jawaban">
+                  <input type="hidden" name="answers[{{ $key }}][option_alphabet]" value="{{ $answer->option_alphabet }}">
+              </div>
+              @endforeach
+          </div>
+      </div>      
+
+        <div class="col-12 mt-5 d-flex justify-content-between">
+          <button class="btn btn-primary w-50 me-2" type="submit">Simpan</button>
+          <a href="/penugasan" class="w-50"><button class="btn btn-warning w-100" type="button">Kembali</button></a>
         </div>
-        <div class="col-12">
-            <label class="form-label" for="inputAddress2">Dibuat</label>
-            <input class="form-control" name="created_at" value="{{ $data->created_at }}" id="inputAddress2" type="text" placeholder="Refrensi" disabled>
-        </div>
-        <div class="col-12 mt-5">
-          <div class="col-12 mt-5 d-flex justify-content-between">
-            <button class="btn btn-primary w-50 me-2" type="submit">Simpan</button>
-            <a href="/penugasan" class="w-50"><button class="btn btn-warning w-100" type="button">Kembali</button></a>
-        </div>
-        </div>
+        
       </form>
     </div>
   </div>
 </div>
-@push('js')
-  <script>
-    CKEDITOR.replace('editor1');
-    document.addEventListener("DOMContentLoaded", function() {
-        var form = document.querySelector("form");
-        var editor = CKEDITOR.instances.editor1;
-        var errorDiv = document.getElementById("editor1-error");
 
-        form.addEventListener("submit", function(event) {
-            errorDiv.style.display = 'none';
-            errorDiv.textContent = '';
-            if (!editor.getData().trim()) {
-                errorDiv.textContent = "Content is required.";
-                errorDiv.style.display = 'block';
-                event.preventDefault();
-                document.querySelector("textarea[name='deskripsi_tugas']").value = editor.getData();
-            }
-        });
-    });
-  </script>
+@push('js')
+<script>
+  CKEDITOR.replace('editor1');
+</script>
 @endpush
 @endsection

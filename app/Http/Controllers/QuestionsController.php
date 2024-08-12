@@ -44,7 +44,8 @@ class QuestionsController extends Controller
 
     function tampildataSoal($id){
         $data = Questions::find($id);
-        return view('pages/teacher/tampildataSoal', compact('data'));
+        $answers = $data->answers; // Assuming you have a relationship defined in the Questions model
+        return view('pages/teacher/tampildataSoal', compact('data', 'answers'));
     }
 
     function soal(){
@@ -206,11 +207,36 @@ class QuestionsController extends Controller
         ]);
     }
 
-    function updatePilihan($id, Request $request){
-        $data = Questions::find($id);
-        $data->update($request->all());
-        return redirect()->route('penugasan');
+    public function updatePilihan($id, Request $request){
+        $question = Questions::find($id);
+        $question->soal = $request->input('soal');
+        $question->score = $request->input('score');
+        $question->answer_key = $request->input('answer_key');
+        $question->save();
+    
+        $answers = $request->input('answers', []);
+        foreach ($answers as $answer) {
+            if (isset($answer['option_alphabet'])) {
+                $existingAnswer = Answers::where('id_questions', $id)
+                    ->where('option_alphabet', $answer['option_alphabet'])
+                    ->first();
+    
+                if ($existingAnswer) {
+                    $existingAnswer->option_text = $answer['option_text'];
+                    $existingAnswer->save();
+                } else {
+                    Answers::create([
+                        'option_alphabet' => $answer['option_alphabet'],
+                        'option_text' => $answer['option_text'],
+                        'id_questions' => $id
+                    ]);
+                }
+            }
+        }
+    
+        return redirect()->route('penugasan')->with('success', 'Soal dan jawaban berhasil Diperbarui.');
     }
+    
 
     public function show()
     {
