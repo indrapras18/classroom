@@ -104,4 +104,6 @@ Route::middleware(['auth', 'user'])->group(function () {
     Route::get('pilihKelas', [TeacherController::class, 'pilihKelas'])->name('pilihKelas');
     Route::get('/question/{page}', [AnswerController::class, 'detailEssay'])->name('question');
     Route::get('hasilPembelajaran', [StudentController::class, 'hasilPembelajaran'])->name('hasilPembelajaran');
+    Route::get('deskripsiEssay/{id}', [AssignmentController::class, 'deskripsiEssay'])->name('deskripsiEssay');
+    Route::get('deskripsiPilihan/{id}', [AssignmentController::class, 'deskripsiPilihan'])->name('PilihanGanda');
 });

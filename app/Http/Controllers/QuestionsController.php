@@ -162,7 +162,7 @@ class QuestionsController extends Controller
         return view('pages/student/pilihan', compact('materiWithScore', 'materiWithoutScore'));
     }
     
-    public function detailPilihan($id_assignment, $page = 1){
+    public function detailPilihan($id_assignment, $page = 1) {
         $assignment = DB::table('assignments')->find($id_assignment);
         $totalQuestions = Questions::where('id_assignment', $id_assignment)->count();
     
@@ -171,13 +171,15 @@ class QuestionsController extends Controller
             ->skip(($page - 1) * 1)
             ->take(1)
             ->first();
+            
+        $savedAnswers = Results::where('id_user', Auth::id())
+            ->pluck('answer_text', 'id_question')
+            ->toArray();
     
-        $existingAnswer = Results::where('id_user', Auth::id())
-                                 ->where('id_question', $soal->id)
-                                 ->first();
-    
-        return view('pages/student/detailPilihan', compact('assignment', 'soal', 'page', 'totalQuestions', 'existingAnswer'));
+        return view('pages/student/detailPilihan', compact('assignment', 'soal', 'page', 'totalQuestions', 'savedAnswers'));
     }
+    
+    
     
     function detailEssay($assignmentId, $page = 1)
     {

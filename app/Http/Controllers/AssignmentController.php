@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Assignments;
 use App\Models\Questions;
+use App\Models\StudentScores;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class AssignmentController extends Controller
 {
@@ -72,4 +75,19 @@ class AssignmentController extends Controller
         return redirect()->route('penugasan')->with('success', 'Tugas Berhasil Dihapus!');
 
     }
+
+    function deskripsiEssay($id) {
+        $tugasEssay = Assignments::findOrFail($id);
+        $soal = Questions::where('id_assignment', $id)->get();
+        $jumlahSoal = $soal->count();
+        return view('pages/student/Essay', compact('tugasEssay', 'soal', 'jumlahSoal'));
+    }
+
+    function deskripsiPilihan($id) {
+        $tugasPilihan = Assignments::findOrFail($id);
+        $soal = Questions::where('id_assignment', $id)->get();
+        $jumlahSoal = $soal->count();
+        return view('pages/student/PilihanGanda', compact('tugasPilihan', 'soal', 'jumlahSoal'));
+    }
+    
 }

@@ -40,7 +40,7 @@
                         @if ($item->completed)
                           <button type="button" class="btn btn-info" disabled><i class="fa-solid fa-eye"></i></button>
                         @else
-                          <a href="{{ $item->tipe === 'essay' ? '/detailEssay/' . $item->id : '/detailPilihan/' . $item->id }}">
+                          <a href="{{ $item->tipe === 'essay' ? '/deskripsiEssay/' . $item->id : '/deskripsiPilihan/' . $item->id }}">
                             <button type="button" class="btn btn-info"><i class="fa-solid fa-eye"></i></button>
                           </a>
                         @endif
@@ -52,7 +52,7 @@
             </div>
           @else
             <div class="alert alert-info" role="alert">
-              Belum ada tugas
+              <p style="color: white"></p>
             </div>
           @endif
         </div>

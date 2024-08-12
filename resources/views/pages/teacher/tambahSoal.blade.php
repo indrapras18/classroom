@@ -61,11 +61,9 @@
     </div>
   </div>
 </div>
-
 @push('js')
 <script>
   CKEDITOR.replace('editor1');
 </script>
 @endpush
-
 @endsection
