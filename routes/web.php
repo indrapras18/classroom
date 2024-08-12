@@ -74,7 +74,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::post('updatePenugasan/{id}', [AssignmentController::class, 'updatePenugasan'])->name('updatePenugasan');
     Route::get('/tambahTugas', [AssignmentController::class, 'tambahTugas'])->name('tambahTugas');
     Route::post('/submitTugas', [AssignmentController::class, 'submitTugas'])->name('submitTugas');
-    Route::get('/detailTugasEssay/essay/{id}', [AssignmentController::class, 'detailTugasEssay'])->name('detailTugasEssay');
+    Route::get('/detailTugasEssay/{id}', [AssignmentController::class, 'detailTugasEssay'])->name('detailTugasEssay');
     Route::get('/pembelajaran', [TeacherController::class, 'pembelajaran'])->name('pembelajaran');
     Route::get('tambahJawaban', [AnswerController::class, 'tambahJawaban'])->name('tambahJawaban');
     Route::post('uploadJawaban', [AnswerController::class, 'uploadJawaban']);

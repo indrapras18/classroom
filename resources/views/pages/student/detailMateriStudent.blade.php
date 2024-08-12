@@ -1,5 +1,9 @@
 @extends('layouts/aplikasi')
 
+@section('css')
+{{-- <link rel="stylesheet" href="	https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"> --}}
+@endsection
+
 @section('navbrand')
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5 mb-1">
@@ -19,19 +23,11 @@
             <h5 class="mb-0">Detail Materi - {{ $data->nama_materi }}</h5>
         </div>
         <div class="card-body">
-            {{-- Old --}}
-            {{-- <div id="materi-content">
-                {!! $data->content !!}
-                <div id="video-container"></div>
-            </div> --}}
-
-            {{-- New --}}
             <div class="content">
-                <div class="material-content">
+                <div id="materi-content">
                     {!! $data->content !!}
                 </div>
-                <div class="material-video text-center">
-                    <iframe width="600" height="400" src="{{ $data->link }}"></iframe>
+                <div id="video-container" class="text-center mt-3" style="display: none;">
                 </div>
             </div>
 
@@ -45,19 +41,6 @@
         </div>
     </div>
 </div>
-{{-- <div class="card">
-    <div class="card-body">
-        <div id="materi-content">
-            {!! $data->content !!}
-            <div id="video-container"></div>
-        </div>
-    </div>
-</div> --}}
-
-{{-- <div id="pagination-controls" style="text-align: center; margin-top: 10px;">
-    <button type="button" onclick="prevPage()" id="prev-btn" class="btn btn-primary">Sebelum</button>
-    <button type="button" onclick="nextPage()" id="next-btn" class="btn btn-primary">Lanjut</button>
-</div> --}}
 @endsection
 
 @push('js')
@@ -67,6 +50,7 @@
     let contentSections;
     let videoUrl = "{{ $data->link }}";
     const nextMateriId = @json($next ? $next->id : null);
+    const previousMateriId = @json($previous ? $previous->id : null);
 
     document.addEventListener('DOMContentLoaded', function() {
         contentSections = document.getElementById('materi-content').innerHTML.split(/(<\/p>)/).filter(Boolean);
@@ -79,8 +63,6 @@
         }).filter((_, index) => index % 2 === 0);
 
         renderPage(currentPage);
-
-        renderVideo(videoUrl);
     });
 
     function renderPage(page) {
@@ -90,7 +72,12 @@
         document.getElementById('materi-content').innerHTML = visibleContent;
         updateButtons();
 
-        renderVideo(videoUrl);
+        if (page === Math.ceil(contentSections.length / itemsPerPage)) {
+            renderVideo(videoUrl);
+            document.getElementById('video-container').style.display = 'block';
+        } else {
+            document.getElementById('video-container').style.display = 'none';
+        }
     }
 
     function prevPage() {
@@ -98,6 +85,8 @@
             currentPage--;
             renderPage(currentPage);
             updateURL();
+        } else if (previousMateriId) {
+            window.location.href = `{{ url('detailMateriStudent') }}/${previousMateriId}`;
         }
     }
 
@@ -114,27 +103,25 @@
     function updateURL() {
         const currentUrl = `{{ url('detailMateriStudent/' . $data->id) }}/${currentPage}`;
         window.history.pushState({ path: currentUrl }, '', currentUrl);
-        console.log("Navigating to: " + currentUrl);
     }
 
     function updateButtons() {
-        document.getElementById('prev-btn').disabled = currentPage === 1;
+        document.getElementById('prev-btn').disabled = currentPage === 1 && !previousMateriId;
         document.getElementById('next-btn').disabled = currentPage * itemsPerPage >= contentSections.length && !nextMateriId;
     }
 
     function renderVideo(url) {
-        console.log("Video URL:", url);
         const pattern = /^(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
         const matches = url.match(pattern);
         const videoId = matches ? matches[1] : null;
         const embedUrl = videoId ? `https://www.youtube.com/embed/${videoId}` : null;
 
         if (embedUrl) {
-            console.log("Embed URL:", embedUrl);
-            document.getElementById('video-container').innerHTML = `<iframe width="100%" height="315" src="${embedUrl}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+            document.getElementById('video-container').innerHTML = `<iframe width="600px;" height="400px;" src="${embedUrl}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
         } else {
             document.getElementById('video-container').innerHTML = `<p>${url}</p>`;
         }
     }
 </script>
 @endpush
+

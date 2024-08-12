@@ -44,13 +44,15 @@ class AssignmentController extends Controller
     function detailTugasEssay($id){
         $tugasEssay = Assignments::findOrFail($id);
         $soal = Questions::where('id_assignment', $id)->get();
-        return view('pages/teacher/detailTugasEssay',compact('tugasEssay', 'soal'));
+        $jumlahSoal = $soal->count();
+        return view('pages/teacher/detailTugasEssay',compact('tugasEssay', 'soal', 'jumlahSoal'));
     }
 
     function detailTugasPilihan($id){
         $tugasPilihan = Assignments::findOrFail($id);
         $soal = Questions::where('id_assignment', $id)->get();
-        return view('pages/teacher/detailTugasPilihan',compact('tugasPilihan','soal'));
+        $jumlahSoal = $soal->count();
+        return view('pages/teacher/detailTugasPilihan',compact('tugasPilihan','soal', 'jumlahSoal'));
     }
     function tambahSoal($id) {
         $assignment = Assignments::findOrFail($id);

@@ -27,21 +27,31 @@
         <div class="col-md-12">
           <h6>Judul Materi : {{ $tugasPilihan->judul_tugas }}</h6>
           <p>Tipe Materi  : {{ ucfirst($tugasPilihan->tipe) }}</p>
-          <p>Jumlah Soal : {{ $jumlahSoal }}</p>
+          <p>Jumlah Soal : {{ $jumlahSoal }} Butir</p>
           <p>Deskripsi : {!! $tugasPilihan->deskripsi_tugas !!}</p>
         </div>
       </div>
     </div>
     <div class="card-footer">
-      <small class="text-muted">
-        @if ($tugasPilihan->completed)
-          <button type="button" class="btn btn-info w-100" disabled>Sudah Selesai</button>
-        @else
-          <a href="{{ $tugasPilihan->tipe === 'essay' ? '/detailEssay/' . $tugasPilihan->id : '/detailPilihan/' . $tugasPilihan->id }}">
-            <button type="button" class="btn btn-primary w-100">Mulai</button>
-          </a>
-        @endif
-      </small>
+      <div class="d-flex justify-content-end">
+        <div class="col-md-6 d-flex justify-content-between gap-3">
+          <div class="w-100">
+            <a href="/pilihan" class="btn btn-warning w-100 mb-0">Kembali</a>
+          </div>
+          <div class="w-100">
+            @if ($tugasPilihan->completed)
+              <button type="button" class="btn btn-info w-100" disabled>Sudah Selesai</button>
+            @else
+              <a
+                class="btn btn-primary w-100 mb-0"
+                href="{{ $tugasPilihan->tipe === 'essay' ? '/detailEssay/' . $tugasPilihan->id : '/detailPilihan/' . $tugasPilihan->id }}">
+                Mulai
+              </a>
+            @endif
+          </div>
+        </div>
+      </div>
+    </div>
     </div>
   </div>
 </div>

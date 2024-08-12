@@ -45,7 +45,7 @@
                                     <td>{{ $userScore->assignment->judul_tugas }}</td>
                                     <td>{{ $userScore->assignment->tipe }}</td>
                                     <td>{{ $userScore->assignment->created_at }}</td>
-                                    <td>
+                                    <td class="text-center">
                                         <a href="{{ route('detailJawaban.show', $userScore->assignment->id) }}" class="btn btn-info">
                                             <i class="fa-solid fa-eye"></i>
                                         </a>

@@ -23,35 +23,19 @@
             <h5 class="mb-0">Detail Materi - {{ $data->nama_materi }}</h5>
         </div>
         <div class="card-body">
-            {{-- Old --}}
-            {{-- <div id="materi-content">
-                {!! $data->content !!}
-                <div id="video-container"></div>
-            </div> --}}
-
-            {{-- New --}}
             <div class="content">
-                <div class="material-content">
+                <div id="materi-content">
                     {!! $data->content !!}
                 </div>
-                <div class="material-video text-center">
-                    <iframe width="600" height="400" src="{{ $data->link }}"></iframe>
+                <div id="video-container" class="text-center mt-3" style="display: none;">
                 </div>
             </div>
 
             {{-- Button --}}
-            {{-- <div id="pagination-controls" class="mt-3 d-flex justify-content-center">
+            <div id="pagination-controls" class="mt-3 d-flex justify-content-center">
                 <div class="col-md-6 d-flex justify-content-center justify-content-between gap-3">
                     <button type="button" onclick="prevPage()" id="prev-btn" class="btn btn-primary mb-0 w-100">Sebelumnya</button>
                     <button type="button" onclick="nextPage()" id="next-btn" class="btn btn-primary mb-0 w-100">Selanjutnya</button>
-                </div>
-            </div> --}}
-
-            <div class="d-flex justify-content-end mt-3">
-                <div class="col-md-4 d-flex justify-content-between gap-3">
-                  <div class="w-100">
-                    <a href="/materi" class="btn btn-warning w-100 mb-0">Kembali</a>
-                  </div>
                 </div>
             </div>
         </div>
@@ -66,6 +50,7 @@
     let contentSections;
     let videoUrl = "{{ $data->link }}";
     const nextMateriId = @json($next ? $next->id : null);
+    const previousMateriId = @json($previous ? $previous->id : null);
 
     document.addEventListener('DOMContentLoaded', function() {
         contentSections = document.getElementById('materi-content').innerHTML.split(/(<\/p>)/).filter(Boolean);
@@ -78,8 +63,6 @@
         }).filter((_, index) => index % 2 === 0);
 
         renderPage(currentPage);
-
-        renderVideo(videoUrl);
     });
 
     function renderPage(page) {
@@ -89,7 +72,12 @@
         document.getElementById('materi-content').innerHTML = visibleContent;
         updateButtons();
 
-        renderVideo(videoUrl);
+        if (page === Math.ceil(contentSections.length / itemsPerPage)) {
+            renderVideo(videoUrl);
+            document.getElementById('video-container').style.display = 'block';
+        } else {
+            document.getElementById('video-container').style.display = 'none';
+        }
     }
 
     function prevPage() {
@@ -97,6 +85,8 @@
             currentPage--;
             renderPage(currentPage);
             updateURL();
+        } else if (previousMateriId) {
+            window.location.href = `{{ url('detailMateri') }}/${previousMateriId}`;
         }
     }
 
@@ -113,27 +103,25 @@
     function updateURL() {
         const currentUrl = `{{ url('detailMateri/' . $data->id) }}/${currentPage}`;
         window.history.pushState({ path: currentUrl }, '', currentUrl);
-        console.log("Navigating to: " + currentUrl);
     }
 
     function updateButtons() {
-        document.getElementById('prev-btn').disabled = currentPage === 1;
+        document.getElementById('prev-btn').disabled = currentPage === 1 && !previousMateriId;
         document.getElementById('next-btn').disabled = currentPage * itemsPerPage >= contentSections.length && !nextMateriId;
     }
 
     function renderVideo(url) {
-        console.log("Video URL:", url);
         const pattern = /^(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
         const matches = url.match(pattern);
         const videoId = matches ? matches[1] : null;
         const embedUrl = videoId ? `https://www.youtube.com/embed/${videoId}` : null;
 
         if (embedUrl) {
-            console.log("Embed URL:", embedUrl);
-            document.getElementById('video-container').innerHTML = `<iframe width="100%" height="315" src="${embedUrl}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+            document.getElementById('video-container').innerHTML = `<iframe width="600px;" height="400px;" src="${embedUrl}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
         } else {
             document.getElementById('video-container').innerHTML = `<p>${url}</p>`;
         }
     }
 </script>
 @endpush
+

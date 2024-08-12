@@ -47,8 +47,8 @@
                   </div>
                   <div class="card-body">
                     <h5 class="card-title">{{ $item->judul_tugas }}</h5>
+                    <span class="badge badge-sm bg-gradient-success w-auto">{{ $item->tipe }}</span>
                     <p class="card-text">{!! Str::limit($item->deskripsi_tugas, 100) !!}</p>
-                    <p class="card-text">{{ $item->tipe }}</p>
                   </div>
                   <div class="card-footer">
                     <small class="text-muted">{{ $item->created_at }}</small>

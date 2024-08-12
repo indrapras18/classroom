@@ -34,12 +34,16 @@
               <th class="w-10 text-center">Tanggal</th>
             </tr>
           </thead>
+          @php
+              $no = 1;
+          @endphp
           <tbody>
             @foreach($studentScores as $score)
               <tr>
+                <th class="text-center">{{ $no++ }}</th>
                 <th>{{ $score->assignment->judul_tugas }}</th>
-                <th>{{ $score->assignment->tipe }}</th>
-                <th>{{ $score->total_score }}</th>
+                <th class="text-center">{{ $score->assignment->tipe }}</th>
+                <th class="text-center">{{ $score->total_score }}</th>
                 <th>{{ $score->created_at }}</th>
               </tr>
             @endforeach

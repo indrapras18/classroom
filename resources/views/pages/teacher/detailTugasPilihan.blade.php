@@ -26,6 +26,7 @@
       <div class="row">
         <div class="col-md-12">
           <p>Tipe Materi: {{ ucfirst($tugasPilihan->tipe) }}</p>
+          <p>Jumlah Soal : {{ $jumlahSoal }} Butir</p>
           <p>Deskripsi: {!! $tugasPilihan->deskripsi_tugas !!}</p>
         </div>
         <div class="col-md-12">

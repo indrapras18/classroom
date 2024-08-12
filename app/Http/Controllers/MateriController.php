@@ -49,7 +49,8 @@ class MateriController extends Controller
     function detailMateri($id, $page = 1) {
         $data = Materis::find($id);
         $next = Materis::where('id', '>', $id)->orderBy('id')->first();
-        return view('pages/teacher/detailMateri', compact('data', 'next', 'page'));
+        $previous = Materis::where('id', '<', $id)->orderBy('id', 'desc')->first();
+        return view('pages/teacher/detailMateri', compact('data', 'next', 'page', 'previous'));
     }  
     
     function uploadMateri(){
@@ -70,7 +71,7 @@ class MateriController extends Controller
     function detailMateriStudent($id, $page = 1) {
         $data = Materis::find($id);
         $next = Materis::where('id', '>', $id)->orderBy('id')->first();
-        return view('pages/student/detailMateriStudent', compact('data', 'next', 'page'));
-    } 
-
+        $previous = Materis::where('id', '<', $id)->orderBy('id', 'desc')->first();
+        return view('pages/student/detailMateriStudent', compact('data', 'next', 'previous', 'page'));
+    }
 }

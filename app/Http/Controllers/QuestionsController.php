@@ -39,7 +39,8 @@ class QuestionsController extends Controller
                 'id_questions' => $question->id,
             ]);
         }
-        return redirect()->route('penugasan')->with('success', 'Soal dan Jawaban Berhasil Ditambahkan.');
+        return redirect()->route('detailTugasPilihan', ['id' => $request->id_assignment])
+        ->with('success', 'Soal dan jawaban berhasil Ditambahkan.');
     }
 
     function tampildataSoal($id){
@@ -80,7 +81,8 @@ class QuestionsController extends Controller
             ]);
         }
     
-        return redirect()->route('penugasan')->with('success', 'Soal dan jawaban berhasil Ditambahkan.');
+        return redirect()->route('detailTugasEssay', ['id' => $request->id_assignment])
+        ->with('success', 'Soal dan jawaban berhasil Ditambahkan.');
     }
 
     function deleteSoalEssay($id){

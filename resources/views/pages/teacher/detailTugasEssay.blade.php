@@ -103,6 +103,7 @@
       <div class="row">
         <div class="col-md-12">
           <p>Jenis Tugas: {{ ucfirst($tugasEssay->tipe) }}</p>
+          <p>Jumlah Soal : {{ $jumlahSoal }} Butir</p>
           <p>Deskripsi: {!! $tugasEssay->deskripsi_tugas !!}</p>
         </div>
         <div class="col-md-12">
