@@ -81,7 +81,11 @@
 
 @push('js')
   <script>
-    CKEDITOR.replace('editor1');
+      ClassicEditor
+      .create( document.querySelector( '#editor1' ) )
+      .catch( error => {
+          console.error( error );
+      } );
     document.addEventListener("DOMContentLoaded", function() {
         var form = document.querySelector("form");
         var editor = CKEDITOR.instances.editor1;

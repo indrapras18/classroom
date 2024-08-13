@@ -41,19 +41,11 @@
               </div>
           </div>
         @endforeach
-        <div class="col-12">
-          <label class="form-label" for="inputAddress2">Dibuat</label>
-          <input class="form-control" name="created_at" value="{{ $data->created_at }}" id="inputAddress2" type="text" placeholder="Refrensi" disabled>
-      </div>
-        <div class="col-12 mt-5">
-            <div class="row">
-                <div class="col-6">
-                    <button class="btn btn-primary w-100" type="submit">Simpan</button>
-                </div>
-                <div class="col-6">
-                    <a href="/penugasan" class="btn btn-danger w-100">Kembali</a>
-                </div>
-            </div>
+        <div class="col-12 mt-5 d-flex justify-content-between">
+          <button class="btn btn-primary w-50 me-2" type="submit">Simpan</button>
+          <a href="{{ url('detailTugasEssay/' . $assignment->id) }}" class="w-50">
+            <button class="btn btn-warning w-100" type="button">Kembali</button>
+          </a>
         </div>
       </form>
     </div>
@@ -62,7 +54,11 @@
 
 @push('js')
   <script>
-    CKEDITOR.replace('editor1');
+      ClassicEditor
+      .create( document.querySelector( '#editor1' ) )
+      .catch( error => {
+          console.error( error );
+      } );
     document.addEventListener("DOMContentLoaded", function() {
         var form = document.querySelector("form");
         var editor = CKEDITOR.instances.editor1;

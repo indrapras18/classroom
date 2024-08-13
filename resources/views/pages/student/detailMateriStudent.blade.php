@@ -45,69 +45,25 @@
 
 @push('js')
 <script>
-    let currentPage = {{ $page }};
-    const itemsPerPage = 5;
-    let contentSections;
     let videoUrl = "{{ $data->link }}";
     const nextMateriId = @json($next ? $next->id : null);
     const previousMateriId = @json($previous ? $previous->id : null);
 
     document.addEventListener('DOMContentLoaded', function() {
-        contentSections = document.getElementById('materi-content').innerHTML.split(/(<\/p>)/).filter(Boolean);
-        
-        contentSections = contentSections.map((section, index) => {
-            if (index % 2 === 1) {
-                return contentSections[index - 1] + section;
-            }
-            return section;
-        }).filter((_, index) => index % 2 === 0);
-
-        renderPage(currentPage);
+        renderVideo(videoUrl);
+        document.getElementById('video-container').style.display = 'block';
     });
 
-    function renderPage(page) {
-        const start = (page - 1) * itemsPerPage;
-        const end = start + itemsPerPage;
-        const visibleContent = contentSections.slice(start, end).join('');
-        document.getElementById('materi-content').innerHTML = visibleContent;
-        updateButtons();
-
-        if (page === Math.ceil(contentSections.length / itemsPerPage)) {
-            renderVideo(videoUrl);
-            document.getElementById('video-container').style.display = 'block';
-        } else {
-            document.getElementById('video-container').style.display = 'none';
-        }
-    }
-
     function prevPage() {
-        if (currentPage > 1) {
-            currentPage--;
-            renderPage(currentPage);
-            updateURL();
-        } else if (previousMateriId) {
+        if (previousMateriId) {
             window.location.href = `{{ url('detailMateriStudent') }}/${previousMateriId}`;
         }
     }
 
     function nextPage() {
-        if (currentPage * itemsPerPage < contentSections.length) {
-            currentPage++;
-            renderPage(currentPage);
-            updateURL();
-        } else if (nextMateriId) {
+        if (nextMateriId) {
             window.location.href = `{{ url('detailMateriStudent') }}/${nextMateriId}`;
         }
-    }
-
-    function updateURL() {
-        const currentUrl = `{{ url('detailMateriStudent/' . $data->id) }}/${currentPage}`;
-        window.history.pushState({ path: currentUrl }, '', currentUrl);
-    }
-
-    function updateButtons() {
-        document.getElementById('prev-btn').disabled = currentPage === 1 && !previousMateriId;
-        document.getElementById('next-btn').disabled = currentPage * itemsPerPage >= contentSections.length && !nextMateriId;
     }
 
     function renderVideo(url) {
@@ -124,4 +80,3 @@
     }
 </script>
 @endpush
-
