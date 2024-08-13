@@ -12,71 +12,6 @@
 </nav>
 @endsection
 
-{{-- @section('konten')
-<div class="col-md-12">
-  <div class="card border-0">
-    <div class="card-header bg-white d-flex align-items-center justify-content-between py-3">
-      <form action="/uploadEssay" method="post" class="row g-3 px-3">
-        @csrf
-        <input type="hidden" name="id_assignment" value="{{ $assignment->id }}">
-        <div class="form-group row">
-            <div class="form-group col-12">
-                <label for="editor1">Soal</label>
-                <textarea name="soal" id="editor1" rows="10" cols="80" class="form-control"></textarea>
-            </div>
-        </div>
-        <div id="input-fields">
-            <div class="form-group row">
-                <div class="col">
-                    <input type="text" name="inputs[0][jawaban_essay]" placeholder="Jawaban" class="form-control">
-                </div>
-                <div class="col">
-                    <input type="text" name="inputs[0][essay_score]" placeholder="Poin" class="form-control">
-                </div>
-                <div class="col">
-                    <button type="button" name="add" id="add" class="btn btn-success">Tambah Opsi Jawaban</button>
-                </div>
-            </div>
-        </div>
-        <div class="col-12 mt-5 d-flex justify-content-between">
-          <button class="btn btn-primary w-50 me-2" type="submit">Simpan</button>
-          <a href="/penugasan" class="w-50"><button class="btn btn-warning w-100" type="button">Kembali</button></a>
-      </div>
-    </form>
-    
-    </div>
-  </div>
-</div>
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
-<script>
-    var i = 0;
-    $('#add').click(function() {
-        ++i;
-        $('#input-fields').append(
-            `<div class="form-group row">
-                <div class="col">
-                    <input type="text" name="inputs[${i}][jawaban_essay]" placeholder="Jawaban" class="form-control"/>
-                </div>
-                <div class="col">
-                    <input type="text" name="inputs[${i}][essay_score]" placeholder="Poin" class="form-control"/>
-                </div>
-                <div class="col">
-                    <button type="button" class="btn btn-danger remove-field">Hapus</button>
-                </div>
-            </div>`);
-    });
-
-    $(document).on('click', '.remove-field', function() {
-        $(this).closest('.form-group').remove();
-    });
-
-    CKEDITOR.replace('editor1');
-</script>
-@endsection --}}
-
-
 @section('konten')
 <div class="col-md-12">
   <div class="card border-0">
@@ -136,39 +71,36 @@
     </div>
   </div>
 </div>
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.ckeditor.com/ckeditor5/34.1.0/classic/ckeditor.js"></script>
-
-<script>
-    var i = 0;
-    $('#add').click(function() {
-      ++i;
-      $('#input-fields').append(
-        `<div class="form-group row">
-            <div class="col-md-6">
-              <input type="text" name="inputs[${i}][jawaban_essay]" placeholder="Jawaban" class="form-control"/>
-            </div>
-            <div class="col-md-4">
-              <input type="text" name="inputs[${i}][essay_score]" placeholder="Poin" class="form-control"/>
-            </div>
-            <div class="col-md-2">
-              <button type="button" class="btn btn-danger remove-field w-100 mb-0">Hapus</button>
-            </div>
-        </div>`
-      );
-    });
-
-    $(document).on('click', '.remove-field', function() {
-        $(this).closest('.form-group').remove();
-    });
-
-    ClassicEditor
-      .create( document.querySelector( '#editor1' ) )
-      .catch( error => {
-          console.error( error );
-      } );
-</script>
 @endsection
+
+@push('js')
+<script>
+  ClassicEditor
+    .create( document.querySelector( '#editor1' ) )
+    .catch( error => {
+        console.error( error );
+    } );
+
+  var i = 0;
+  $('#add').click(function() {
+    ++i;
+    $('#input-fields').append(
+      `<div class="form-group row">
+          <div class="col-md-6">
+            <input type="text" name="inputs[${i}][jawaban_essay]" placeholder="Jawaban" class="form-control"/>
+          </div>
+          <div class="col-md-4">
+            <input type="text" name="inputs[${i}][essay_score]" placeholder="Poin" class="form-control"/>
+          </div>
+          <div class="col-md-2">
+            <button type="button" class="btn btn-danger remove-field w-100 mb-0">Hapus</button>
+          </div>
+      </div>`
+    );
+  });
+
+  $(document).on('click', '.remove-field', function() {
+      $(this).closest('.form-group').remove();
+  });
+</script>
+@endpush
