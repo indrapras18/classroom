@@ -19,33 +19,43 @@
 @section('konten')
 <div class="col-md-12">
   <div class="card border-0">
-    <div class="card-header bg-white d-flex align-items-center justify-content-between py-3">
-      <form action="/updateEssay/{{ $data->id }}" method="POST" class="row g-3 px-3">
+    <div class="card-header bg-white d-flex align-items-center justify-content-between pb-0">
+      <h5 class="mb-0">Edit Soal - Essay</h5>
+    </div>
+    <div class="card-body bg-white">
+      <form action="/updateEssay/{{ $data->id }}" method="POST" class="d-flex flex-column">
         @csrf
         <div class="form-group">
-          <label for="editor1">Soal</label>
+          <label for="editor1">Pertanyaan</label>
           <textarea name="soal" id="editor1" rows="10" cols="80" placeholder="Deskripsi Tugas" required>{{ $data->soal }}</textarea>
           <div id="editor1-error" style="color: red; display: none;"></div>
         </div>
       
         @foreach($data->resultEssays as $essay)
-          <div class="col-12 mt-4">
-              <input type="hidden" name="essay_ids[]" value="{{ $essay->id }}">
-              <div class="col-12">
-                  <label class="form-label" for="jawaban_essay_{{ $essay->id }}">Jawaban Essay</label>
-                  <textarea class="form-control" required name="jawaban_essay[]" id="jawaban_essay_{{ $essay->id }}" rows="3">{{ $essay->jawaban_essay }}</textarea>
-              </div>
-              <div class="col-12">
-                  <label class="form-label" for="essay_score_{{ $essay->id }}">Score</label>
-                  <input class="form-control" name="essay_score[]" value="{{ $essay->essay_score }}" id="essay_score_{{ $essay->id }}" type="number" placeholder="Nilai Essay" required>
-              </div>
+          <div class="col-12">
+            <input type="hidden" name="essay_ids[]" value="{{ $essay->id }}">
+            <div class="col-12">
+              <label class="form-label" for="jawaban_essay_{{ $essay->id }}">Jawaban Essay</label>
+              <textarea class="form-control" required name="jawaban_essay[]" id="jawaban_essay_{{ $essay->id }}" rows="3">{{ $essay->jawaban_essay }}</textarea>
+            </div>
+            <div class="col-12">
+              <label class="form-label" for="essay_score_{{ $essay->id }}">Score</label>
+              <input class="form-control" name="essay_score[]" value="{{ $essay->essay_score }}" id="essay_score_{{ $essay->id }}" type="number" placeholder="Nilai Essay" required>
+            </div>
           </div>
         @endforeach
-        <div class="col-12 mt-5 d-flex justify-content-between">
-          <button class="btn btn-primary w-50 me-2" type="submit">Simpan</button>
-          <a href="{{ url('detailTugasEssay/' . $assignment->id) }}" class="w-50">
-            <button class="btn btn-warning w-100" type="button">Kembali</button>
-          </a>
+        
+        <div class="col-md-12">
+          <div class="d-flex align-items-center justify-content-end mt-3">
+            <div class="w-50 d-flex align-items-center justify-content-between gap-3">
+              <div class="w-100">
+                <a href="{{ route('detailTugasEssay', $assignment->id) }}" class="btn btn-warning w-100 mb-0">Kembali</a>
+              </div>
+              <div class="w-100">
+                <button class="btn btn-primary w-100 mb-0" type="submit">Simpan</button>
+              </div>
+            </div>
+          </div>
         </div>
       </form>
     </div>

@@ -8,7 +8,7 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
   <style>
     body {
-      background-color: #007bff;
+      /* background-color: #007bff; */
       margin: 0;
       height: 100vh;
     }
@@ -50,25 +50,25 @@
     }
   </style>
 </head>
-<body>
+<body class="bg-info">
   <section class="vh-100 d-flex justify-content-center align-items-center">
     <div class="login-container">
       <div class="card">
         <div class="card-body p-5">
-          <img src="assets/images/e-learning.svg" alt="E-Learning">
-          <h1 class="logo mb-4">Logo</h1>
+          <img src="assets/images/e-learning.svg" class="mb-3" alt="E-Learning">
+          <h1 class="logo mb-4 text-info">LearnClass</h1>
           <form method="POST" action="{{ route('login') }}">
             @csrf
             <div class="mb-4">
-              <label for="email" class="form-label">Email Address</label>
-              <input type="email" class="form-control" id="email" name="email" placeholder="youremail@example.com" required>
+              <label for="email" class="form-label">Email</label>
+              <input type="email" class="form-control" id="email" name="email" placeholder="Masukkan Email" required>
             </div>
             <div class="mb-4">
               <label for="password" class="form-label">Password</label>
-              <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
+              <input type="password" class="form-control" id="password" name="password" placeholder="Masukkan Password" required>
             </div>
             <div class="d-grid mt-4">
-              <button type="submit" class="btn btn-primary btn-block">Masuk</button>
+              <button type="submit" class="btn btn-info btn-block text-white">Masuk</button>
             </div>
             @if ($errors->any())
               <div class="alert alert-danger mt-3" role="alert">

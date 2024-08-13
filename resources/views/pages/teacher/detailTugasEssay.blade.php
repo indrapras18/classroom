@@ -149,9 +149,9 @@
                   <span class="badge badge-sm bg-gradient-success">{{ $item->created_at }}</span>
                 </th>
                 <th class="align-middle text-center">
-                  <a href="/tampildataSoalEssay/{{ $item->id }}" class="btn btn-warning mb-0">
+                  {{-- <a href="/tampildataSoalEssay/{{ $item->id }}" class="btn btn-warning mb-0">
                     <i class="fa-solid fa-pen-to-square fa-xl"></i>
-                  </a>
+                  </a> --}}
                   <a href="/deleteSoal/{{ $item->id }}" class="btn btn-danger mb-0">
                     <i class="fa-solid fa-trash fa-xl"></i>
                   </a>

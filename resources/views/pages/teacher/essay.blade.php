@@ -81,7 +81,7 @@
 <div class="col-md-12">
   <div class="card border-0">
     <div class="card-header bg-white d-flex align-items-center justify-content-between pb-0">
-      <h5 class="mb-0">Tambah Soal</h5>
+      <h5 class="mb-0">Tambah Soal - Essay</h5>
     </div>
     <div class="card-body bg-white">
       <form action="/uploadEssay" method="post" class="d-flex flex-column">
@@ -114,11 +114,23 @@
           </div>
         </div>
 
-        <div class="col-12 mt-5 d-flex justify-content-between">
+        {{-- <div class="col-12 mt-5 d-flex justify-content-between">
           <button class="btn btn-primary w-50 me-2" type="submit">Simpan</button>
           <a href="{{ url('detailTugasPilihan/' . $assignment->id) }}" class="w-50">
             <button class="btn btn-warning w-100" type="button">Kembali</button>
           </a>
+        </div> --}}
+        <div class="col-md-12">
+          <div class="d-flex align-items-center justify-content-end mt-3">
+            <div class="w-50 d-flex align-items-center justify-content-between gap-3">
+              <div class="w-100">
+                <a href="{{ route('detailTugasEssay', $assignment->id) }}" class="btn btn-warning w-100 mb-0">Kembali</a>
+              </div>
+              <div class="w-100">
+                <button class="btn btn-primary w-100 mb-0" type="submit">Submit</button>
+              </div>
+            </div>
+          </div>
         </div>
       </form>
     </div>
@@ -133,19 +145,20 @@
 <script>
     var i = 0;
     $('#add').click(function() {
-        ++i;
-        $('#input-fields').append(
-            `<div class="form-group row">
-                <div class="col">
-                    <input type="text" name="inputs[${i}][jawaban_essay]" placeholder="Jawaban" class="form-control"/>
-                </div>
-                <div class="col">
-                    <input type="text" name="inputs[${i}][essay_score]" placeholder="Poin" class="form-control"/>
-                </div>
-                <div class="col">
-                    <button type="button" class="btn btn-danger remove-field">Hapus</button>
-                </div>
-            </div>`);
+      ++i;
+      $('#input-fields').append(
+        `<div class="form-group row">
+            <div class="col-md-6">
+              <input type="text" name="inputs[${i}][jawaban_essay]" placeholder="Jawaban" class="form-control"/>
+            </div>
+            <div class="col-md-4">
+              <input type="text" name="inputs[${i}][essay_score]" placeholder="Poin" class="form-control"/>
+            </div>
+            <div class="col-md-2">
+              <button type="button" class="btn btn-danger remove-field w-100 mb-0">Hapus</button>
+            </div>
+        </div>`
+      );
     });
 
     $(document).on('click', '.remove-field', function() {

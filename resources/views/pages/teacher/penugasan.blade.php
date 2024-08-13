@@ -33,13 +33,23 @@
                     <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton{{ $item->id }}" data-bs-toggle="dropdown" aria-expanded="false"></button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton{{ $item->id }}">
                       <li>
-                        <a class="dropdown-item text-primary" href="{{ $item->tipe === 'essay' ? route('detailTugasEssay', ['id' => $item->id]) : route('detailTugasPilihan', ['id' => $item->id]) }}">
+                        <a
+                          class="dropdown-item"
+                          href="{{ $item->tipe === 'essay' ? route('detailTugasEssay', ['id' => $item->id]) : route('detailTugasPilihan', ['id' => $item->id]) }}"
+                        >
+                          <i class="fa-solid fa-eye me-1"></i>
                           Preview
                         </a>
                       </li>
-                      <li><a class="dropdown-item text-warning" href="/tampildataPenugasan/{{ $item->id }}">Edit</a></li>
                       <li>
-                        <a class="dropdown-item text-danger" href="/deleteAssignment/{{ $item->id }}">
+                        <a class="dropdown-item" href="/tampildataPenugasan/{{ $item->id }}">
+                          <i class="fa-solid fa-pen-to-square me-1"></i>
+                          Edit
+                        </a>
+                      </li>
+                      <li>
+                        <a class="dropdown-item" href="/deleteAssignment/{{ $item->id }}">
+                          <i class="fa-solid fa-trash me-1"></i>
                           Hapus
                         </a>
                       </li>
@@ -47,7 +57,9 @@
                   </div>
                   <div class="card-body">
                     <h5 class="card-title">{{ $item->judul_tugas }}</h5>
-                    <span class="badge badge-sm bg-gradient-success w-auto">{{ $item->tipe }}</span>
+                    <span class="badge badge-sm bg-success w-auto">
+                      {{ $item->tipe == 'pilihan' ? 'Pilihan Ganda' : 'Essay' }}
+                    </span>
                     <p class="card-text">{!! Str::limit($item->deskripsi_tugas, 100) !!}</p>
                   </div>
                   <div class="card-footer">

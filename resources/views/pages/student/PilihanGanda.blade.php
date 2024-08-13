@@ -20,13 +20,12 @@
 <div class="col-md-12">
   <div class="card border-0">
     <div class="card-header bg-white d-flex align-items-center justify-content-between py-3">
-      <h5 class="mb-0">Detail Materi</h5>
+      <h5 class="mb-0">Detail Tugas - {{ $tugasPilihan->judul_tugas }}</h5>
     </div>
     <div class="card-body">
       <div class="row">
         <div class="col-md-12">
-          <h6>Judul Materi : {{ $tugasPilihan->judul_tugas }}</h6>
-          <p>Tipe Materi  : {{ ucfirst($tugasPilihan->tipe) }}</p>
+          <p>Jenis Tugas  : {{ ucfirst($tugasPilihan->tipe) }}</p>
           <p>Jumlah Soal : {{ $jumlahSoal }} Butir</p>
           <p>Deskripsi : {!! $tugasPilihan->deskripsi_tugas !!}</p>
         </div>
