@@ -167,14 +167,13 @@ class AnswerController extends Controller
         return redirect()->route('jawaban');
     }
     
-    public function detailJawaban($id){
-    $jawaban = DB::table('results')
+    public function detailJawaban($scoreId, $id) {
+        $jawaban = DB::table('results')
                 ->join('questions', 'results.id_question', '=', 'questions.id')
                 ->where('questions.id_assignment', $id)
                 ->select('results.*', 'questions.soal')
                 ->get();
-
-    return view('pages/teacher/detailJawaban', compact('jawaban'));
+    return view('pages/teacher/detailJawaban', compact('jawaban', 'scoreId'));
 }
 
 }

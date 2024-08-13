@@ -41,10 +41,18 @@
             @foreach($studentScores as $score)
               <tr>
                 <th class="text-center">{{ $no++ }}</th>
-                <th>{{ $score->assignment->judul_tugas }}</th>
-                <th class="text-center">{{ $score->assignment->tipe }}</th>
+                <th>
+                  {{ $score->assignment->judul_tugas }}
+                </th>
+                <th class="text-center">
+                  <span class="badge badge-sm bg-success">
+                    {{ $score->assignment->tipe == 'pilihan' ? 'Pilihan Ganda' : 'Essay' }}
+                  </span>
+                </th>
                 <th class="text-center">{{ $score->total_score }}</th>
-                <th>{{ $score->created_at }}</th>
+                <th>
+                  <span class="badge badge-sm bg-secondary">{{ $score->created_at }}</span>
+                </th>
               </tr>
             @endforeach
           </tbody>

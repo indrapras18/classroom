@@ -10,54 +10,67 @@
     <li class="breadcrumb-item text-sm">
       <a class="opacity-5 text-dark" href="{{ auth()->user()->role == 'Guru' ? route('admin') : route('user') }}">LearnClass</a>
     </li>
-    <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Hasil Quiz</li>
+    <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Hasil Belajar</li>
   </ol>
-  <h4 class="font-weight-bolder mb-0">Hasil Quiz</h4>
+  <h4 class="font-weight-bolder mb-0">Hasil Belajar</h4>
 </nav>
 @endsection
 
 @section('konten')
-<div class="container">
-    <div class="col-md-12">
-        <div class="card border-0">
-          <div class="card-header bg-white d-flex align-items-center justify-content-between py-3">
-            <div class="card-body px-2 py-3">
-                <div class="table-responsive p-0">
-                    <table class=table id="myTable" class="table table-striped" style="width:100%">
-                        <thead>
+<div class="col-md-12">
+    <div class="card border-0">
+        <div class="card-header bg-white d-flex align-items-center justify-content-between pb-0">
+            <h5 class="mb-0">Detail Hasil Belajar - {{ $student->name }}</h5>
+        </div>
+        <div class="card-body px-2 py-3">
+            <div class="table-responsive p-0">
+                <table id="myTable" class="table table-striped" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th class="text-center" style="width: 5%;">No</th>
+                            <th class="w-auto">Judul Tugas</th>
+                            <th class="text-center w-20">Tipe Tugas</th>
+                            <th class="text-center w-20">Tanggal</th>
+                            <th class="text-center w-10">Total Score</th>
+                            <th class="text-center">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @php
+                            $no = 1;
+                        @endphp
+                        @foreach($userScores as $userScore)
                             <tr>
-                                <th class="text-center" style="width: 5%;">No</th>
-                                <th style="width: 5%;">Total Score</th>
-                                <th>Judul Tugas</th>
-                                <th>Tipe Tugas</th>
-                                <th>Tanggal</th>
-                                <th>Aksi</th>
+                                <th class="text-center">{{ $no++ }}</th>
+                                <th>{{ $userScore->assignment->judul_tugas }}</th>
+                                <th class="text-center">
+                                    <span class="badge badge-sm bg-success">
+                                        {{ $userScore->assignment->tipe == 'pilihan' ? 'Pilihan Ganda' : 'Essay' }}
+                                    </span>
+                                </th>
+                                <th class="text-center">
+                                    <span class="badge badge-sm bg-secondary">{{ $userScore->created_at }}</span>
+                                </th>
+                                <th class="text-center">{{ $userScore->total_score }}</th>
+                                <th class="text-center">
+                                    <a href="{{ route('detailJawaban.show', [$userScore->id, $userScore->assignment->id]) }}" class="btn btn-info mb-0">
+                                        <i class="fa-solid fa-eye fa-xl"></i>
+                                    </a>
+                                </th>
                             </tr>
-                        </thead>
-                        <tbody>
-                            @php
-                                $no = 1;
-                            @endphp
-                            @foreach($userScores as $userScore)
-                                <tr>
-                                    <td class="text-center">{{ $no++ }}</td>
-                                    <td class="text-center">{{ $userScore->total_score }}</td>
-                                    <td>{{ $userScore->assignment->judul_tugas }}</td>
-                                    <td>{{ $userScore->assignment->tipe }}</td>
-                                    <td>{{ $userScore->assignment->created_at }}</td>
-                                    <td class="text-center">
-                                        <a href="{{ route('detailJawaban.show', $userScore->assignment->id) }}" class="btn btn-info">
-                                            <i class="fa-solid fa-eye"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                  </div>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="d-flex align-items-center justify-content-start mt-3 px-3">
+                <div class="w-20 d-flex align-items-center justify-content-between gap-3">
+                    <div class="w-100">
+                        <a href="/pembelajaran" class="btn btn-warning w-100 mb-0">Kembali</a>
+                    </div>
                 </div>
             </div>
-                </div>
-            </div>
+        </div>
+    </div>
 </div>
 @endsection

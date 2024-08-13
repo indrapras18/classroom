@@ -10,40 +10,44 @@
     <li class="breadcrumb-item text-sm">
       <a class="opacity-5 text-dark" href="{{ auth()->user()->role == 'Guru' ? route('admin') : route('user') }}">LearnClass</a>
     </li>
-    <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Hasil Quiz</li>
+    <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Hasil Belajar</li>
   </ol>
-  <h4 class="font-weight-bolder mb-0">Hasil Quiz</h4>
+  <h4 class="font-weight-bolder mb-0">Hasil Belajar</h4>
 </nav>
 @endsection
 
-
 @section('konten')
-<div class="container">
-    <div class="col-md-12">
-        <div class="card border-0">
-            <div class="card-header bg-white py-3">
-                <h4>Jawaban User</h4>
+<div class="col-md-12">
+    <div class="card border-0">
+        <div class="card-header bg-white d-flex align-items-center justify-content-between pb-0">
+            <h5 class="mb-0">Data Jawaban Siswa</h5>
+        </div>
+        <div class="card-body px-3 py-3">
+            <div class="table-responsive">
+                <table id="myTable" class="table table-striped" style="width:100%;">
+                    <thead>
+                        <tr>
+                            <th class="text-center w-1">No</th>
+                            <th>Pertanyaan</th>
+                            <th>Jawaban</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($jawaban as $index => $item)
+                        <tr>
+                            <td class="text-center">{{ $index + 1 }}</td>
+                            <td>{!! $item->soal !!}</td>
+                            <td>{!! $item->answer_text !!}</td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
             </div>
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class=table id="myTable" class="table table-striped" style="width:100%">
-                        <thead>
-                            <tr>
-                                <th class="text-center w-1">No</th>
-                                <th>Pertanyaan</th>
-                                <th>Jawaban</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($jawaban as $index => $item)
-                            <tr>
-                                <td class="text-center">{{ $index + 1 }}</td>
-                                <td>{!! $item->soal !!}</td>
-                                <td>{!! $item->answer_text !!}</td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+            <div class="d-flex align-items-center justify-content-start mt-3 px-2">
+                <div class="w-20 d-flex align-items-center justify-content-between gap-3">
+                    <div class="w-100">
+                        <a href="{{ route('detailScore', $scoreId) }}" class="btn btn-warning w-100 mb-0">Kembali</a>
+                    </div>
                 </div>
             </div>
         </div>

@@ -32,8 +32,9 @@ class TeacherController extends Controller{
         if (!$score) {
             abort(404);
         }
+        $student = User::findOrFail($score->id_user);
         $userScores = StudentScores::where('id_user', $score->id_user)->with('assignment')->get();
-        return view('pages.teacher.detailScore', compact('score', 'userScores'));
+        return view('pages.teacher.detailScore', compact('score', 'userScores', 'student'));
     }
 
     public function showUserScores($id)

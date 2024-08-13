@@ -19,7 +19,7 @@
 @section('konten')
 <div class="col-md-12">
   <div class="card border-0">
-    <div class="card-header bg-white d-flex align-items-center justify-content-between py-3">
+    <div class="card-header bg-white d-flex align-items-center justify-content-between pb-0">
       <h5 class="mb-0">Data Hasil Belajar</h5>
     </div>
     <div class="card-body px-2 py-3">
@@ -38,11 +38,13 @@
             @endphp
             @foreach($scores->unique('id_user') as $score)
               <tr>
-                  <td>{{ $no++ }}</td>
-                  <td>{{ $score->user->name }}</td>
-                  <td class="align-middle text-center">
-                    <a href="{{ route('detailScore', $score->id) }}"><button type="button" class="btn btn-info"><i class="fa-solid fa-eye"></i></button></a>
-                  </td>
+                <th class="text-center">{{ $no++ }}</th>
+                <th>{{ $score->user->name }}</th>
+                <th class="align-middle text-center">
+                  <a href="{{ route('detailScore', $score->id) }}" class="btn btn-info mb-0">
+                    <i class="fa-solid fa-eye fa-xl"></i>
+                  </a>
+                </th>
               </tr>
             @endforeach
           </tbody>
