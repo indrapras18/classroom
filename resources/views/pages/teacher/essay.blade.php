@@ -114,15 +114,11 @@
           </div>
         </div>
 
-        <div class="d-flex align-items-center justify-content-end mt-3">
-          <div class="w-50 d-flex align-items-center justify-content-between gap-3">
-            <div class="w-100">
-              <a href="/penugasan" class="btn btn-warning w-100 mb-0">Kembali</a>
-            </div>
-            <div class="w-100">
-              <button class="btn btn-primary w-100 mb-0" type="submit">Submit</button>
-            </div>
-          </div>
+        <div class="col-12 mt-5 d-flex justify-content-between">
+          <button class="btn btn-primary w-50 me-2" type="submit">Simpan</button>
+          <a href="{{ url('detailTugasPilihan/' . $assignment->id) }}" class="w-50">
+            <button class="btn btn-warning w-100" type="button">Kembali</button>
+          </a>
         </div>
       </form>
     </div>
@@ -156,6 +152,10 @@
         $(this).closest('.form-group').remove();
     });
 
-    CKEDITOR.replace('editor1');
+    ClassicEditor
+      .create( document.querySelector( '#editor1' ) )
+      .catch( error => {
+          console.error( error );
+      } );
 </script>
 @endsection

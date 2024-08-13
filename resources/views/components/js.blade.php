@@ -8,7 +8,10 @@
 <!-- Nepcha Analytics (nepcha.com) -->
 <!-- Nepcha is a easy-to-use web analytics. No cookies and fully compliant with GDPR, CCPA and PECR. -->
 <script defer data-site="YOUR_DOMAIN_HERE" src="https://api.nepcha.com/js/nepcha-analytics.js"></script>
-<script src="{{asset('https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js') }}"></script>
+{{-- <script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script> --}}
+<script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script>
+
+
 
 <!--   Core JS Files   -->
 {{-- <script src="../assets/js/core/popper.min.js"></script>

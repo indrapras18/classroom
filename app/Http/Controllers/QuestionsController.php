@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Answers;
+use App\Models\Assignments;
 use App\Models\Materis;
 use App\Models\Questions;
 use App\Models\StudentScores;
@@ -43,10 +44,11 @@ class QuestionsController extends Controller
         ->with('success', 'Soal dan jawaban berhasil Ditambahkan.');
     }
 
-    function tampildataSoal($id){
+    function tampildataSoal($id) {
         $data = Questions::find($id);
-        $answers = $data->answers; // Assuming you have a relationship defined in the Questions model
-        return view('pages/teacher/tampildataSoal', compact('data', 'answers'));
+        $assignment = Assignments::find($data->id_assignment);
+        $answers = $data->answers;
+        return view('pages/teacher/tampildataSoal', compact('data', 'answers', 'assignment'));
     }
 
     function soal(){
@@ -122,11 +124,12 @@ class QuestionsController extends Controller
 
     function tampildataSoalEssay($id){
         $data = Questions::with('resultEssays')->find($id);
+        $assignment = Assignments::find($data->id_assignment);
         if (!$data) {
             return redirect()->back()->with('error', 'Question not found.');
         }
     
-        return view('pages/teacher/tampildataSoalEssay', compact('data'));
+        return view('pages/teacher/tampildataSoalEssay', compact('data', 'assignment'));
     }
 
     public function pilihan() {

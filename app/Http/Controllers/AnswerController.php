@@ -98,12 +98,10 @@ class AnswerController extends Controller
     $currentPage = $request->input('currentPage');
     $action = $request->input('action');
 
-    // Validasi untuk memastikan bahwa jawaban telah dipilih
     if (!$answers || !is_array($answers)) {
         return redirect()->back()->withErrors('Anda harus memilih salah satu jawaban sebelum melanjutkan.');
     }
 
-    // Proses jawaban yang diterima
     foreach ($answers as $questionId => $answerId) {
         $answer = Answers::find($answerId);
         if ($answer) {
