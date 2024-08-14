@@ -69,7 +69,7 @@
               <tr>
                 <th class="text-center">{{ $no++ }}</th>
                 <th>
-                  <div>{!! $item->soal !!}</div>
+                  {!! Str::limit($item->soal, 20) !!}
                 </th>
                 <th class="text-center">{{ $item->answer_key }}</th>
                 <th class="text-center"><span class="badge badge-sm bg-gradient-success">{{ $item->created_at }}</span></th>

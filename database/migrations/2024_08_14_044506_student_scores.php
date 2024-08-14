@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class Results extends Migration
+class StudentScores extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,15 @@ class Results extends Migration
      */
     public function up()
     {
-        Schema::create('results', function (Blueprint $table) {
+        Schema::create('student_scores', function (Blueprint $table) {
             $table->id();
-            $table->string('answer_text');
             $table->unsignedBigInteger('id_user');
-            $table->unsignedBigInteger('id_question');
+            $table->unsignedBigInteger('id_assignments');
+            $table->integer('total_score');
             $table->timestamps();
-
+    
             $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('id_question')->references('id')->on('questions')->onDelete('cascade');
+            $table->foreign('id_assignments')->references('id')->on('assignments')->onDelete('cascade');
         });
     }
 
@@ -32,6 +32,6 @@ class Results extends Migration
      */
     public function down()
     {
-        
+        //
     }
 }

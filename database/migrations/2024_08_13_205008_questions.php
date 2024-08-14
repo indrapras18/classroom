@@ -21,6 +21,8 @@ class Questions extends Migration
             $table->unsignedBigInteger('id_assignment');
             $table->timestamps();
 
+            $table->foreign('id_assignment')->references('id')->on('assignments')->onDelete('cascade');
+
         });
     }
 
@@ -31,6 +33,6 @@ class Questions extends Migration
      */
     public function down()
     {
-
+        //
     }
 }

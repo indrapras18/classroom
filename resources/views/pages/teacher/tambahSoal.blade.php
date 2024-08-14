@@ -23,32 +23,63 @@
       <h5 class="mb-0">Tambah Soal - Pilihan Ganda</h5>
     </div>
     <div class="card-body bg-white">
+      <!-- Display Validation Errors -->
+      @if ($errors->any())
+        <div class="alert alert-danger">
+          <ul class="mb-0">
+            @foreach ($errors->all() as $error)
+              <li>{{ $error }}</li>
+            @endforeach
+          </ul>
+        </div>
+      @endif
+
+      <!-- Display Success Message -->
+      @if (session('success'))
+        <div class="alert alert-success">
+          {{ session('success') }}
+        </div>
+      @endif
+
       <form method="POST" action="/uploadSoal" class="d-flex flex-column">
         @csrf
         <input type="hidden" name="id_assignment" value="{{ $assignment->id }}">
         
         <div class="row">
+          <!-- Question Field -->
           <div class="col-12">
             <div class="form-group">
               <label for="editor1">Pertanyaan</label>
-              <textarea name="soal" id="editor1" rows="10" cols="80" placeholder="Pertanyaan"></textarea>
+              <textarea name="soal" id="editor1" rows="10" cols="80" placeholder="Pertanyaan">{{ old('soal') }}</textarea>
+              @error('soal')
+                <small class="text-danger">{{ $message }}</small>
+              @enderror
             </div>
           </div>
-          
+
+          <!-- Answer Key Field -->
           <div class="col-md-6">
             <div class="form-group">
               <label for="inputAnswerKey" class="form-label">Kunci Jawaban</label>
-              <input type="text" name="answer_key" class="form-control" id="inputAnswerKey" placeholder="Kunci Jawaban">
+              <input type="text" name="answer_key" class="form-control" id="inputAnswerKey" placeholder="Kunci Jawaban" value="{{ old('answer_key') }}">
+              @error('answer_key')
+                <small class="text-danger">{{ $message }}</small>
+              @enderror
             </div>
           </div>
-  
+
+          <!-- Score Field -->
           <div class="col-md-6">
             <div class="form-group">
               <label for="inputScore" class="form-label">Skor</label>
-              <input type="number" name="score" class="form-control" id="inputScore" placeholder="Skor">
+              <input type="number" name="score" class="form-control" id="inputScore" placeholder="Skor" value="{{ old('score') }}">
+              @error('score')
+                <small class="text-danger">{{ $message }}</small>
+              @enderror
             </div>
           </div>
-          
+
+          <!-- Answer Options -->
           <div class="col-12">
             <label for="inputOptions" class="form-label">Opsi Jawaban</label>
             <div class="row">
@@ -56,14 +87,18 @@
                 <div class="col-md-6">
                   <div class="form-group">
                     <label for="inputOption{{ $option }}" class="form-label">Jawaban {{ $option }}</label>
-                    <input type="text" class="form-control" name="answers[{{ $loop->index }}][option_text]" placeholder="Jawaban {{ $option }}">
+                    <input type="text" class="form-control" name="answers[{{ $loop->index }}][option_text]" placeholder="Jawaban {{ $option }}" value="{{ old('answers.' . $loop->index . '.option_text') }}">
                     <input type="hidden" name="answers[{{ $loop->index }}][option_alphabet]" value="{{ $option }}">
+                    @error('answers.' . $loop->index . '.option_text')
+                      <small class="text-danger">{{ $message }}</small>
+                    @enderror
                   </div>
                 </div>
               @endforeach
             </div>
           </div>
-  
+
+          <!-- Submit and Back Buttons -->
           <div class="col-md-12">
             <div class="d-flex align-items-center justify-content-end mt-3">
               <div class="w-50 d-flex align-items-center justify-content-between gap-3">
@@ -82,6 +117,7 @@
   </div>
 </div>
 @endsection
+
 
 @push('js')
 <script>

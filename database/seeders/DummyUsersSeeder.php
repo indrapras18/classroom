@@ -33,7 +33,7 @@ class DummyUsersSeeder extends Seeder
                 'email' => 'student' . $i . '@gmail.com',
                 'role' => 'Siswa',
                 'password' => bcrypt('12121212'),
-                'id_kelas' => 4,
+                'id_kelas' => 1,
             ]);
         }
     }

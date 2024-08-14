@@ -15,34 +15,52 @@ use Illuminate\Support\Facades\DB;
 
 class QuestionsController extends Controller
 {
-     function uploadSoal(Request $request) {
+    public function uploadSoal(Request $request){
         $request->validate([
-            'soal' => 'required',
-            'score' => 'required|integer',
-            'answer_key' => 'required',
+            'soal' => 'required|string',
+            'score' => 'required|integer|min:0',
+            'answer_key' => 'required|string|max:1',
             'id_assignment' => 'required|exists:assignments,id',
-            'answers.*.option_alphabet' => 'required|string',
+            'answers' => 'required|array|min:2',
+            'answers.*.option_alphabet' => 'required|string|in:A,B,C,D',
             'answers.*.option_text' => 'required|string',
+        ], [
+            'answers.required' => 'Opsi jawaban wajib diisi.',
+            'answers.array' => 'Opsi jawaban harus berupa array.',
+            'answers.min' => 'Harus ada setidaknya dua opsi jawaban.',
+            'answers.*.option_alphabet.in' => 'Opsi jawaban harus berupa huruf A, B, C, atau D.',
         ]);
+
+        DB::beginTransaction();
     
-        $question = Questions::create([
-            'soal' => $request->soal,
-            'score' => $request->score,
-            'answer_key' => $request->answer_key,
-            'id_assignment' => $request->id_assignment,
-        ]);
-    
-    
-        foreach ($request->answers as $answerData) {
-            Answers::create([
-                'option_alphabet' => $answerData['option_alphabet'],
-                'option_text' => $answerData['option_text'],
-                'id_questions' => $question->id,
+        try {
+            $question = Questions::create([
+                'soal' => $request->soal,
+                'score' => $request->score,
+                'answer_key' => $request->answer_key,
+                'id_assignment' => $request->id_assignment,
             ]);
+    
+            foreach ($request->answers as $answerData) {
+                Answers::create([
+                    'option_alphabet' => $answerData['option_alphabet'],
+                    'option_text' => $answerData['option_text'],
+                    'id_questions' => $question->id,
+                ]);
+            }
+    
+            DB::commit();
+    
+            return redirect()->route('detailTugasPilihan', ['id' => $request->id_assignment])
+                             ->with('success', 'Soal dan jawaban berhasil Ditambahkan.');
+    
+        } catch (\Exception $e) {
+            DB::rollBack();
+    
+            return redirect()->back()->withErrors('Terjadi kesalahan saat menambahkan soal dan jawaban.');
         }
-        return redirect()->route('detailTugasPilihan', ['id' => $request->id_assignment])
-        ->with('success', 'Soal dan jawaban berhasil Ditambahkan.');
     }
+    
 
     function tampildataSoal($id) {
         $data = Questions::find($id);
@@ -187,8 +205,7 @@ class QuestionsController extends Controller
     
     
     
-    function detailEssay($assignmentId, $page = 1)
-    {
+    function detailEssay($assignmentId, $page = 1){
         $questionsPerPage = 1;
         $offset = ($page - 1) * $questionsPerPage;
     

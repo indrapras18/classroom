@@ -24,11 +24,12 @@
     </div>
     <div class="card-body px-2 py-3">
       <div class="table-responsive p-0">
-        <table table id="myTable" class="table table-striped" style="width:100%">
+        <table id="myTable" class="table table-striped" style="width:100%">
           <thead>
             <tr>
               <th class="text-center" style="width: 5%;">No</th>
               <th>Nama Siswa</th>
+              <th>Kelas</th>
               <th style="width: 5%;">Aksi</th>
             </tr>
           </thead>
@@ -39,12 +40,13 @@
             @foreach($scores->unique('id_user') as $score)
               <tr>
                 <th class="text-center">{{ $no++ }}</th>
-                <th>{{ $score->user->name }}</th>
-                <th class="align-middle text-center">
+                <td>{{ $score->user->name }}</td>
+                <td>{{ $score->user->kelas->nama_kelas ?? 'Tidak ada' }}</td>
+                <td class="align-middle text-center">
                   <a href="{{ route('detailScore', $score->id) }}" class="btn btn-info mb-0">
                     <i class="fa-solid fa-eye fa-xl"></i>
                   </a>
-                </th>
+                </td>
               </tr>
             @endforeach
           </tbody>

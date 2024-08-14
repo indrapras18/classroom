@@ -71,7 +71,7 @@
           </div>
         @else
           <div class="alert alert-info" role="alert">
-            Belum ada data tugas.
+            <p style="color: white;">Belum ada data tugas.</p>
           </div>
         @endif
       </div>
@@ -80,5 +80,5 @@
 @endsection
 
 @push('js')
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+  {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script> --}}
 @endpush

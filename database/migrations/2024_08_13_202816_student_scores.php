@@ -21,10 +21,9 @@ class StudentScores extends Migration
             $table->timestamps();
     
             $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('id_assignments')->references('id')->on('assignments')->onDelete('cascade');
         });
     }
-    
-    
 
     /**
      * Reverse the migrations.

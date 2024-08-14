@@ -32,6 +32,7 @@
               <th class="w-20 text-center">Jenis Tugas</th>
               <th class="w-10 text-center">Skor</th>
               <th class="w-10 text-center">Tanggal</th>
+              <th class="w-10 text-center">Aksi</th>
             </tr>
           </thead>
           @php
@@ -41,9 +42,7 @@
             @foreach($studentScores as $score)
               <tr>
                 <th class="text-center">{{ $no++ }}</th>
-                <th>
-                  {{ $score->assignment->judul_tugas }}
-                </th>
+                <th>{{ $score->assignment->judul_tugas }}</th>
                 <th class="text-center">
                   <span class="badge badge-sm bg-success">
                     {{ $score->assignment->tipe == 'pilihan' ? 'Pilihan Ganda' : 'Essay' }}
@@ -52,6 +51,9 @@
                 <th class="text-center">{{ $score->total_score }}</th>
                 <th>
                   <span class="badge badge-sm bg-secondary">{{ $score->created_at }}</span>
+                </th>
+                <th class="text-center">
+                  <a href="{{ route('detailTugas', $score->assignment->id) }}" class="btn btn-info btn-sm">Detail</a>
                 </th>
               </tr>
             @endforeach
@@ -62,3 +64,4 @@
   </div>
 </div>
 @endsection
+

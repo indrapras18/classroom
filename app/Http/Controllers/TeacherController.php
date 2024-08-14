@@ -22,8 +22,8 @@ class TeacherController extends Controller{
 
     public function pembelajaran()
     {
-        $scores = StudentScores::with(['user', 'assignment'])->get();
-        return view('pages.teacher.pembelajaran', compact('scores'));
+        $scores = StudentScores::with(['user.kelas', 'assignment'])->get();
+        return view('pages/teacher/pembelajaran', compact('scores'));
     }
 
     public function show($id)

@@ -40,4 +40,9 @@ class Questions extends Model
     {
         return $this->hasMany(Results::class, 'id_question');
     }
+
+    public function assignment()
+    {
+        return $this->belongsTo(Assignments::class, 'id_assignment');
+    }
 }

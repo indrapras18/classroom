@@ -106,4 +106,7 @@ Route::middleware(['auth', 'user'])->group(function () {
     Route::get('hasilPembelajaran', [StudentController::class, 'hasilPembelajaran'])->name('hasilPembelajaran');
     Route::get('deskripsiEssay/{id}', [AssignmentController::class, 'deskripsiEssay'])->name('deskripsiEssay');
     Route::get('deskripsiPilihan/{id}', [AssignmentController::class, 'deskripsiPilihan'])->name('PilihanGanda');
+    Route::get('detailTugas/{id}', [StudentController::class, 'detailTugas'])->name('detailTugas');
+
+
 });

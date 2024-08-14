@@ -35,6 +35,11 @@ class User extends Authenticatable
         return $this->hasMany(StudentScores::class, 'id_user');
     }
 
+    public function kelas()
+    {
+        return $this->belongsTo(Kelas::class, 'id_kelas');
+    }
+
 
     /**
      * The attributes that should be hidden for serialization.

@@ -14,4 +14,9 @@ class Assignments extends Model
     {
         return $this->hasMany(StudentScores::class, 'id_assignments');
     }
+
+    public function questions()
+    {
+        return $this->hasMany(Questions::class, 'id_assignment');
+    }
 }

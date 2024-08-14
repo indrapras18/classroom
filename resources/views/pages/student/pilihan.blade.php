@@ -60,7 +60,7 @@
           </div>
         @else
           <div class="alert alert-info" role="alert">
-            <p style="color: white"></p>
+            <p style="color: white">Belum Ada Data Tugas</p>
           </div>
         @endif
       </div>

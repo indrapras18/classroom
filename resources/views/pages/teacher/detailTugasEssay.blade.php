@@ -144,7 +144,7 @@
             @foreach ($soal as $item)
               <tr>
                 <th class="text-center">{{ $no++ }}</th>
-                <th>{!! $item->soal !!}</th>
+                <th>{!! Str::limit($item->soal, 20) !!}</th>
                 <th class="text-center">
                   <span class="badge badge-sm bg-gradient-success">{{ $item->created_at }}</span>
                 </th>

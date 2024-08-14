@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Answers;
+use App\Models\Assignments;
 use App\Models\Kelas;
 use App\Models\Materis;
 use App\Models\Questions;
@@ -31,6 +32,17 @@ class StudentController extends Controller
     
         return view('pages/student/hasilPembelajaran', compact('studentScores'));
     }
+
+    public function detailTugas($id){
+    $assignment = Assignments::with('questions')->find($id);
+    $userAnswers = Results::where('id_user', auth()->id())
+                        ->whereIn('id_question', $assignment->questions->pluck('id'))
+                        ->get()
+                        ->keyBy('id_question');
+
+    return view('pages.student.detailTugas', compact('assignment', 'userAnswers'));
+}
+
 
     function siswa(){
         $siswa = DB::table('users')
