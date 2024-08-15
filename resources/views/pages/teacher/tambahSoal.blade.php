@@ -24,7 +24,7 @@
     </div>
     <div class="card-body bg-white">
       <!-- Display Validation Errors -->
-      @if ($errors->any())
+      {{-- @if ($errors->any())
         <div class="alert alert-danger">
           <ul class="mb-0">
             @foreach ($errors->all() as $error)
@@ -32,7 +32,7 @@
             @endforeach
           </ul>
         </div>
-      @endif
+      @endif --}}
 
       <!-- Display Success Message -->
       @if (session('success'))
@@ -61,7 +61,7 @@
           <div class="col-md-6">
             <div class="form-group">
               <label for="inputAnswerKey" class="form-label">Kunci Jawaban</label>
-              <input type="text" name="answer_key" class="form-control" id="inputAnswerKey" placeholder="Kunci Jawaban" value="{{ old('answer_key') }}">
+              <input type="text" name="answer_key" class="form-control" id="inputAnswerKey" placeholder="Kunci Jawaban" value="{{ old('answer_key') }}" required>
               @error('answer_key')
                 <small class="text-danger">{{ $message }}</small>
               @enderror
@@ -72,7 +72,7 @@
           <div class="col-md-6">
             <div class="form-group">
               <label for="inputScore" class="form-label">Skor</label>
-              <input type="number" name="score" class="form-control" id="inputScore" placeholder="Skor" value="{{ old('score') }}">
+              <input type="number" name="score" class="form-control" id="inputScore" placeholder="Skor" value="{{ old('score') }}" required>
               @error('score')
                 <small class="text-danger">{{ $message }}</small>
               @enderror
@@ -88,7 +88,7 @@
                   <div class="form-group">
                     <label for="inputOption{{ $option }}" class="form-label">Jawaban {{ $option }}</label>
                     <input type="text" class="form-control" name="answers[{{ $loop->index }}][option_text]" placeholder="Jawaban {{ $option }}" value="{{ old('answers.' . $loop->index . '.option_text') }}">
-                    <input type="hidden" name="answers[{{ $loop->index }}][option_alphabet]" value="{{ $option }}">
+                    <input type="hidden" name="answers[{{ $loop->index }}][option_alphabet]" value="{{ $option }}" required>
                     @error('answers.' . $loop->index . '.option_text')
                       <small class="text-danger">{{ $message }}</small>
                     @enderror
@@ -118,13 +118,12 @@
 </div>
 @endsection
 
-
 @push('js')
 <script>
     ClassicEditor
       .create( document.querySelector( '#editor1' ) )
       .catch( error => {
           console.error( error );
-      } );
+      });
 </script>
 @endpush

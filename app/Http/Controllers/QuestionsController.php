@@ -256,7 +256,7 @@ class QuestionsController extends Controller
             }
         }
     
-        return redirect()->route('penugasan')->with('success', 'Soal dan jawaban berhasil Diperbarui.');
+        return redirect()->route('detailTugasPilihan', $question->id_assignment)->with('success', 'Soal dan jawaban berhasil Diperbarui.');
     }
     
 

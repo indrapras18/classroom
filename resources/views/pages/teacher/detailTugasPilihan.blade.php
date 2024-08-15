@@ -25,7 +25,7 @@
     <div class="card-body">
       <div class="row">
         <div class="col-md-12">
-          <p>Tipe Materi: {{ ucfirst($tugasPilihan->tipe) }}</p>
+          <p>Jenis Tugas: {{ ucfirst($tugasPilihan->tipe) == 'pilihan' ? 'Pilihan Ganda' : 'Essay' }}</p>
           <p>Jumlah Soal : {{ $jumlahSoal }} Butir</p>
           <p>Deskripsi: {!! $tugasPilihan->deskripsi_tugas !!}</p>
         </div>

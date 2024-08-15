@@ -2,21 +2,22 @@
 
 @section('navbrand')
 <nav aria-label="breadcrumb">
-    <ol class="breadcrumb bg-light">
-        <li class="breadcrumb-item"><a href="{{ auth()->user()->role == 'Guru' ? route('admin') : route('user') }}">LearnClass</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Pilihan Ganda Assignment</li>
+    <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5 mb-1">
+      <li class="breadcrumb-item text-sm">
+        <a class="opacity-5 text-dark" href="{{ auth()->user()->role == 'Guru' ? route('admin') : route('user') }}">LearnClass</a>
+      </li>
+      <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Tugas</li>
     </ol>
-    <h4 class="font-weight-bold">Pilihan Ganda</h4>
-</nav>
+    <h4 class="font-weight-bolder mb-0">Tugas</h4>
+  </nav>
 @endsection
 
-
 @section('konten')
-<div class="container">
+<div class="col-md-12">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-10">
             <div class="card">
-                <div class="card-header" style="background-color: rgb(179, 170, 170); color:white;">
+                <div class="card-header bg-info text-white">
                     {{ $assignment->judul_tugas }}
                 </div>
                 <div class="card-body">
@@ -32,9 +33,9 @@
 
                     @if ($errors->any())
                         <div class="alert alert-danger">
-                            <ul>
+                            <ul class="mb-0">
                                 @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
+                                    <li class="text-white">{{ $error }}</li>
                                 @endforeach
                             </ul>
                         </div>
@@ -47,9 +48,12 @@
                         <input type="hidden" name="action" value="">
 
                         @if ($soal)
-                            <div class="card mb-3">
-                                <div class="card-header">{!! $soal->soal !!}</div>
-                                <div class="card-body">
+                            <div class="d-flex flex-column">
+                                {{-- Question --}}
+                                <div>{!! $soal->soal !!}</div>
+
+                                {{-- Answers --}}
+                                <div class="answers">
                                     @foreach ($soal->answers as $answer)
                                     <div class="form-check">
                                         <input class="form-check-input" type="radio" required name="answers[{{ $soal->id }}]" id="answer_{{ $answer->id }}" value="{{ $answer->id }}"
@@ -73,22 +77,22 @@
                             </div>
                         @endif
 
-                        <div class="form-group row mb-0">
-                            <div class="col-md-6">
+                        <div class="row justify-content-center mb-0">
+                            {{-- <div class="col-md-6">
                                 @if($page > 1)
-                                    <button type="submit" class="btn btn-secondary" onclick="event.preventDefault(); document.querySelector('input[name=action]').value='previous'; document.getElementById('quizForm').submit();">
+                                    <button type="submit" class="btn btn-secondary w-100 mb-0" onclick="event.preventDefault(); document.querySelector('input[name=action]').value='previous'; document.getElementById('quizForm').submit();">
                                         Kembali
                                     </button>
                                 @endif
-                            </div>
+                            </div> --}}
                             <div class="col-md-6 text-right">
                                 @if($page < $totalQuestions)
-                                    <button type="submit" class="btn btn-primary" onclick="event.preventDefault(); document.querySelector('input[name=action]').value='next'; document.getElementById('quizForm').submit();">
-                                        Lanjut
+                                    <button type="submit" class="btn btn-primary w-100 mb-0" onclick="event.preventDefault(); document.querySelector('input[name=action]').value='next'; document.getElementById('quizForm').submit();">
+                                        Selanjutnya
                                     </button>
                                 @else
-                                    <button type="submit" class="btn btn-success">
-                                        Submit
+                                    <button type="submit" class="btn btn-success w-100 mb-0">
+                                        Selesai
                                     </button>
                                 @endif
                             </div>

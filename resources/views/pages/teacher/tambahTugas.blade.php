@@ -34,7 +34,7 @@
               class="form-control @if($errors->has('judul_tugas')) is-invalid @endif"
               placeholder="Judul Tugas"
               value="{{ old('judul_tugas') }}"
-              {{-- required --}}
+              required
             >
             @if ($errors->has('judul_tugas'))
               <span class="invalid-feedback" role="alert">
@@ -50,6 +50,7 @@
             class="form-select @error('tipe') is-invalid @enderror"
             id="selectTugas"
             name="tipe"
+            required
           >
             <option value="" disabled selected>Pilih Jenis Tugas</option>
             <option value="pilihan" {{ old('tipe') == 'pilihan' ? 'selected' : '' }}>Pilihan Ganda</option>
@@ -63,7 +64,7 @@
         </div>
 
         <div class="form-group">
-          <label for="editor1" class="form-label">Konten</label>
+          <label for="editor1" class="form-label">Deskripsi Tugas</label>
           <textarea
             name="deskripsi_tugas"
             id="editor1"

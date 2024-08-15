@@ -53,7 +53,9 @@
                   <span class="badge badge-sm bg-secondary">{{ $score->created_at }}</span>
                 </th>
                 <th class="text-center">
-                  <a href="{{ route('detailTugas', $score->assignment->id) }}" class="btn btn-info btn-sm">Detail</a>
+                  <a href="{{ route('detailTugas', $score->assignment->id) }}" class="btn btn-info mb-0">
+                    <i class="fa-solid fa-eye fa-xl"></i>
+                  </a>
                 </th>
               </tr>
             @endforeach

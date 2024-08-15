@@ -33,6 +33,7 @@
               <th class="text-center" style="width: 5%;">No</th>
               <th>Nama</th>
               <th class="text-center w-20">Status</th>
+              <th class="text-center w-20">Email</th>
               <th class="text-center w-20">Kelas</th>
               <th class="text-center w-20">Aksi</th>
             </tr>
@@ -47,6 +48,9 @@
                 <th>{{ $item->name }}</th>
                 <th class="text-center">
                   <span class="badge badge-sm bg-gradient-success w-50">{{ $item->role }}</span>
+                </th>
+                <th class="text-center">
+                  {{ $item->email }}
                 </th>
                 <th class="text-center">
                   {{ $item->nama_kelas }}

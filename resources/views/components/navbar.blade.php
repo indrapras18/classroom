@@ -13,29 +13,31 @@
           {{-- <input type="text" class="form-control" placeholder="Type here..."> --}}
         </div>
       </div>
-      <ul class="navbar-nav justify-content-end">
-        <li class="nav-item dropdown d-flex align-items-center">
-          <a class="nav-link dropdown-toggle-split" href="#" id="settingsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <i class="fa-solid fa-cog fa-lg"></i>
-          </a>
-          <ul class="dropdown-menu dropdown-menu-end p-3 shadow-sm" aria-labelledby="settingsDropdown">
-            <li class="text-center">
-              <strong>{{ Auth::user()->name }}</strong>
-            </li>
-            <li><hr class="dropdown-divider"></li>
-            <li class="text-center">
-              <a class="btn btn-outline-primary btn-sm" href="{{ route('logout') }}" 
-                 onclick="event.preventDefault(); 
-                 document.getElementById('logout-form').submit();">
-                Logout
-              </a>
-              <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                @csrf
-              </form>
-            </li>
-          </ul>
-        </li>
-      </ul>
+      <div class="d-flex align-items-center gap-2">
+        <div>
+          <span class="fw-semibold">{{ Auth::user()->name }}</span>
+        </div>
+        <ul class="navbar-nav justify-content-end">
+          <li class="nav-item dropdown d-flex align-items-center">
+            <a class="nav-link dropdown-toggle-split" href="#" id="settingsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="fa-solid fa-cog fa-lg"></i>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end px-2 shadow-sm" aria-labelledby="settingsDropdown">
+              <li><hr class="dropdown-divider"></li>
+              <li class="text-center">
+                <a class="btn btn-outline-primary btn-sm" href="{{ route('logout') }}" 
+                   onclick="event.preventDefault(); 
+                   document.getElementById('logout-form').submit();">
+                  Logout
+                </a>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                  @csrf
+                </form>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </nav>
