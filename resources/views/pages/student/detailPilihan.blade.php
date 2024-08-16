@@ -77,14 +77,14 @@
                             </div>
                         @endif
 
-                        <div class="row justify-content-center mb-0">
-                            {{-- <div class="col-md-6">
+                        <div class="row justify-content-center mb-0 mt-3">
+                            <div class="col-md-6">
                                 @if($page > 1)
                                     <button type="submit" class="btn btn-secondary w-100 mb-0" onclick="event.preventDefault(); document.querySelector('input[name=action]').value='previous'; document.getElementById('quizForm').submit();">
                                         Kembali
                                     </button>
                                 @endif
-                            </div> --}}
+                            </div>
                             <div class="col-md-6 text-right">
                                 @if($page < $totalQuestions)
                                     <button type="submit" class="btn btn-primary w-100 mb-0" onclick="event.preventDefault(); document.querySelector('input[name=action]').value='next'; document.getElementById('quizForm').submit();">

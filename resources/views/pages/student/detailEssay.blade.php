@@ -14,10 +14,92 @@
 
 @section('konten')
 <div class="col-md-12">
-    @if($questions->isEmpty())
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <div class="card">
+                <div class="card-header bg-info text-white">
+                    {{ $assignment->judul_tugas }}
+                </div>
+                <div class="card-body">
+                    @if(session('status'))
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="alert alert-success" role="alert">
+                                    {{ session('status') }}
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul class="mb-0">
+                                @foreach ($errors->all() as $error)
+                                    <li class="text-white">{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+
+                    <form action="{{ route('saveAnswer') }}" method="POST">
+                        @csrf
+                        <input type="hidden" name="id_assignments" value="{{ $assignmentId }}">
+                        <input type="hidden" name="currentPage" value="{{ $currentPage }}">
+
+                        @if(count($questions) > 0)
+                            <div class="d-flex flex-column">
+                                @foreach ($questions as $question)
+                                    <div>
+                                        <h5 class="card-title">Pertanyaan {{ $currentQuestionNumber }}</h5>
+                                        <p class="card-text">{!! $question->soal !!}</p>
+                                        @php
+                                            $savedAnswer = \App\Models\Results::where('id_user', Auth::id())
+                                                            ->where('id_question', $question->id)
+                                                            ->first();
+                                            $answerText = old('answers.' . $question->id, $savedAnswer ? $savedAnswer->answer_text : '');
+                                        @endphp
+                                        <textarea class="form-control" name="answers[{{ $question->id }}]" id="answer_{{ $question->id }}" rows="3" placeholder="Tulis jawaban disini.." required>{{ $answerText }}</textarea>
+                                    </div>
+                                    @php
+                                        $currentQuestionNumber++;
+                                    @endphp
+                                @endforeach
+                            </div>
+                        @else
+                            <div class="alert alert-warning">
+                                Pertanyaan tidak ditemukan.
+                            </div>
+                        @endif
+
+                        <div class="row justify-content-center mb-0 mt-3">
+                            <div class="col-md-6">
+                                @if($currentPage > 1)
+                                    <button type="submit" name="action" value="previous" class="btn btn-secondary mb-0 w-100">Kembali</button>
+                                @endif
+                            </div>
+                            <div class="col-md-6 text-right">
+                                @if($currentPage < $totalPages)
+                                    {{-- <button type="submit" class="btn btn-primary w-100 mb-0" onclick="event.preventDefault(); document.querySelector('input[name=action]').value='next'; document.getElementById('quizForm').submit();">
+                                        Selanjutnya
+                                    </button> --}}
+                                    <button type="submit" name="action" value="next" class="btn btn-primary w-100 mb-0">Selanjutnya</button>
+                                @else
+                                    <button type="submit" name="action" value="finish" class="btn btn-primary w-100 mb-0">Selesai</button>
+                                @endif
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-12">
+    {{-- @if($questions->isEmpty())
         <p>Tidak ada soal essay yang ditemukan.</p>
-    @else
-        <div class="card">
+    @else --}}
+        {{-- <div class="card">
             <div class="card-body">
                 <form action="{{ route('saveAnswer') }}" method="post">
                     @csrf
@@ -42,9 +124,9 @@
                     @endforeach
         
                     <div class="d-flex justify-content-end mt-3 mb-0">
-                        {{-- @if ($currentPage > 1)
+                        @if($currentPage > 1)
                             <button type="submit" name="action" value="previous" class="btn btn-primary">Kembali</button>
-                        @endif --}}
+                        @endif
                         @if($currentPage < $totalPages)
                             <button type="submit" name="action" value="next" class="btn btn-primary mb-0">Selanjutnya</button>
                         @elseif($currentPage == $totalPages)
@@ -53,7 +135,7 @@
                     </div>
                 </form>
             </div>
-        </div>
+        </div> --}}
 
         {{-- <form action="{{ route('saveAnswer') }}" method="post">
             @csrf
@@ -91,6 +173,6 @@
                 @endif
             </div>
         </form> --}}
-    @endif
+    {{-- @endif --}}
 </div>
 @endsection

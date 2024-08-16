@@ -39,7 +39,6 @@ class StudentController extends Controller
                         ->whereIn('id_question', $assignment->questions->pluck('id'))
                         ->get()
                         ->keyBy('id_question');
-
     return view('pages.student.detailTugas', compact('assignment', 'userAnswers'));
 }
 

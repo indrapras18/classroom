@@ -72,20 +72,12 @@
               </tr>
             </thead>
             <tbody>
-              @php
-                $list_answer = [];
-              @endphp
               @foreach($assignment->questions as $key => $question)
                 <tr>
                   <th class="text-center">{{ $key + 1 }}</th>
                   <th>{{ $question->soal }}</th>
                   <th class="text-start">
-                    @foreach($question->results as $answer)
-                      @php
-                        array_push($list_answer, $answer->answer_text);
-                      @endphp
-                    @endforeach
-                    <span>{{ $list_answer[$key] }}</span>
+                    <span>{{ $userAnswers[$question->id]->answer_text }}</span>
                   </th>
                 </tr>
               @endforeach

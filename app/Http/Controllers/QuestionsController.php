@@ -209,6 +209,7 @@ class QuestionsController extends Controller
         $questionsPerPage = 1;
         $offset = ($page - 1) * $questionsPerPage;
     
+        $assignment = Assignments::findOrfail($assignmentId);
         $questions = Questions::where('id_assignment', $assignmentId)
                                 ->skip($offset)
                                 ->take($questionsPerPage)
@@ -226,6 +227,7 @@ class QuestionsController extends Controller
             'totalPages' => $totalPages,
             'currentQuestionNumber' => $currentQuestionNumber,
             'totalQuestions' => $totalQuestions,
+            'assignment' => $assignment,
         ]);
     }
 
