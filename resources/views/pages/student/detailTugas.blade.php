@@ -39,7 +39,7 @@
               @foreach($assignment->questions as $key => $question)
                 <tr>
                   <th class="text-center">{{ $key + 1 }}</th>
-                  <th>{{ $question->soal }}</th>
+                  <th>{!! $question->soal !!}</th>
                   <th class="text-center">{{ $question->answer_key }}</th>
                   <th class="text-center">
                     @foreach($question->answers as $answer)
@@ -75,7 +75,7 @@
               @foreach($assignment->questions as $key => $question)
                 <tr>
                   <th class="text-center">{{ $key + 1 }}</th>
-                  <th>{{ $question->soal }}</th>
+                  <th>{!! $question->soal !!}</th>
                   <th class="text-start">
                     <span>{{ $userAnswers[$question->id]->answer_text }}</span>
                   </th>
