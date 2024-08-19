@@ -40,8 +40,15 @@
             </div>
         </div>
     </div>
+
+    <div class="mt-3">
+        <a href="/materi" class="float-end btn btn-warning w-50">Kembali</a>
+    </div>
 </div>
 @endsection
+
+
+
 
 @push('js')
 <script>

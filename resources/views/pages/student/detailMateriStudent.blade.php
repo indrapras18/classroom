@@ -40,6 +40,11 @@
             </div>
         </div>
     </div>
+
+    <div class="mt-3">
+        <a href="/materiStudent" class="float-end btn btn-warning w-50">Kembali</a>
+    </div>
+
 </div>
 @endsection
 
