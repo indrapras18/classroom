@@ -11,21 +11,25 @@ use Illuminate\Support\Facades\DB;
 
 class AssignmentController extends Controller
 {
-    function showPenugasan(){
+    function showPenugasan()
+    {
         $data = Assignments::all();
-        return view('pages/teacher/penugasan',compact('data'));
+        return view('pages/teacher/penugasan', compact('data'));
     }
 
-    function tampildataPenugasan($id){
+    function tampildataPenugasan($id)
+    {
         $items = Assignments::find($id);
-        return view('pages/teacher/tampildataPenugasan',compact('items'));
+        return view('pages/teacher/tampildataPenugasan', compact('items'));
     }
 
-    function tambahTugas(){
+    function tambahTugas()
+    {
         return view('pages/teacher/tambahTugas');
     }
 
-    function submitTugas(Request $request){
+    function submitTugas(Request $request)
+    {
         $request->validate([
             'judul_tugas' => 'required|string|max:255',
             'tipe' => 'required|in:pilihan,essay',
@@ -41,55 +45,60 @@ class AssignmentController extends Controller
         return redirect()->route('penugasan')->with('success', 'Tugas Berhasil Ditambahkan!');
     }
 
-    function detailTugasEssay($id){
+    function detailTugasEssay($id)
+    {
         $tugasEssay = Assignments::findOrFail($id);
         $soal = Questions::where('id_assignment', $id)->get();
         $jumlahSoal = $soal->count();
-        return view('pages/teacher/detailTugasEssay',compact('tugasEssay', 'soal', 'jumlahSoal'));
+        return view('pages/teacher/detailTugasEssay', compact('tugasEssay', 'soal', 'jumlahSoal'));
     }
 
-    function detailTugasPilihan($id){
+    function detailTugasPilihan($id)
+    {
         $tugasPilihan = Assignments::findOrFail($id);
         $soal = Questions::where('id_assignment', $id)->get();
         $jumlahSoal = $soal->count();
-        return view('pages/teacher/detailTugasPilihan',compact('tugasPilihan','soal', 'jumlahSoal'));
+        return view('pages/teacher/detailTugasPilihan', compact('tugasPilihan', 'soal', 'jumlahSoal'));
     }
-    function tambahSoal($id) {
+    function tambahSoal($id)
+    {
         $assignment = Assignments::findOrFail($id);
         return view('pages/teacher/tambahSoal', compact('assignment'));
     }
 
-    function essay($id){
+    function essay($id)
+    {
         $assignment = Assignments::findOrFail($id);
         return view('pages/teacher/essay', compact('assignment'));
     }
 
-    function updatePenugasan(Request $request, $id){
+    function updatePenugasan(Request $request, $id)
+    {
         $data = Assignments::find($id);
         $data->update($request->all());
         return redirect()->route('penugasan')->with('success', 'Tugas Berhasil Diperbarui!');
-
     }
 
-    function deleteAssignment($id){
+    function deleteAssignment($id)
+    {
         $data = Assignments::find($id);
         $data->delete();
         return redirect()->route('penugasan')->with('success', 'Tugas Berhasil Dihapus!');
-
     }
 
-    function deskripsiEssay($id) {
+    function deskripsiEssay($id)
+    {
         $tugasEssay = Assignments::findOrFail($id);
         $soal = Questions::where('id_assignment', $id)->get();
         $jumlahSoal = $soal->count();
         return view('pages/student/Essay', compact('tugasEssay', 'soal', 'jumlahSoal'));
     }
 
-    function deskripsiPilihan($id) {
+    function deskripsiPilihan($id)
+    {
         $tugasPilihan = Assignments::findOrFail($id);
         $soal = Questions::where('id_assignment', $id)->get();
         $jumlahSoal = $soal->count();
         return view('pages/student/PilihanGanda', compact('tugasPilihan', 'soal', 'jumlahSoal'));
     }
-    
 }

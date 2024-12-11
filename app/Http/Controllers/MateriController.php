@@ -7,12 +7,14 @@ use Illuminate\Http\Request;
 
 class MateriController extends Controller
 {
-    function materi(){
+    function materi()
+    {
         $materi = Materis::all();
         return view('pages/teacher/materi', compact('materi'));
     }
 
-    function formMateri(){
+    function formMateri()
+    {
         return view('pages/teacher/uploadMateri');
     }
 
@@ -28,13 +30,15 @@ class MateriController extends Controller
         return redirect()->route('materi')->with('success', 'Materi Berhasil Ditambahkan!');
     }
 
-    function deleteMateri($id){
+    function deleteMateri($id)
+    {
         $data = Materis::find($id);
         $data->delete();
         return redirect()->route('materi')->with('success', 'Materi Berhasil Dihapus!');
     }
 
-    function tampildataMateri($id){
+    function tampildataMateri($id)
+    {
         $data = Materis::find($id);
         return view('pages/teacher/tampildataMateri', compact('data'));
     }
@@ -46,29 +50,34 @@ class MateriController extends Controller
     //     return view('pages/teacher/detailMateri', compact('data', 'next'));
     // }
 
-    function detailMateri($id, $page = 1) {
+    function detailMateri($id, $page = 1)
+    {
         $data = Materis::find($id);
         $next = Materis::where('id', '>', $id)->orderBy('id')->first();
         $previous = Materis::where('id', '<', $id)->orderBy('id', 'desc')->first();
         return view('pages/teacher/detailMateri', compact('data', 'next', 'page', 'previous'));
-    }  
-    
-    function uploadMateri(){
+    }
+
+    function uploadMateri()
+    {
         return view('pages/teacher/uploadMateri');
     }
 
-    function updateMateri($id, Request $request){
+    function updateMateri($id, Request $request)
+    {
         $data = Materis::find($id);
         $data->update($request->all());
         return redirect()->route('materi')->with('success', 'Materi Berhasil Diperbarui!');
     }
 
-    function materiStudent(){
+    function materiStudent()
+    {
         $materi = Materis::all();
         return view('pages/student/materiStudent', compact('materi'));
     }
 
-    function detailMateriStudent($id, $page = 1) {
+    function detailMateriStudent($id, $page = 1)
+    {
         $data = Materis::find($id);
         $next = Materis::where('id', '>', $id)->orderBy('id')->first();
         $previous = Materis::where('id', '<', $id)->orderBy('id', 'desc')->first();

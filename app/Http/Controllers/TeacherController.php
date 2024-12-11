@@ -18,7 +18,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 
-class TeacherController extends Controller{
+class TeacherController extends Controller
+{
 
     public function pembelajaran()
     {
@@ -38,9 +39,8 @@ class TeacherController extends Controller{
     }
 
     public function showUserScores($id)
-{
-    $userScore = StudentScores::with(['assignment.questions.results'])->find($id);
-    return view('pages.teacher.detailScore', compact('userScore'));
-}
-
+    {
+        $userScore = StudentScores::with(['assignment.questions.results'])->find($id);
+        return view('pages.teacher.detailScore', compact('userScore'));
+    }
 }
