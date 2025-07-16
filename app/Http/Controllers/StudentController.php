@@ -44,11 +44,12 @@ class StudentController extends Controller
 
 
     function siswa(){
-        $siswa = DB::table('users')
-            ->join('kelas', 'users.id_kelas', '=', 'kelas.id')
-            ->select('users.id', 'users.name', 'users.email', 'users.password', 'users.role', 'users.id_kelas', 'kelas.nama_kelas') // Tambahkan 'users.id_kelas'
-            ->where('users.role', 'Siswa')
-            ->get();
+        // $siswa = DB::table('users')
+        //     ->join('kelas', 'users.id_kelas', '=', 'kelas.id')
+        //     ->select('users.id', 'users.name', 'users.email', 'users.password', 'users.role', 'users.id_kelas', 'kelas.nama_kelas') // Tambahkan 'users.id_kelas'
+        //     ->where('users.role', 'Siswa')
+        //     ->get();
+        $siswa = User::where('role', 'Siswa')->get();
         $semuaKelas = Kelas::all();
         return view('pages/teacher/siswa', compact('siswa', 'semuaKelas'));
     }
