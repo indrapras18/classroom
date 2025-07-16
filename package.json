@@ -16,6 +16,9 @@
         "laravel-mix": "^6.0.6",
         "lodash": "^4.17.19",
         "postcss": "^8.1.14",
+        "prettier": "^3.3.3",
+        "prettier-plugin-blade": "^2.1.19",
+        "prettier-plugin-tailwindcss": "^0.6.8",
         "sass": "^1.32.11",
         "sass-loader": "^11.0.1"
     }

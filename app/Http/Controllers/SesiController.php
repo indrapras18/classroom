@@ -27,18 +27,19 @@ class SesiController extends Controller
             'password' => $request->password,
         ];
 
-        if(Auth::attempt($infologin)){
+        if (Auth::attempt($infologin)) {
             if (Auth::user()->role == 'Guru') {
                 return redirect('admin');
-            }elseif(Auth::user()->role == 'Siswa'){
+            } elseif (Auth::user()->role == 'Siswa') {
                 return redirect('user');
             }
-        }else{
+        } else {
             return redirect('')->withErrors('Username dan password tidak sesuai')->withInput();
         }
     }
 
-    public function logout(){
+    public function logout()
+    {
         Auth::logout();
         return redirect('/');
     }
