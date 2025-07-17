@@ -53,7 +53,7 @@
                                 </th>
                                 <th class="text-center">{{ $userScore->total_score }}</th>
                                 <th class="text-center">
-                                    <a href="{{ route('detailJawaban.show', [$userScore->id, $userScore->assignment->id]) }}" class="btn btn-info mb-0">
+                                    <a href="{{ route('detailJawaban.show', [$userScore->id, $userScore->assignment->id, $student->id]) }}" class="btn btn-info mb-0">
                                         <i class="fa-solid fa-eye fa-xl"></i>
                                     </a>
                                 </th>
